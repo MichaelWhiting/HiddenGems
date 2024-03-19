@@ -38,5 +38,5 @@ app.get("/getRatings/:postId", handlerFunctions.getRatings);
 
 
 // Server Startup
-const port = 9999;
+const port = 9998;
 ViteExpress.listen(app, port, () => console.log(`Server started up at: http://localhost:${port}`));
