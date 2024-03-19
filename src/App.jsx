@@ -20,7 +20,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
       </Routes>
-      </main>
+      </main> 
     </BrowserRouter>
   );
 }
