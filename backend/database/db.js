@@ -7,6 +7,7 @@ async function connectToDB(dbURI) {
             underscored: true,
             timestamps:false,
         },
+        // password: "admin"
     });
 
     try {
