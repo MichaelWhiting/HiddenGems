@@ -1,4 +1,3 @@
-import { Sequelize } from "sequelize";
 import { User, Post, Comment, Rating } from "../database/model.js";
 
 const handlerFunctions = {
@@ -10,7 +9,8 @@ const handlerFunctions = {
         if (user) { // checks to see if it found a user in the database with that ID
             res.send({
                 message: "Found the user object",
-                success: true
+                success: true,
+                user
             })
         } else {
             res.send({
@@ -28,7 +28,7 @@ const handlerFunctions = {
     getPost: async (req, res) => {
         const { postId } = req.params;
 
-        const post = await Post.findByPk(postId);
+        const post = await Post.findByPk(postId); 
 
         if (post) {
             res.send({
