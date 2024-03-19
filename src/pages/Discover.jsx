@@ -1,10 +1,16 @@
 import React from 'react'
 
+
 function Discover() {
   return (
-    <div>
-      discover
+    <>
+    <div className='discover'>
+      <h1>GEMS YOU MIGHT LIKE</h1>
+      <div className='GemContainer'>
+        
+      </div>
     </div>
+    </>
   )
 }
 
