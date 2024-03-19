@@ -1,5 +1,15 @@
 import { BrowserRouter, Routes, Route, NavLink, Link } from "react-router-dom";
 
+//pages
+import TopGems from "./pages/TopGems.jsx";
+import Home from "./pages/Home.jsx";
+import Discover from "./pages/Discover.jsx";
+import Profile from "./pages/Profile.jsx";
+import About from "./pages/About.jsx";
+
+//imports
+
+
 function App() {
   return (
     <BrowserRouter>
