@@ -14,15 +14,14 @@ import FullDetails from "./pages/FullDetails.jsx";
 import Login from "./pages/Login.jsx";
 
 
+
 //imports
-
-
 function App() {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
 
   const sessionCheck = async () => {
-    const res = await axios.get("/session-check")
+    const res = await axios.get("/session-check");
 
     if (res.data.success) {
       console.log("This is running anytime it checks if someone is logged in");

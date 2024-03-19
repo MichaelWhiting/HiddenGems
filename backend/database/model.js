@@ -55,6 +55,14 @@ Post.init(
         description: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        lat: {
+            type: DataTypes.DOUBLE,
+            allowNull: false
+        },
+        lng: {
+            type: DataTypes.DOUBLE,
+            allowNull: false
         }
     },
     {
