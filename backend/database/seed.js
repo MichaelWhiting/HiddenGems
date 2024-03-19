@@ -1,4 +1,3 @@
-
 import { db, User, Post, Comment, Rating } from "./model.js";
 
 await db.sync({ force: true });

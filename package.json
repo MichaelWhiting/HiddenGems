@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "nodemon backend/server/server.js -w backend -w src",
     "build": "vite build",
     "initdb": "dropdb --if-exists hiddenGems && createdb hiddenGems",
     "seed": "node backend/database/seed.js",
