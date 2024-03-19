@@ -108,7 +108,7 @@ useEffect(() => {
                 <input id="password" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
             </div>
             <div >
-                <input class='Login' type="submit" value={isLogin ? 'Login' : 'Register'} />
+                <input className='Login' type="submit" value={isLogin ? 'Login' : 'Register'} />
                 <label onClick={(e) => setIsLogin(!isLogin)} >{isLogin ? "Register Here": "Login Here"}</label>
             </div>
         </form>

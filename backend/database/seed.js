@@ -16,12 +16,16 @@ await User.create({
 await Post.create({
     locationName: "House1",
     description: "This is user1's house",
+    lat: 10.42142141421,
+    lng: 10.42142142,
     userId: 1
 });
 
 await Post.create({
     locationName: "House2",
     description: "This is user2's house",
+    lat: 10.12321321,
+    lng: 10.123213,
     userId: 2
 });
 
