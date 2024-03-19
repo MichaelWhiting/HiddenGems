@@ -1,0 +1,7 @@
+.app-header {
+  position: top; /* Ensure header is fixed at the top */
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  z-index: 1000; 
+}

@@ -6,6 +6,8 @@ import Home from "./pages/Home.jsx";
 import Discover from "./pages/Discover.jsx";
 import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
+import "./App.css"
+import FullDetails from "./pages/FullDetails.jsx";
 
 //imports
 
@@ -13,7 +15,7 @@ import About from "./pages/About.jsx";
 function App() {
   return (
     <BrowserRouter>
-      <header>
+      <header className="app-header">
       <nav>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/topGems">Top Gems</NavLink>
@@ -29,6 +31,7 @@ function App() {
         <Route path="/discover" element={<Discover />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
+        <Route path="/fullDetails" element={<FullDetails />} />
       </Routes>
       </main> 
     </BrowserRouter>
