@@ -4,7 +4,7 @@ import express from "express";
 import morgan from "morgan";
 
 // Handlers
-import accountHandler from "./accountController.js";
+import handlerFunctions from "./controller.js";
 
 // Server Boilerplate
 const app = express();
@@ -23,6 +23,11 @@ app.use(
 // Routes
 
 // GET
+app.get("/getUser/:userId", handlerFunctions.getUser);
+app.get("/getFriends/:userId", handlerFunctions.getFriends);
+app.get("/getPost/:postId", handlerFunctions.getPost);
+app.get("/getComments/:postId", handlerFunctions.getComments);
+app.get("/getRatings/:postId", handlerFunctions.getRatings);
 
 // POST
 
@@ -34,4 +39,4 @@ app.use(
 
 // Server Startup
 const port = 9999;
-ViteExpress.listen(app, port, () => console.log(`Server started up at: http://localhost:${port}`))
+ViteExpress.listen(app, port, () => console.log(`Server started up at: http://localhost:${port}`));
