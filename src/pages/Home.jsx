@@ -14,10 +14,10 @@ function Home() {
         </ul>
     </div>
     <div>Gems Near You</div>
-    <div>Map</div>
+    <div style={{background: 'blue'}}>Map</div>
     <button>Create Post</button>
     <button>Git List</button>
-    
+
     </>
   )
 }
