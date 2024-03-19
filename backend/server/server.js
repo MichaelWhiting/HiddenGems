@@ -28,9 +28,12 @@ app.get("/getFriends/:userId", handlerFunctions.getFriends);
 app.get("/getPost/:postId", handlerFunctions.getPost);
 app.get("/getComments/:postId", handlerFunctions.getComments);
 app.get("/getRatings/:postId", handlerFunctions.getRatings);
+app.get('/session-check', handlerFunctions.sessionCheck);
+app.get("/logout", handlerFunctions.logout);
 
 // POST
-
+app.post("/login", handlerFunctions.login);
+app.post("/register", handlerFunctions.register);
 // PUT
 
 // DELETE
