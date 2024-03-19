@@ -1,6 +1,7 @@
 import React from 'react'
 
 function FullDetails() {
+    // axios 
   return (
     <div>
       <h1>Title</h1>
@@ -12,6 +13,7 @@ function FullDetails() {
       </div>
       <p>Post Details</p>
       <p>rating *****</p>
+      
       <textarea name="" id="" cols="30" rows="10"></textarea>
       <button>Comment</button>
       <div>Map API below</div>

@@ -43,6 +43,24 @@ const handlerFunctions = {
             })
         }
     }, 
+    getAllPost: async (req, res) => {
+       
+
+        const post = await Post.findAll(); 
+
+        if (post) {
+            res.send({
+                message: "Found post",
+                success: true,
+                post
+            });
+        } else {
+            res.send({
+                message: "Could not find post",
+                success: false
+            })
+        }
+    }, 
 
     getComments: async (req, res) => {
         const { postId } = req.params;

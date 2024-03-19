@@ -26,6 +26,8 @@ app.use(
 app.get("/getUser/:userId", handlerFunctions.getUser);
 app.get("/getFriends/:userId", handlerFunctions.getFriends);
 app.get("/getPost/:postId", handlerFunctions.getPost);
+app.get("/getPost", handlerFunctions.getAllPost);
+
 app.get("/getComments/:postId", handlerFunctions.getComments);
 app.get("/getRatings/:postId", handlerFunctions.getRatings);
 
