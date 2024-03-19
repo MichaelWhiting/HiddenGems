@@ -39,7 +39,13 @@ await Comment.create({
 });
 
 await Rating.create({
+    enjoyability: 95,
+    popularity: 18
+});
 
+await Rating.create({
+    enjoyability: 55,
+    popularity: 12
 });
 
 await db.close();
