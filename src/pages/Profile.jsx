@@ -1,4 +1,4 @@
-import * as Icon from "react-bootstrap-icons";
+
 import React from 'react'
 
 function Profile() {
