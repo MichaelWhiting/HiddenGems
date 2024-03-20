@@ -28,7 +28,12 @@ const handlerFunctions = {
     getGem: async (req, res) => {
         const { gemId } = req.params;
 
-        const gem = await Gem.findByPk(gemId); 
+        const gem = await Gem.findOne({
+            where: {
+                gemId: gemId
+            },
+            include: Rating
+        }); 
 
         if (gem) {
             res.send({
@@ -44,13 +49,25 @@ const handlerFunctions = {
         }
     }, 
     getAllGems: async (req, res) => {
-        const gem = await Gem.findAll(); 
+        const gems = await Gem.findAll({
+            include: Rating
+        }); 
 
-        if (gem) {
+        const gemsWithAvg = gems.forEach((gem) => {
+            if (!gem.ratings.length) {
+                gem.enjoyAvg = "No avg";
+            } else {
+                gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
+            }
+        })
+
+        console.log("123", gemsWithAvg);
+
+        if (gems) {
             res.send({
                 message: "Found gem",
                 success: true,
-                gem
+                gems: gemsWithAvg
             });
         } else {
             res.send({
@@ -83,7 +100,8 @@ const handlerFunctions = {
         }
     }, 
 
-    getRatings: async (req, res) => {
+    getRatingsAvg: async (req, res) => {
+        console.log("hitting the backend")
         const { gemId } = req.params;
 
         const ratings = await Rating.findAll({
@@ -92,11 +110,24 @@ const handlerFunctions = {
             }
         });
 
+        let enjoyabilityAvg = [];
+        let popularityAvg = [];
+
+        ratings.forEach((rating) => {
+            enjoyabilityAvg.push(rating.enjoyability);
+            popularityAvg.push(rating.popularity);
+        });
+
+        enjoyabilityAvg = Math.round(enjoyabilityAvg.reduce((a, c) => a + c, 0)/ enjoyabilityAvg.length);
+        popularityAvg = Math.round(popularityAvg.reduce((a, c) => a + c, 0) / popularityAvg.length);
+
+        const averages = { enjoyabilityAvg, popularityAvg }
+
         if (ratings) {
             res.send({
                 message: "Retrieved all ratings",
                 success: true,
-                ratings
+                averages
             });
         } else {
             res.send({
