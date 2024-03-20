@@ -1,0 +1,18 @@
+/* RatingBar.css */
+.rating-bar-background {
+    width: 100px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .rating-bar-fill {
+    height: 100%;
+    background-color: #007bff; /* Bootstrap primary color */
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  

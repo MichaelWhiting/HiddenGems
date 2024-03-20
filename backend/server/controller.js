@@ -47,13 +47,24 @@ const handlerFunctions = {
         }
     }, 
     getAllGems: async (req, res) => {
-        const gem = await Gem.findAll(); 
+        const gems = await Gem.findAll({
+            include: Rating
+        }); 
 
-        if (gem) {
+        console.log(gems)
+
+        gems.forEach((gem) => {
+            gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
+            gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
+        })
+
+        console.log("AFTER \n\n\n\n\n\n\n\n", gems);
+
+        if (gems) {
             res.send({
                 message: "Found gem",
                 success: true,
-                gem
+                gems: gems
             });
         } else {
             res.send({
@@ -86,7 +97,8 @@ const handlerFunctions = {
         }
     }, 
 
-    getRatings: async (req, res) => {
+    getRatingsAvg: async (req, res) => {
+        console.log("hitting the backend")
         const { gemId } = req.params;
 
         const ratings = await Rating.findAll({
@@ -95,11 +107,24 @@ const handlerFunctions = {
             }
         });
 
+        let enjoyabilityAvg = [];
+        let popularityAvg = [];
+
+        ratings.forEach((rating) => {
+            enjoyabilityAvg.push(rating.enjoyability);
+            popularityAvg.push(rating.popularity);
+        });
+
+        enjoyabilityAvg = Math.round(enjoyabilityAvg.reduce((a, c) => a + c, 0)/ enjoyabilityAvg.length);
+        popularityAvg = Math.round(popularityAvg.reduce((a, c) => a + c, 0) / popularityAvg.length);
+
+        const averages = { enjoyabilityAvg, popularityAvg }
+
         if (ratings) {
             res.send({
                 message: "Retrieved all ratings",
                 success: true,
-                ratings
+                averages
             });
         } else {
             res.send({
