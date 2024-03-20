@@ -1,4 +1,4 @@
-import { User, Post, Comment, Rating } from "../database/model.js";
+import { User, Gem, Comment, Rating } from "../database/model.js";
 
 const handlerFunctions = {
     getUser: async (req, res) => {
@@ -25,49 +25,47 @@ const handlerFunctions = {
         // add rest of functionality later
     },
 
-    getPost: async (req, res) => {
-        const { postId } = req.params;
+    getGem: async (req, res) => {
+        const { gemId } = req.params;
 
-        const post = await Post.findByPk(postId); 
+        const gem = await Gem.findByPk(gemId); 
 
-        if (post) {
+        if (gem) {
             res.send({
-                message: "Found post",
+                message: "Found gem",
                 success: true,
-                post
+                gem
             });
         } else {
             res.send({
-                message: "Could not find post",
+                message: "Could not find gem",
                 success: false
             })
         }
     }, 
-    getAllPost: async (req, res) => {
-       
+    getAllGems: async (req, res) => {
+        const gem = await Gem.findAll(); 
 
-        const post = await Post.findAll(); 
-
-        if (post) {
+        if (gem) {
             res.send({
-                message: "Found post",
+                message: "Found gem",
                 success: true,
-                post
+                gem
             });
         } else {
             res.send({
-                message: "Could not find post",
+                message: "Could not find gem",
                 success: false
             })
         }
     }, 
 
     getComments: async (req, res) => {
-        const { postId } = req.params;
+        const { gemId } = req.params;
 
         const comments = await Comment.findAll({
             where: {
-                postId: postId
+                gemId: gemId
             }
         });
 
@@ -86,11 +84,11 @@ const handlerFunctions = {
     }, 
 
     getRatings: async (req, res) => {
-        const { postId } = req.params;
+        const { gemId } = req.params;
 
         const ratings = await Rating.findAll({
             where: {
-                postId: postId
+                gemId: gemId
             }
         });
 

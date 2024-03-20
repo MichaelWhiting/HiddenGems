@@ -35,24 +35,28 @@ User.init(
 );
 
 
-class Post extends Model {
+class Gem extends Model {
     [util.inspect.custom]() {
         return this.toJSON();
     }
 }
 
-Post.init(
+Gem.init(
     {
-        postId: {
+        gemId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        locationName: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false
         },
         description: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        imgUrl: {
             type: DataTypes.STRING,
             allowNull: true
         },
@@ -123,9 +127,9 @@ Rating.init(
     },
 );
 
-// User - Post
-User.hasMany(Post, { foreignKey: "userId"});
-Post.belongsTo(User, { foreignKey: "userId"});
+// User - Gem
+User.hasMany(Gem, { foreignKey: "userId"});
+Gem.belongsTo(User, { foreignKey: "userId"});
 
 // User - Comment
 User.hasMany(Comment, { foreignKey: "userId" });
@@ -135,12 +139,12 @@ Comment.belongsTo(User, { foreignKey: "userId" });
 User.hasMany(Rating, { foreignKey: "userId" });
 Rating.belongsTo(User, { foreignKey: "userId" });
 
-// Post - Comment
-Post.hasMany(Comment, { foreignKey: "postId" });
-Comment.belongsTo(Post, { foreignKey: "postId" });
+// Gem - Comment
+Gem.hasMany(Comment, { foreignKey: "gemId" });
+Comment.belongsTo(Gem, { foreignKey: "gemId" });
 
-// Post - Rating
-Post.hasMany(Rating, { foreignKey: "postId"});
-Rating.belongsTo(Post, { foreignKey: "postId"});
+// Gem - Rating
+Gem.hasMany(Rating, { foreignKey: "gemId"});
+Rating.belongsTo(Gem, { foreignKey: "gemId"});
 
-export { User, Post, Comment, Rating };
+export { User, Gem, Comment, Rating };

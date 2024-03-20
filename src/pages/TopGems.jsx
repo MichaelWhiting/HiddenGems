@@ -1,43 +1,34 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios'
 
 function TopGems() {
-  const [posts, setPosts] = useState([]);
+  const [gems, setGems] = useState([]);
   const [ratings, setRatings] = useState([]);
-  const [showPosts, setShowPosts] = useState (true)
-  const [showRatings, setShowRatings] = useState (true)
+  const navigate = useNavigate();
 
-  const postCards = posts.map((post, i) => {
-  return (
-    <div key={i}>
-      {post.locationName} {post.description}
-    </div>
-  )
-    
-  })
+  const gemCards = gems.map((gem, i) => {
+    return (
+      <div key={i}>
+        {gem.locationName} {gem.description}
+      </div>
+    )
+  });
+
   const fetchData = async () => {
-    const postsRes = await axios.get("/getPost")
-    setPosts(postsRes.data.post)
+    const gemRes = await axios.get("/getAllGems")
+    setGems(gemRes.data.gem)
+  }
 
-    // const ratingsRes = await axios.get("/getRatings")
-    // setRatings(ratingsRes.data.rating)
-  }
-  
-  const displayPosts = () => {
-    setShowPosts(true)
-    setShowRatings(true)
-  }
   useEffect(() => {
     fetchData()
-  }, [])
-  const navigate = useNavigate();
+  }, []);
+
   return (
     <div>
       <h1>Top Gems</h1>
       <div>
-       {postCards} 
+       {gemCards} 
       </div>
     </div>
   );
