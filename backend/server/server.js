@@ -25,17 +25,19 @@ app.use(
 // GET
 app.get("/getUser/:userId", handlerFunctions.getUser);
 app.get("/getFriends/:userId", handlerFunctions.getFriends);
-app.get("/getPost/:postId", handlerFunctions.getPost);
-app.get("/getPost", handlerFunctions.getAllPost);
+app.get("/getGem/:gemId", handlerFunctions.getGem);
+app.get("/getAllGems", handlerFunctions.getAllGems);
 
-app.get("/getComments/:postId", handlerFunctions.getComments);
-app.get("/getRatings/:postId", handlerFunctions.getRatings);
+app.get("/getComments/:gemId", handlerFunctions.getComments);
+app.get("/getRatings/:gemId", handlerFunctions.getRatings);
 app.get('/session-check', handlerFunctions.sessionCheck);
 app.get("/logout", handlerFunctions.logout);
 
 // POST
 app.post("/login", handlerFunctions.login);
 app.post("/register", handlerFunctions.register);
+app.post("/createGem");
+
 // PUT
 
 // DELETE

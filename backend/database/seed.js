@@ -1,4 +1,4 @@
-import { db, User, Post, Comment, Rating } from "./model.js";
+import { db, User, Gem, Comment, Rating } from "./model.js";
 
 await db.sync({ force: true });
 
@@ -13,42 +13,70 @@ await User.create({
     password: "test"
 });
 
-await Post.create({
-    locationName: "House1",
-    description: "This is user1's house",
-    lat: 10.42142141421,
-    lng: 10.42142142,
+await User.create({
+    email: "ty@gmail.com",
+    password: "test"
+});
+
+await User.create({
+    email: "jesse@gmail.com",
+    password: "test"
+});
+
+await Gem.create({
+    name: "Skiing Trail",
+    description: "At this resort, this trail is not used at all and the snow is super fresh",
+    lat: 10.4214,
+    lng: 10.9864,
     userId: 1
 });
 
-await Post.create({
-    locationName: "House2",
-    description: "This is user2's house",
-    lat: 10.12321321,
-    lng: 10.123213,
+await Gem.create({
+    name: "Cool Shop",
+    description: "This is a really cool shop, has some unique items",
+    lat: 10.592,
+    lng: 10.1005,
     userId: 2
 });
 
 await Comment.create({
-    text: "This is comment 1",
-    postId: 1,
+    text: "This place is awesome!",
+    gemId: 1,
     userId: 1
 });
 
 await Comment.create({
-    text: "This is comment 2",
-    postId: 1,
+    text: "This place is lame...",
+    gemId: 1,
     userId: 2
 });
 
 await Rating.create({
     enjoyability: 95,
-    popularity: 18
+    popularity: 18,
+    userId: 1,
+    gemId: 1
+});
+
+await Rating.create({
+    enjoyability: 50,
+    popularity: 25,
+    userId: 2,
+    gemId: 1
 });
 
 await Rating.create({
     enjoyability: 55,
-    popularity: 12
+    popularity: 12,
+    userId: 1,
+    gemId: 2
+});
+
+await Rating.create({
+    enjoyability: 12,
+    popularity: 50,
+    userId: 2,
+    gemId: 2
 });
 
 await db.close();
