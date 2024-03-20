@@ -7,26 +7,23 @@ function CreateGem() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    image: null,
+    imgUrl: '',
+    lat: 0.0,
+    lng: 0.0
   });
 
   const handleChange = (e) => {
-    if (e.target.name === 'theimage') {
-      setFormData({ ...formData, image: e.target.files[0] });
-    } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+   
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('image', formData.image);
+      console.log(formData)
 
-      await axios.put('/createGem', formDataToSend);
+      await axios.post('/createGem', formData);
+      console.log('should have saved')
       // Handle success (redirect user or show a success message)
     } catch (error) {
       console.error('Error submitting form:', error);

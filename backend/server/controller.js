@@ -220,6 +220,29 @@ const handlerFunctions = {
         })
         return
     },
+    createGem: async (req, res) => {
+       
+            
+            // Extract form data from the request body
+            const { name, description, imgUrl, lat, lng } = req.body;
+
+            // Create a new record in the database
+            const newGem = await Gem.create({
+                name,
+                description,
+                imgUrl,
+                lat,
+                lng
+            });
+
+            // Send a success response back to the frontend
+            res.send({
+                message: "user logged out",
+                success: true,
+                newGem: newGem
+            })
+        
+    },
 }
 
 export default handlerFunctions;

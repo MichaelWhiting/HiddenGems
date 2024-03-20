@@ -70,7 +70,7 @@ Gem.init(
         }
     },
     {
-        modelName: 'post',
+        modelName: 'gem',
         sequelize: db,
     },
 );
