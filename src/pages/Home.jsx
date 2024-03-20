@@ -1,10 +1,25 @@
-import React from 'react'
 
+import CreateGem from '../components/CreateGem.jsx';
 import MapComponent from '../components/Map.jsx'
+import { useState } from 'react';
 
 function Home() {
+  const [showCreateGem, setShowCreateGem] = useState(false);
+
+  const handleCreateGemClick = () => {
+    setShowCreateGem(true)
+  };
+
   return (
-    <MapComponent/>
+    <>
+    {!showCreateGem && (
+      <>
+        <MapComponent />
+        <button onClick={handleCreateGemClick}>Create Gem</button>
+      </>
+    )}
+    {showCreateGem && <CreateGem />}
+  </>
   )
 }
 

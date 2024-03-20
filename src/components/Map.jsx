@@ -22,7 +22,7 @@ function MapComponent() {
 
     return (
         <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
-            <div style={{height: "100vh", width: "80%"}}>
+            <div className='Map' style={{height: "50vh", width: "30%", color:'red'}}>
                 <Map mapId="8041ba05ec4f9f0a" center={position} zoom={15} onClick={createMarker}>
                     {markerPoints}
                 </Map>
