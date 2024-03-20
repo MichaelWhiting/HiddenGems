@@ -65,12 +65,7 @@ function App() {
             </Nav>
           </Container>
       </Navbar>
-      { userId && 
-        <Outlet/>
-      }
-      { !userId && 
-        <Login/>
-      }
+      <Outlet/>
     </>
   );
 }
