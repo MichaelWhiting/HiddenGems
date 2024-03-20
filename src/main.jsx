@@ -14,6 +14,7 @@ import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
 import FullDetails from "./pages/FullDetails.jsx";
 import Login from "./pages/Login.jsx";
+import DetailsPage from './pages/DetailsPage.jsx'
 
 import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
         <Route path="/discover" element={<Discover />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
+        <Route path="/details" element={<DetailsPage />} />
         <Route path="/fullDetails" element={<FullDetails />} />
         <Route path="/login" element={<Login />} />
       </Route>
