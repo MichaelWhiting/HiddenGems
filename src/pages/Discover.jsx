@@ -14,10 +14,11 @@ function Discover() {
   const gemCards = gems.map((gem, i) => {
     return (
       <div key={i} className='gem-card'>
+      
      <h2 className="gem-location">{gem.name}</h2>
       <p className='gem-description'>{gem.description} </p>
       <h3>RATING GOES HERE</h3>
-        <button className="hyper-link" onClick={() => navigate("/details")}>Full Details</button>
+      <button className="hyper-link" onClick={() => navigate("/details", { state: { gemId: gem.gemId }})}>Full Details</button>
       </div>
     )
   });

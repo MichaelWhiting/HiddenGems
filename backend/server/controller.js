@@ -28,7 +28,10 @@ const handlerFunctions = {
     getGem: async (req, res) => {
         const { gemId } = req.params;
 
-        const gem = await Gem.findByPk(gemId); 
+        const gem = await Gem.findOne({
+            where:{gemId: gemId},
+            include:{model: Comment}
+        }); 
 
         if (gem) {
             res.send({
