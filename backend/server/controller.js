@@ -53,21 +53,20 @@ const handlerFunctions = {
             include: Rating
         }); 
 
-        const gemsWithAvg = gems.forEach((gem) => {
-            if (!gem.ratings.length) {
-                gem.enjoyAvg = "No avg";
-            } else {
-                gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
-            }
+        console.log(gems)
+
+        gems.forEach((gem) => {
+            gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
+            gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
         })
 
-        console.log("123", gemsWithAvg);
+        console.log("AFTER \n\n\n\n\n\n\n\n", gems);
 
         if (gems) {
             res.send({
                 message: "Found gem",
                 success: true,
-                gems: gemsWithAvg
+                gems: gems
             });
         } else {
             res.send({
