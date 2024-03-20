@@ -1,14 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
-import React from 'react'
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
 
 function Profile() {
+  const userId = useSelector(state => state.userId);
+  const navigate = useNavigate();
+
   const user = {
     username: "Michael",
-    email: "michaelw@test.com"
+    email: "michael@test.com"
   }
 
+  useEffect(() => { // this checks if the user is logged in, if not they can't go the account page and have to login
+    if (!userId) {
+        navigate("/login")
+    }
+  }, []);
+
   return (
-    <div style={{textAlign: "center", justifyContent: "center", alignItems: "center", width: "100%", background: "red"}}>
+    <div style={{textAlign: "center", justifyContent: "center", alignItems: "center", width: "100%"}}>
       <div >
         <Icon.Person style={{width: "20%", height: "20%"}}/>
       </div>

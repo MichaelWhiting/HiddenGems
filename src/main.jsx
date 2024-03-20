@@ -15,6 +15,8 @@ import About from "./pages/About.jsx";
 import FullDetails from "./pages/FullDetails.jsx";
 import Login from "./pages/Login.jsx";
 
+import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
+
 const router = createBrowserRouter(
   createRoutesFromElements(
       <Route path="/" element={<App />}>
