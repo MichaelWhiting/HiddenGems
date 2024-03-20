@@ -67,6 +67,14 @@ Gem.init(
         lng: {
             type: DataTypes.DOUBLE,
             allowNull: false
+        },
+        enjoyAvg: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        }, 
+        popularAvg: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     },
     {
