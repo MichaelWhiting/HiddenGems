@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route, NavLink, Link, Outlet } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux"
-import axios from "axios"
+import { NavLink, Outlet } from "react-router-dom";
+import * as Icon from "react-bootstrap-icons";
 import { useEffect } from "react";
-import Login from "./pages/Login";
+import axios from "axios"
 
+import "./CSS/App.css"
 function App() {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
@@ -51,19 +52,47 @@ function App() {
 
   return (
     <>
-      <Navbar expand='md' bg='success' data-bs-theme='dark'>
-        <Container fluid className="d-flex"> 
-            <Nav>
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/topGems">Top Gems</NavLink>
-              <NavLink to="/discover">Discover</NavLink>
-              <NavLink to="/profile">Profile</NavLink>
-              <NavLink to="/about">About Us</NavLink>
-              <NavLink to="/login" onClick={handleLogout}>{userId ? "Logout" : "Login"}</NavLink>
+      <Navbar expand='md' bg='primary' data-bs-theme='dark'>
+        <Container fluid className="d-flex">
+          <Navbar.Brand>
+            <Icon.Gem className="main-navbar-icon" />
+            Hidden Gems
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse>
+            <Nav className="me-auto">
+              <NavLink to="/" className="nav-link">
+                <Icon.HouseFill className="navbar-icon"/>
+                Home
+              </NavLink>
+              <NavLink to="/topGems" className="nav-link">
+                <Icon.ArrowUpSquare className="navbar-icon" />
+                Top Gems
+              </NavLink>
+              <NavLink to="/discover" className="nav-link">
+                <Icon.Search className="navbar-icon"/>
+                Discover
+              </NavLink>
+              <NavLink to="/about" className="nav-link">
+                  <Icon.InfoCircle className="navbar-icon"/>
+                  About Us
+              </NavLink>
             </Nav>
-          </Container>
+            <Nav className="ms-auto">
+                <NavLink to="/login" className="nav-link" onClick={handleLogout}>
+                  <Icon.BoxArrowInRight className="navbar-icon"/>
+                  {userId ? "Logout" : "Login"}
+                </NavLink>
+                <NavLink to="/profile" className="nav-link">
+                  <Icon.Person className="navbar-icon"/>
+                  Profile
+                </NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       </Navbar>
-      <Outlet/>
+
+      <Outlet />
     </>
   );
 }
