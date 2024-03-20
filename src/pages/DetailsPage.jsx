@@ -44,13 +44,9 @@ function DetailsPage() {
 
   const fetchData = async () => {
     const gemRes = await axios.get(`/getGem/${gemId}`)
-    console.log(gemRes.data.gem)
     setGems([gemRes.data.gem])
   }
-//   const displayPosts = () => {
-//     setShowGems(true)
-//     setShowRatings(true)
-//   }
+
   useEffect(() => {
     fetchData()
   }, [gemId])
@@ -59,7 +55,7 @@ function DetailsPage() {
     <div className="top-gems-container">
     <div className="gems-grid">
         {gemCards}
-        
+
     </div>
     </div>
   )

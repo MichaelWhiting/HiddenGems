@@ -51,14 +51,10 @@ const handlerFunctions = {
             include: Rating
         }); 
 
-        console.log(gems)
-
         gems.forEach((gem) => {
             gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
             gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
         })
-
-        console.log("AFTER \n\n\n\n\n\n\n\n", gems);
 
         if (gems) {
             res.send({
