@@ -25,7 +25,7 @@ function Discover() {
 
   const fetchData = async () => {
     const gemRes = await axios.get("/getAllGems");
-    setGems(gemRes.data.gem)
+    setGems(gemRes.data.gems)
   }
 
   useEffect(() => {
