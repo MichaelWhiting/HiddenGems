@@ -53,12 +53,21 @@ const handlerFunctions = {
             include: Rating
         }); 
 
+        const gemsWithAvg = gems.forEach((gem) => {
+            if (!gem.ratings.length) {
+                gem.enjoyAvg = "No avg";
+            } else {
+                gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
+            }
+        })
+
+        console.log("123", gemsWithAvg);
 
         if (gems) {
             res.send({
                 message: "Found gem",
                 success: true,
-                gems
+                gems: gemsWithAvg
             });
         } else {
             res.send({

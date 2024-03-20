@@ -19,8 +19,8 @@ function TopGems() {
         </div>
       )
     } else {
-      const popAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length)
-      const enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length)
+      // const popAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length)
+      // const enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length)
   
       return (
         <div key={i} className="gem-card">
@@ -32,13 +32,11 @@ function TopGems() {
         </div>
       )
     }
-  }).sort((a, b) => {
-    return a
   });
 
   const fetchData = async () => {
     const gemRes = await axios.get("/getAllGems");
-    setGems(gemRes.data.gem);
+    setGems(gemRes.data);
   }
 
 
