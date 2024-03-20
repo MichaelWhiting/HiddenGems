@@ -57,6 +57,7 @@ function App() {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/topGems">Top Gems</NavLink>
               <NavLink to="/discover">Discover</NavLink>
+              <NavLink to="/details">Details</NavLink>
               <NavLink to="/profile">Profile</NavLink>
               <NavLink to="/about">About Us</NavLink>
               <NavLink to="/login" onClick={handleLogout}>{userId ? "Logout" : "Login"}</NavLink>

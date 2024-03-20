@@ -1,10 +1,10 @@
-.top-gems-container {
+.discover-container {
     margin: auto;
     width: 80%;
     padding: 20px;
   }
 
-  .top-gems-title {
+  .discover h1 {
     text-align: center;
     margin-bottom: 30px;
   }
