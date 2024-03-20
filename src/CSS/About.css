@@ -1,0 +1,26 @@
+/* Reuse existing styles with new class names for About */
+.about-container {
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+  }
+  
+  .about-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .about-content {
+    /* Styling for the content similar to gem-cards but adjusted for About page context */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #666; /* Default text color, can be overridden by specific elements */
+  }
+  
+  /* If you want specific paragraphs or elements within .about-content to have unique styles, add them here */
+  .about-content p {
+    font-size: 16px; /* Example paragraph styling within about-content */
+  }
+  

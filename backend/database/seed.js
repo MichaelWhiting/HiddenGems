@@ -39,6 +39,22 @@ await Gem.create({
     userId: 2
 });
 
+await Gem.create({
+    name: "Comedy Club",
+    description: "This comedy club is a hidden gem!",
+    lat: 54.323,
+    lng: 15.92872,
+    userId: 3
+});
+
+await Gem.create({
+    name: "Crystal Cave",
+    description: "This is a beautiful cave that no one knows about!",
+    lat: 10.198,
+    lng: 12.996,
+    userId: 4
+});
+
 await Comment.create({
     text: "This place is awesome!",
     gemId: 1,
@@ -49,6 +65,18 @@ await Comment.create({
     text: "This place is lame...",
     gemId: 1,
     userId: 2
+});
+
+await Comment.create({
+    text: "This place is super lame...",
+    gemId: 2,
+    userId: 3
+});
+
+await Comment.create({
+    text: "This place is really awesome!",
+    gemId: 2,
+    userId: 4
 });
 
 await Rating.create({
@@ -68,14 +96,14 @@ await Rating.create({
 await Rating.create({
     enjoyability: 55,
     popularity: 12,
-    userId: 1,
+    userId: 4,
     gemId: 2
 });
 
 await Rating.create({
     enjoyability: 12,
     popularity: 50,
-    userId: 2,
+    userId: 4,
     gemId: 2
 });
 
