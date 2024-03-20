@@ -29,10 +29,8 @@ const handlerFunctions = {
         const { gemId } = req.params;
 
         const gem = await Gem.findOne({
-            where: {
-                gemId: gemId
-            },
-            include: Rating
+            where:{gemId: gemId},
+            include:{model: Comment}
         }); 
 
         if (gem) {
