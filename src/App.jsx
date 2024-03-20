@@ -5,8 +5,6 @@ import axios from "axios"
 import { useEffect } from "react";
 import Login from "./pages/Login";
 
-
-
 function App() {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
