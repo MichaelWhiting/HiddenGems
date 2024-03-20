@@ -36,7 +36,7 @@ app.get("/logout", handlerFunctions.logout);
 // POST
 app.post("/login", handlerFunctions.login);
 app.post("/register", handlerFunctions.register);
-app.post("/createGem");
+app.post("/createGem", handlerFunctions.createGem);
 
 // PUT
 
