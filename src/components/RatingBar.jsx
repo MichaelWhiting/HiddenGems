@@ -1,16 +1,28 @@
-// RatingBar.jsx
 import React from 'react';
-import '../CSS/RatingBar.css'; // Ensure you create this CSS file in your project
+import '../CSS/RatingBar.css';
+import GemIcon from './GemIcon.jsx'
 
-const RatingBar = ({ rating }) => {
-  const validRating = Math.min(100, Math.max(0, rating));
-  const ratingStyle = { width: `${validRating}%` };
 
-  return (
-    <div className="rating-bar-background">
-      <div className="rating-bar-fill" style={ratingStyle}></div>
-    </div>
-  );
-};
 
-export default RatingBar;
+  
+  
+  const RatingBar = ({ rating }) => {
+    
+    const filledGems = rating / 20; // Convert to a scale of 5.
+  
+    return (
+      <div className="rating-container">
+        {Array.from({ length: 5 }).map((_, i) => {
+          const fillLevel = Math.max(0, Math.min(100, (filledGems - i) * 100));
+          return <GemIcon key={i} rating={fillLevel} enjoyRating={rating} />;
+        })}
+        <label>{rating}</label>
+      </div>
+    );
+  };
+  
+  export default RatingBar;
+  
+  
+
+
