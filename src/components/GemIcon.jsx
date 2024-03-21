@@ -1,7 +1,7 @@
 import React from "react";
 import "../CSS/RatingBar.css";
 
-const GemIcon = ({ rating, enjoyRating}) => {
+const GemIcon = ({ rating, enjoyRating, onClick}) => {
   const fillPercentage = `${rating}%`;
 
   const gradientId = `gemFillGradient-${Math.random().toString(16).slice(2)}`;
@@ -14,6 +14,8 @@ const GemIcon = ({ rating, enjoyRating}) => {
       height="32"
       viewBox="0 0 16 16"
       className="gem-icon"
+      onClick={onClick} // Add onClick event handler
+
     >
       <defs>
         <linearGradient id={gradientId} x1="0%" y1="100%" x2="100%" y2="0%">
