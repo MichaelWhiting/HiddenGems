@@ -1,4 +1,4 @@
-import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, Marker, AdvancedMarker} from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -7,12 +7,26 @@ const gemMarkerIcon = {
     scaledSize: {width: 55, height: 55}
 };
 
-function MapComponent() {
+function MapComponent(props) {
     const [gems, setGems] = useState([]); // all of the gems from the database
     const [isMapInitialized, setMapInitialized] = useState(false); // this makes it so once the map is loaded, the map can move moved around
     const initialCenter = { lat: 40.42082717117126, lng: -111.87613180911558 }; // the initial starting spot for the map, defaults to DevMountain
     // in the future, we want to ask the user for their location and set the initial center to their location ^
+    const [showEditingMarker, setShowEditingMarker] = useState(false);
+    const { updateCords, isCreating } = props;
+    const [cords, setCords] = useState({lat: 0, lng: 0});
 
+    const updatePos = (e) => {
+        if (isCreating === true) {
+            setShowEditingMarker(true);
+            const lat = e.detail.latLng.lat;
+            const lng = e.detail.latLng.lng;
+            setCords({lat, lng});
+            updateCords(lat, lng);
+        } else {
+            setShowEditingMarker(false);
+        }
+    }
 
     const getAllGems = async () => {
         const { data } = await axios.get("/getAllGems"); // gets all of the gems from the database
@@ -36,7 +50,9 @@ function MapComponent() {
                     zoom={isMapInitialized ? undefined : 15}  // tells it to start off with 15 zoom
                     onIdle={() => setMapInitialized(true)} // once the map finishes loading, makes it so user can move map
                     mapTypeControl={false}
+                    onClick={updatePos}
                 >
+                    {showEditingMarker ? <AdvancedMarker position={cords}/> : ""}
                     {gemMarkers} 
                     {/*  ^ loads all of the markers for the gems onto the map */}
                 </Map>
