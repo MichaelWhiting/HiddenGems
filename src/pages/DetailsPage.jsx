@@ -32,8 +32,20 @@ function DetailsPage() {
       };
       
 
-      await axios.post('/createComment', {comment: commentData });
+      const response = await axios.post('/createComment', {comment: commentData });
       
+
+      const newComment = response.data.newComment;
+
+      setGems(gems.map(gem => {
+        console.log(`gem.id: ${gem.id}, gemId: ${gemId}`);
+        console.log(`Types - gem.id: ${typeof gem.id}, gemId: ${typeof gemId}`);
+        if (response.data.success) {
+          return {...gem, comments: [...gem.comments, newComment]};
+        }
+        return gem;
+      }))
+      setFormData({comment: ''});
       // Handle success (redirect user or show a success message)
     } catch (error) {
       console.error('Error submitting form:', error);
