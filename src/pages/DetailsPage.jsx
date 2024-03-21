@@ -78,7 +78,7 @@ function DetailsPage() {
         ) : (
           <p>No comments yet</p>
         )}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="comment-box">
         <textarea name="comment" value={formData.comment} onChange={handleChange}id="" cols="30" rows="10"></textarea>
         <input type="submit" value="Comment" />
         </form>
