@@ -40,7 +40,6 @@ function DetailsPage() {
 
   const fetchData = async () => {
     const gemRes = await axios.get(`/getGem/${gemId}`)
-    console.log("112233", gemRes.data.gem.popularAvg)
     setGems([gemRes.data.gem])
   }
 
