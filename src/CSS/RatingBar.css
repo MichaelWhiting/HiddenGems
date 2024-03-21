@@ -22,7 +22,7 @@
 /* Additional styles for filled gems */
 
 .gem-icon stop:first-child {
-    stop-color: gold; /* Set the color for the filled portion */
+    stop-color: greenyellow; /* Set the color for the filled portion */
   }
   .gem-icon stop:last-child {
     stop-color: rgb(132, 131, 131); /* Set the color for the unfilled portion */
