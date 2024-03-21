@@ -135,6 +135,76 @@ Rating.init(
     },
 );
 
+class Tag extends Model {
+    [util.inspect.custom]() {
+        return this.toJSON();
+    }
+}
+
+Tag.init(
+    {
+        tagId: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        food: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        adventure: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        entertainment: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        technology: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        travel: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        education: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        health: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        fashion: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        fitness: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        pet: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        family: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        arts: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+
+    },
+    {
+        modelName: 'tag',
+        sequelize: db,
+    },
+);
+
+
 // User - Gem
 User.hasMany(Gem, { foreignKey: "userId"});
 Gem.belongsTo(User, { foreignKey: "userId"});
@@ -155,4 +225,9 @@ Comment.belongsTo(Gem, { foreignKey: "gemId" });
 Gem.hasMany(Rating, { foreignKey: "gemId"});
 Rating.belongsTo(Gem, { foreignKey: "gemId"});
 
-export { User, Gem, Comment, Rating };
+// Gem manytomany Tag
+Gem.belongsToMany(Tag, {through: 'GemTag'})
+Tag.belongsToMany(Gem, {through: 'GemTag'})
+
+
+export { User, Gem, Comment, Rating, Tag };
