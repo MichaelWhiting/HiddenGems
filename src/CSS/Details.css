@@ -31,3 +31,30 @@
     font-size: 16px;
     color: #666;
   }
+  .comment-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%; /* Ensure it doesn't stretch out of bounds */
+}
+
+.comment-box textarea {
+  width: 100%; /* Take full width */
+  max-width: 100%; /* Ensure it doesn't stretch out of bounds */
+  padding: 10px; /* Adjust padding as needed */
+  margin-bottom: 10px; /* Add some space between textarea and submit button */
+}
+
+.comment-box input[type="submit"] {
+  align-self: flex-end; /* Align the submit button to the right */
+  padding: 8px 15px; /* Adjust padding as needed */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.comment-box input[type="submit"]:hover {
+  background-color: #45a049;
+}

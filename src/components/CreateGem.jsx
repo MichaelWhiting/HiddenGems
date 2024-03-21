@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import React, { useState } from 'react';
 import MapComponent from './Map'
 import axios from 'axios'
+import '../CSS/CreateGem.css'
 
 function CreateGem() {
   const userId = useSelector(state => state.userId);
@@ -41,16 +42,18 @@ function CreateGem() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+    <div className="cr-container">
+      <form onSubmit={handleSubmit} className="cr-form">
         <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
         <h2>Gem Description</h2>
         <textarea name="description" value={formData.description} onChange={handleChange} cols="30" rows="10"></textarea>
         <h2>Add an Image:<input type="file" name="theimage" onChange={handleChange} /></h2>
-        <div style={{width: "30%"}}>
+        <div className="cr-map-container">
           <MapComponent updateCords={updateCords} isCreating={true}/>
         </div>
         <input type="submit" value="Submit" />
       </form>
+      </div>
     </>
   )
 }
