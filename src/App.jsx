@@ -52,7 +52,7 @@ function App() {
 
   return (
     <>
-      <Navbar expand='md' bg='primary' data-bs-theme='dark'>
+      <Navbar expand='md' bg='info' data-bs-theme='dark'>
         <Container fluid className="d-flex">
           <Navbar.Brand>
             <Icon.Gem className="main-navbar-icon" />
