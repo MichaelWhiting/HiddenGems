@@ -26,7 +26,7 @@ await User.create({
 await Gem.create({
     name: "Skiing Trail",
     description: "At this resort, this trail is not used at all and the snow is super fresh",
-    lat: 10.4214,
+    lat: -50.4214,
     lng: 10.9864,
     userId: 1
 });
@@ -34,7 +34,7 @@ await Gem.create({
 await Gem.create({
     name: "Cool Shop",
     description: "This is a really cool shop, has some unique items",
-    lat: 10.592,
+    lat: 18.592,
     lng: 10.1005,
     userId: 2
 });
@@ -50,10 +50,18 @@ await Gem.create({
 await Gem.create({
     name: "Crystal Cave",
     description: "This is a beautiful cave that no one knows about!",
-    lat: 10.198,
+    lat: 32.198,
     lng: 12.996,
     userId: 4
 });
+
+await Gem.create({
+    name: "DevMountain",
+    description: "Coding bootcamp.",
+    lat: 40.42082717117126, 
+    lng: -111.87613180911558,
+    userId: 2
+})
 
 await Comment.create({
     text: "This place is awesome!",
