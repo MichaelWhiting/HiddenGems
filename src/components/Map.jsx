@@ -1,30 +1,44 @@
-import {APIProvider, Map, AdvancedMarker} from '@vis.gl/react-google-maps';
-import { useState } from 'react';
-import React from 'react';
+import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const gemMarkerIcon = {
+    url: 'https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-3d/512/Gem-Stone-3d-icon.png',
+    scaledSize: {width: 55, height: 55}
+};
 
 function MapComponent() {
-    const position = {lat: 40.42082717117126, lng: -111.87613180911558};
-    const [markers, setMarkers] = useState([]);
-  
-    const createMarker = (e) => {
-      setMarkers([
-        ...markers,
-        {
-          lat: e.detail.latLng.lat,
-          lng: e.detail.latLng.lng
-        }
-      ])
+    const [gems, setGems] = useState([]); // all of the gems from the database
+    const [isMapInitialized, setMapInitialized] = useState(false); // this makes it so once the map is loaded, the map can move moved around
+    const initialCenter = { lat: 40.42082717117126, lng: -111.87613180911558 }; // the initial starting spot for the map, defaults to DevMountain
+    // in the future, we want to ask the user for their location and set the initial center to their location ^
+
+
+    const getAllGems = async () => {
+        const { data } = await axios.get("/getAllGems"); // gets all of the gems from the database
+        setGems(data.gems); // updates the gems state variable
     }
-  
-    const markerPoints = markers.map((marker, i) => {
-      return <AdvancedMarker key={i} position={{lat: marker.lat, lng: marker.lng}}/>
+
+    const gemMarkers = gems.map((gem) => { // for each of the gems in the gems array, this creates a marker on the map for them
+      return <Marker key={gem.gemId} position={{lat: gem.lat, lng: gem.lng}} title={gem.name} icon={gemMarkerIcon}/>
     })
+
+    useEffect(() => {
+        getAllGems(); // on initial render, gets all of the gems from the database
+    }, []);
 
     return (
         <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
-            <div className='Map' style={{height: "50vh", width: "30%", color:'red'}}>
-                <Map mapId="8041ba05ec4f9f0a" center={position} zoom={15} onClick={createMarker}>
-                    {markerPoints}
+            <div className='Map' style={{height: "65vh", width: "100%", color:'red'}}>
+                <Map 
+                    mapId="8041ba05ec4f9f0a" // mapId from the API website
+                    center={isMapInitialized ? undefined : initialCenter} // tells the map where to initially start
+                    zoom={isMapInitialized ? undefined : 15}  // tells it to start off with 15 zoom
+                    onIdle={() => setMapInitialized(true)} // once the map finishes loading, makes it so user can move map
+                    mapTypeControl={false}
+                >
+                    {gemMarkers} 
+                    {/*  ^ loads all of the markers for the gems onto the map */}
                 </Map>
             </div>
         </APIProvider>
