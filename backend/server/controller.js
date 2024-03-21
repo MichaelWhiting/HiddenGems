@@ -264,11 +264,38 @@ const handlerFunctions = {
 
             // Send a success response back to the frontend
             res.send({
-                message: "user logged out",
+                message: "gem created",
                 success: true,
                 newGem: newGem
             })
         
+    },
+    createComment: async (req, res) => {
+
+        if (req.session.userId) {
+
+            
+            const { comment } = req.body
+            
+            const { text, gemId } = comment;
+            
+            const newComment = await Comment.create({ 
+                text,
+                gemId,
+                userId: req.session.userId
+            })
+            
+            res.send ({
+                message: "comment created",
+                success:true,
+                newComment: newComment
+            })
+        } else {
+            res.send ({
+                message: "comment NOT created",
+                success: false,
+            })
+        }
     },
 }
 

@@ -11,6 +11,36 @@ function DetailsPage() {
   const { gemId } = location.state || {};
   const navigate = useNavigate();
 
+  const [formData, setFormData] = useState({
+    comment:'',
+    
+  });
+
+  // This is the function that takes the input from the comment section and sends it to the database.
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+   
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(formData)
+      const commentData = {
+        text: formData.comment, // Assuming formData.comment holds the comment text
+        gemId: gemId, // Assuming gemId is the ID of the gem you're commenting on
+      };
+      
+
+      await axios.post('/createComment', {comment: commentData });
+      
+      // Handle success (redirect user or show a success message)
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Handle error (show error message to user)
+    }
+  };
+
   const gemCards = gems.map((gem, i) => {
     return (
       <div key={i} className='gem-card'>
@@ -37,8 +67,10 @@ function DetailsPage() {
         ) : (
           <p>No comments yet</p>
         )}
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <button>Comment</button>
+        <form onSubmit={handleSubmit}>
+        <textarea name="comment" value={formData.comment} onChange={handleChange}id="" cols="30" rows="10"></textarea>
+        <input type="submit" value="Comment" />
+        </form>
         <div>Map API below</div>
       </div>
     )
