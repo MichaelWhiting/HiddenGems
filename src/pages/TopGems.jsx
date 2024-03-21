@@ -29,7 +29,7 @@ function TopGems() {
         Popularity:
         <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
       </div>
-      <button className="hyper-link" onClick={() => navigate(`/details/${gem.id}`)}>Full Details</button> {/* Adjust the navigation path as needed */}
+      <button className="hyper-link"  onClick={() => navigate("/details", { state: { gemId: gem.gemId }})}>Full Details</button> {/* Adjust the navigation path as needed */}
     </div>
   ));
 
