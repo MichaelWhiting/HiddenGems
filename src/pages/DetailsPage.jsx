@@ -38,8 +38,7 @@ function DetailsPage() {
       const newComment = response.data.newComment;
 
       setGems(gems.map(gem => {
-        console.log(`gem.id: ${gem.id}, gemId: ${gemId}`);
-        console.log(`Types - gem.id: ${typeof gem.id}, gemId: ${typeof gemId}`);
+       
         if (response.data.success) {
           return {...gem, comments: [...gem.comments, newComment]};
         }
