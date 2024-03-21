@@ -122,11 +122,11 @@ Rating.init(
         },
         enjoyability: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         popularity: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         }
     },
     {

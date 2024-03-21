@@ -38,6 +38,7 @@ app.post("/login", handlerFunctions.login);
 app.post("/register", handlerFunctions.register);
 app.post("/createGem", handlerFunctions.createGem);
 app.post("/createComment", handlerFunctions.createComment);
+app.post("/createRating", handlerFunctions.createRating)
 
 // PUT
 
