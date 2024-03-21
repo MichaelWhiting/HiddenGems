@@ -33,7 +33,7 @@ function DetailsPage() {
       
 
       await axios.post('/createComment', {comment: commentData });
-      console.log('should have saved')
+      
       // Handle success (redirect user or show a success message)
     } catch (error) {
       console.error('Error submitting form:', error);
