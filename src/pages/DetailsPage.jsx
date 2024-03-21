@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { useNavigate, useLocation } from "react-router-dom"
 import '../CSS/Details.css'
-
+import RatingBar from '../components/RatingBar';
 
 function DetailsPage() {
   const [gems, setGems] = useState([]);
@@ -20,6 +20,12 @@ function DetailsPage() {
         {gem.lat && <span>Latitude: {gem.lat}</span>}
         {gem.lng && <span>Longitude: {gem.lng}</span>}
         </p>
+        <div>
+        Enjoyability:
+        <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
+        Popularity:
+        <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
+      </div>
         {/* Display all comments */}
         {gem.comments && gem.comments.length > 0 ? (
           <div className="comments-section">

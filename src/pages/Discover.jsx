@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate} from "react-router-dom"
 import '../CSS/Discover.css'
-
+import RatingBar from '../components/RatingBar';
 
 
 function Discover() {
@@ -17,7 +17,12 @@ function Discover() {
       
      <h2 className="gem-location">{gem.name}</h2>
       <p className='gem-description'>{gem.description} </p>
-      <h3>RATING GOES HERE</h3>
+      <div>
+        Enjoyability:
+        <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
+        Popularity:
+        <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
+      </div>
       <button className="hyper-link" onClick={() => navigate("/details", { state: { gemId: gem.gemId }})}>Full Details</button>
       </div>
     )
