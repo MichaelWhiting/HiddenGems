@@ -1,0 +1,77 @@
+/* Reuse existing styles with new class names for About */
+.about-container {
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+  }
+  
+  .about-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .about-content {
+    /* Styling for the content similar to gem-cards but adjusted for About page context */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #666; /* Default text color, can be overridden by specific elements */
+  }
+  
+  /* If you want specific paragraphs or elements within .about-content to have unique styles, add them here */
+  .about-content p {
+    font-size: 16px; /* Example paragraph styling within about-content */
+  }
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .person-box {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 20px; /* Add some margin between person boxes */
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 75%;
+  }
+  
+  .person-info {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px; /* Add some margin between person info and gem box}*/
+  }
+   
+  
+  .gem-box {
+    background-color: White;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .m-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px; /* Add some space between content and the mysterious button */
+  }
+  
+  .m-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow effect */
+  }
+  
+  .m-button:hover {
+    background-color: #444;
+  }

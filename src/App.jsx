@@ -1,35 +1,100 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux"
+import { NavLink, Outlet } from "react-router-dom";
+import * as Icon from "react-bootstrap-icons";
+import { useEffect } from "react";
+import axios from "axios"
 
+import "./CSS/App.css"
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.userId);
+
+  const sessionCheck = async () => {
+    const res = await axios.get("/session-check");
+
+    if (res.data.success) {
+      console.log("This is running anytime it checks if someone is logged in");
+      // setUserId(res.data.userId)
+      dispatch({
+        type: "USER_AUTH",
+        payload: res.data.userId
+
+      })
+    }
+  }
+
+  //2. invoke that function on intitial reder only (with a useEffect() hook)
+  // useffect takes in a (callback, optionalDependencyArray)
+  // if the dependencyArray is not provided, useEffect will run on EvERy render
+  // if dependencyArray is empty ([]), then this tells useEffect to only 
+  // run on the initial render
+  // if the dependencyArray contains values, useEffect will only run
+  // each time one of those vaues is changes/used
+  useEffect(() => {
+    sessionCheck()
+  }, [])
+
+
+  const handleLogout = async () => {
+    if (!userId) { return }
+
+    const res = await axios.get('/logout');
+
+    if (res.data.success) {
+      dispatch({
+        type: 'LOGOUT'
+      });
+
+    }
+  };
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar expand='md' bg='info' data-bs-theme='dark'>
+        <Container fluid className="d-flex">
+          <Navbar.Brand>
+            <Icon.Gem className="main-navbar-icon" />
+            Hidden Gems
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse>
+            <Nav className="me-auto">
+              <NavLink to="/" className="nav-link">
+                <Icon.HouseFill className="navbar-icon"/>
+                Home
+              </NavLink>
+              <NavLink to="/topGems" className="nav-link">
+                <Icon.ArrowUpSquare className="navbar-icon" />
+                Top Gems
+              </NavLink>
+              <NavLink to="/discover" className="nav-link">
+                <Icon.Search className="navbar-icon"/>
+                Discover
+              </NavLink>
+              <NavLink to="/about" className="nav-link">
+                  <Icon.InfoCircle className="navbar-icon"/>
+                  About Us
+              </NavLink>
+            </Nav>
+            <Nav className="ms-auto">
+                <NavLink to="/login" className="nav-link" onClick={handleLogout}>
+                  <Icon.BoxArrowInRight className="navbar-icon"/>
+                  {userId ? "Logout" : "Login"}
+                </NavLink>
+                <NavLink to="/profile" className="nav-link">
+                  <Icon.Person className="navbar-icon"/>
+                  Profile
+                </NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      <Outlet />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
