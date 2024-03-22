@@ -252,7 +252,6 @@ const handlerFunctions = {
             
             // Extract form data from the request body
             const { name, description, imgUrl, lat, lng } = req.body;
-
             // Create a new record in the database
             const newGem = await Gem.create({
                 name,
@@ -261,6 +260,7 @@ const handlerFunctions = {
                 lat,
                 lng
             });
+            console.log(imgUrl, 'lkasdlfkj')
 
             // Send a success response back to the frontend
             res.send({
