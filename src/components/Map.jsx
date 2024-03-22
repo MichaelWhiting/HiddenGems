@@ -1,6 +1,7 @@
 import {APIProvider, Map, Marker, AdvancedMarker} from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom"
 
 const gemMarkerIcon = {
     url: 'https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-3d/512/Gem-Stone-3d-icon.png',
@@ -10,11 +11,14 @@ const gemMarkerIcon = {
 function MapComponent(props) {
     const [gems, setGems] = useState([]); // all of the gems from the database
     const [isMapInitialized, setMapInitialized] = useState(false); // this makes it so once the map is loaded, the map can move moved around
-    const initialCenter = { lat: 40.42082717117126, lng: -111.87613180911558 }; // the initial starting spot for the map, defaults to DevMountain
+    const initialCenter = props.gem ? { lat: props.gem.lat, lng: props.gem.lng } : { lat: 40.42082717117126, lng: -111.87613180911558 }; // the initial starting spot for the map, defaults to DevMountain
+    // initialize 'initialCenter' as the lat/lng of the gem prop, if exists, else default to DM location?
+   
     // in the future, we want to ask the user for their location and set the initial center to their location ^
     const [showEditingMarker, setShowEditingMarker] = useState(false);
     const { updateCords, isCreating } = props;
     const [cords, setCords] = useState({lat: 0, lng: 0});
+    const navigate = useNavigate();
 
     const updatePos = (e) => {
         if (isCreating === true) {
@@ -34,7 +38,11 @@ function MapComponent(props) {
     }
 
     const gemMarkers = gems.map((gem) => { // for each of the gems in the gems array, this creates a marker on the map for them
-      return <Marker key={gem.gemId} position={{lat: gem.lat, lng: gem.lng}} title={gem.name} icon={gemMarkerIcon}/>
+      return <Marker 
+      key={gem.gemId} 
+      position={{lat: gem.lat, lng: gem.lng}} 
+      title={gem.name} icon={gemMarkerIcon} 
+      onClick={() => navigate("/details", { state: { gemId: gem.gemId }})}/>
     })
 
     useEffect(() => {

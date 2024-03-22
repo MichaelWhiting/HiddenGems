@@ -83,7 +83,15 @@ function DetailsPage() {
         <textarea name="comment" value={formData.comment} onChange={handleChange}id="" cols="30" rows="10"></textarea>
         <input type="submit" value="Comment" />
         </form>
-        <div><MapComponent /></div>
+
+        <div>
+          <MapComponent gem={gem} />
+          {/* This line below here is for the future when we want to grab the users location. Then you can just give it latLng */}
+          {/* <MapComponent latLng={{ lat: gem.lat, lng: gem.lng }} /> */}
+        </div>
+
+
+
       </div>
     )
   })
