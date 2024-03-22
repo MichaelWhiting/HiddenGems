@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate, useLocation } from "react-router-dom"
 import '../CSS/Details.css'
 import RatingBar from '../components/RatingBar';
+import MapComponent from '../components/Map.jsx'
 
 function DetailsPage() {
   const [gems, setGems] = useState([]);
@@ -82,7 +83,9 @@ function DetailsPage() {
         <textarea name="comment" value={formData.comment} onChange={handleChange}id="" cols="30" rows="10"></textarea>
         <input type="submit" value="Comment" />
         </form>
-        <div>Map API below</div>
+        <div>
+          <MapComponent />
+        </div>
       </div>
     )
   })
