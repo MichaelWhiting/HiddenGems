@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate, useLocation } from "react-router-dom"
 import '../CSS/Details.css'
 import RatingBar from '../components/RatingBar';
+import CreateGem from '../components/CreateGem.jsx'
 import MapComponent from '../components/Map';
 
 function DetailsPage() {
@@ -52,13 +53,14 @@ function DetailsPage() {
       // Handle error (show error message to user)
     }
   };
-
   const gemCards = gems.map((gem, i) => {
     return (
-      <div key={i} className='d-gem-card'>
-        <h2 className="d-gem-location">{gem.name}</h2>
-        <p className='d-gem-description'>{gem.description} </p>
-        <p className='d-gem-description'>
+      <div key={i} className='gem-card'>
+        <h2 className="gem-location">{gem.name}</h2>
+        {gem?.imgUrl && <img src={gem.imgUrl} alt={gem.name} className="gem-image" />}
+
+        <p className='gem-description'>{gem.description} </p>
+        <p className='gem-description'>
         {gem.lat && <span>Latitude: {gem.lat}</span>}
         {gem.lng && <span>Longitude: {gem.lng}</span>}
         </p>
@@ -95,10 +97,12 @@ function DetailsPage() {
       </div>
     )
   })
+  
 
   const fetchData = async () => {
     const gemRes = await axios.get(`/getGem/${gemId}`)
     setGems([gemRes.data.gem])
+    console.log(gemRes.data.gem)
   }
 
   useEffect(() => {

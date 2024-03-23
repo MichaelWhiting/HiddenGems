@@ -14,7 +14,7 @@ const GemIcon = ({ rating, enjoyRating, onClick}) => {
       height="32"
       viewBox="0 0 16 16"
       className="gem-icon"
-      onClick={onClick} // Add onClick event handler
+      onClick={onClick} 
 
     >
       <defs>
