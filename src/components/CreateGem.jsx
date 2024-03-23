@@ -22,9 +22,9 @@ function CreateGem() {
     script.async = true;
     script.onload = () => {
       window.AWS.config.update({
-        accessKeyId: 'AKIA5FTZDW2LQUMETOMK', // Note: Use environment variables or secure methods in production
-        secretAccessKey: '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', // Note: Use environment variables or secure methods in production
-        region: 'us-east-2'
+        accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID, 
+        secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY, 
+        region: import.meta.env.VITE_AWS_REGION
       });
     };
 
