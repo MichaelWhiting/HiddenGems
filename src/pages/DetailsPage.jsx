@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import '../CSS/Details.css'
 import RatingBar from '../components/RatingBar';
 import CreateGem from '../components/CreateGem.jsx'
+import MapComponent from '../components/Map';
 
 function DetailsPage() {
   const [gems, setGems] = useState([]);
@@ -71,7 +72,7 @@ function DetailsPage() {
       </div>
         {/* Display all comments */}
         {gem.comments && gem.comments.length > 0 ? (
-          <div className="comments-section">
+          <div className="d-comments-section">
             <h6>Comments:</h6>
             {gem.comments.map((comment, index) => (
               <p key={index}>{comment.text}</p>
@@ -80,11 +81,19 @@ function DetailsPage() {
         ) : (
           <p>No comments yet</p>
         )}
-        <form onSubmit={handleSubmit} className="comment-box">
+        <form onSubmit={handleSubmit} className="d-comment-box">
         <textarea name="comment" value={formData.comment} onChange={handleChange}id="" cols="30" rows="10"></textarea>
         <input type="submit" value="Comment" />
         </form>
-        <div>Map API below</div>
+
+        <div>
+          <MapComponent gem={gem} />
+          {/* This line below here is for the future when we want to grab the users location. Then you can just give it latLng */}
+          {/* <MapComponent latLng={{ lat: gem.lat, lng: gem.lng }} /> */}
+        </div>
+
+
+
       </div>
     )
   })
@@ -100,8 +109,8 @@ function DetailsPage() {
     fetchData()
   }, [gemId])
   return (
-    <div className="top-gems-container">
-      <div className="gems-grid">
+    <div className="d-top-gems-container">
+      <div className="d-gems-grid">
           {gemCards}
       </div>
     </div>
