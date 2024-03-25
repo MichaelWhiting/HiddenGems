@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../CSS/RatingBar.css';
 import GemIcon from './GemIcon.jsx'
 import axios from 'axios'
 
 
-const RatingBar = ({ rating, gemId, reload, setReload }) => {
+const RatingBar = ({ rating, gemId, reload, setReload, type }) => {
   const saveRating = async (i) => {
     setReload(!reload)
     const enjoyability = i * 20
     const popularity = i * 20
 
-    const res = await axios.post("/createRating", { enjoyability, popularity, gemId })
-    console.log(res.data)
+    if (type === "enjoyability") {
+      const res = await axios.post("/createRating", { enjoyability, gemId });
+      console.log("Changed the enjoyablity!", res.data.success)
+    } else {
+      const res = await axios.post("/createRating", { popularity, gemId })
+      console.log("Changed the popularity!", res.data.success)
+    }
   }
 
   const filledGems = rating / 20;

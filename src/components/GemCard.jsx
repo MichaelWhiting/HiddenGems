@@ -17,6 +17,7 @@ function GemCard(props) {
                     setReload={setReload}
                     gemId={gem.gemId}
                     rating={gem.enjoyAvg ? gem.enjoyAvg : 0}
+                    type="enjoyability"
                 />
                 Popularity:
                 <RatingBar
@@ -24,6 +25,7 @@ function GemCard(props) {
                     setReload={setReload}
                     gemId={gem.gemId}
                     rating={gem.popularAvg ? gem.popularAvg : 0}
+                    type="popularity"
                 />
             </div>
             <button
