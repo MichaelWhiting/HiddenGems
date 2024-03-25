@@ -354,6 +354,38 @@ const handlerFunctions = {
           return res.status(500).json({ message: 'Internal server error' });
         }
     },
+    // Add this to your handlerFunctions object in controller.js
+
+updateUserProfileImg: async (req, res) => {
+    const { userId } = req.params;
+    const { imgUrl } = req.body;
+
+    try {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).send({
+                message: "User not found",
+                success: false,
+            });
+        }
+
+        user.imgUrl = imgUrl;
+        await user.save();
+
+        res.send({
+            message: "User profile image updated successfully",
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.error('Error updating user profile image:', error);
+        res.status(500).send({
+            message: "Error updating user profile image",
+            success: false,
+        });
+    }
+},
+
 }
 
 export default handlerFunctions;
