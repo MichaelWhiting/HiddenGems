@@ -15,6 +15,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@vis.gl/react-google-maps": "^0.7.1",
+    "aws-sdk": "^2.1583.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",

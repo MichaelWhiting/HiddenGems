@@ -2,10 +2,12 @@ import ViteExpress from "vite-express";
 import session from "express-session";
 import express from "express";
 import morgan from "morgan";
+import dotenv from 'dotenv'
 
 // Handlers
 import handlerFunctions from "./controller.js";
 
+dotenv.config()
 // Server Boilerplate
 const app = express();
 
