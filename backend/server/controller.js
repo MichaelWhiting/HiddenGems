@@ -273,8 +273,6 @@ const handlerFunctions = {
     createComment: async (req, res) => {
 
         if (req.session.userId) {
-
-            
             const { comment } = req.body
             
             const { text, gemId } = comment;
@@ -298,19 +296,33 @@ const handlerFunctions = {
         }
     },
     createRating: async (req, res) => {
-       
         if (req.session.userId) {
             const { enjoyability, popularity, gemId } = req.body
-            await Rating.create({
-                enjoyability,
-                popularity,
-                gemId
-            })
-            console.log(gemId)
-            res.send({
-                message: "created rating",
-                success: true
-            })
+
+            if (enjoyability) {
+                await Rating.create({
+                    enjoyability,
+                    gemId
+                })
+                res.send({
+                    message: "created rating",
+                    success: true
+                })
+            } else if (popularity) {
+                await Rating.create({
+                    popularity,
+                    gemId
+                })
+                res.send({
+                    message: "created rating",
+                    success: true
+                })
+            } else {
+                res.send({
+                    message: "failed to create rating",
+                    success: false
+                })
+            }
         }
     }
 }
