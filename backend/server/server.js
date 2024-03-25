@@ -46,8 +46,10 @@ app.post("/createRating", handlerFunctions.createRating)
 
 // PUT
 app.put('/updateUserProfileImg/:userId', handlerFunctions.updateUserProfileImg);
+app.put('/updateUserHeaderImg/:userId', handlerFunctions.updateUserHeaderImg);
 
 // DELETE
+app.delete('/deleteComment/:commentId', handlerFunctions.deleteComment);
 
 
 

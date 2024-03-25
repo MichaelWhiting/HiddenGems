@@ -1,32 +1,20 @@
-.profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    padding: 40px;
-    max-width: 1000px;
-    margin: auto;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 20px;
+
+  
+  .header-image {
+    width: 1000px; /* Full width of its container */
+    height: 250px; /* Fixed height; adjust as needed */
+    object-fit: cover; /* Ensures the image covers the designated area */
+    border-radius: 0;
+    margin-bottom: -1px; /* Overlap effect; pulls subsequent content upwards */
   }
   
-  .profile-image-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
+ 
   
   .profile-image {
-    width: 200px; 
-    height: 200px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    border: 4px solid #010102; /* Add a border to profile image */
-    margin-bottom: 15px;
+    width: 30%; /* Specific size */
+    height: 30%; /* Ensure equal width and height for a circle */
+    border-radius: 50%; /* Circular shape */
+    object-fit: cover; /* Covers the area of the circle */
   }
   
   .placeholder-icon {
@@ -61,7 +49,7 @@
     color: #212529;
     font-size: 24px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 120px; /* Adjusted to accommodate the profile image overlap */
     margin-bottom: 20px;
   }
   
@@ -98,17 +86,19 @@
   .comment:nth-child(odd) {
     border-left-color: #6c757d; /* Slightly change color for odd comments for better visual separation */
   }
+  
   .icon-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #007bff; /* Adjust color to fit your design */
-}
-
-.icon-button:hover {
-  color: #0056b3; /* Slightly darker blue on hover */
-}
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #007bff; /* Adjust color to fit your design */
+  }
+  
+  .icon-button:hover {
+    color: #0056b3; /* Slightly darker blue on hover */
+  }
+  

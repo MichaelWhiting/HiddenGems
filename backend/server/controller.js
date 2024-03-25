@@ -416,6 +416,56 @@ updateUserProfileImg: async (req, res) => {
         });
     }
 },
+updateUserHeaderImg: async (req, res) => {
+    const { userId } = req.params;
+    const { headerImgUrl } = req.body;
+
+    try {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).send({
+                message: "User not found",
+                success: false,
+            });
+        }
+
+        user.headerImgUrl = headerImgUrl; // Assuming you have a field named `headerImgUrl` in your User model
+        await user.save();
+
+        res.send({
+            message: "User header image updated successfully",
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.error('Error updating user header image:', error);
+        res.status(500).send({
+            message: "Error updating user header image",
+            success: false,
+        });
+    }
+},
+// commentController.js
+
+deleteComment: async (req, res) => {
+    const { commentId } = req.params;
+    try {
+        const deleted = await Comment.destroy({
+            where: { commentId: commentId }
+        });
+        if (deleted) {
+            return res.status(200).send({ message: "Comment deleted successfully." });
+        }
+        return res.status(404).send({ message: "Comment not found." });
+    } catch (error) {
+        console.error("Error deleting comment:", error);
+        return res.status(500).send({ message: "Error deleting comment." });
+    }
+}
+
+
+
+
 }
 
 export default handlerFunctions;

@@ -1,9 +1,12 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux"
-import { NavLink, Outlet } from "react-router-dom";
-import * as Icon from "react-bootstrap-icons";
-import { useEffect } from "react";
-import axios from "axios"
+import React, { useEffect } from 'react'; // Make sure to import React and useEffect correctly
+import axios from 'axios'; // Ensure axios is correctly imported, note the missing quote at the end in your snippet
+import { useSelector, useDispatch } from 'react-redux'; // Redux hooks
+import { NavLink, Outlet } from 'react-router-dom'; // React Router components
+import { Navbar, Nav, Container } from 'react-bootstrap'; // React Bootstrap components
+import * as Icon from 'react-bootstrap-icons'; // Importing React Bootstrap Icons
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+
 
 import "./CSS/App.css"
 function App() {
