@@ -35,6 +35,7 @@ app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
 app.get('/session-check', handlerFunctions.sessionCheck);
 app.get("/logout", handlerFunctions.logout);
 app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
+app.get("/getGemsFromUserId/:userId", handlerFunctions.getUserGems)
 
 // POST
 app.post("/login", handlerFunctions.login);
