@@ -8,11 +8,16 @@ function GemCard(props) {
     const { gem, i, reload, setReload } = props;
     const navigate = useNavigate();
     return (
-        <div key={i} className="gem-card" style={{textAlign: "center", marginTop: 5}}>
+        <div key={i} className="gem-card" style={{textAlign: "center"}}>
             <h2 className="gem-location">
                 {i + 1}. {gem.name}
             </h2>
             {gem?.imgUrl && <img src={gem.imgUrl} alt={gem.name} className="gem-image" />}
+            {!gem?.imgUrl && 
+                <div className="gem-image-placeholder">
+
+                </div>
+            }
             <p className="gem-description">{gem.description}</p>
             <div>
                 Enjoyability:
@@ -36,7 +41,7 @@ function GemCard(props) {
                 variant='outline-info'
                 className="hyper-link"
                 onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}
-                style={{margin: "auto"}}
+                style={{margin: "auto", marginTop: 5}}
             >
                 Full Details
             </Button>
