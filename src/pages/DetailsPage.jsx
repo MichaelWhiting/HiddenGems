@@ -18,7 +18,6 @@ function DetailsPage() {
     
   });
 
-  // This is the function that takes the input from the comment section and sends it to the database.
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
    
@@ -30,7 +29,7 @@ function DetailsPage() {
       console.log(formData)
       const commentData = {
         text: formData.comment, // Assuming formData.comment holds the comment text
-        gemId: gemId, // Assuming gemId is the ID of the gem you're commenting on
+        gemId: gemId, 
       };
       
 

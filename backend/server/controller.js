@@ -250,7 +250,6 @@ const handlerFunctions = {
     createGem: async (req, res) => {
        
             
-            // Extract form data from the request body
             const { name, description, imgUrl, lat, lng } = req.body;
             // Create a new record in the database
             const newGem = await Gem.create({

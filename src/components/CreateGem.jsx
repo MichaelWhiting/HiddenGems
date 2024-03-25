@@ -3,9 +3,16 @@ import { useSelector } from "react-redux";
 import MapComponent from './Map';
 import axios from 'axios';
 import '../CSS/CreateGem.css';
+import { useNavigate } from "react-router-dom"
+
 
 function CreateGem() {
   const userId = useSelector(state => state.userId);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState('');
+
+  const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -66,20 +73,42 @@ function CreateGem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name !== "" && formData.description !== "" && formData.lat !== 0 && formData.lng !== 0) {
-      console.log("None of the text fields are empty and a marker has been selected, now going to save to database")
+      console.log("Validating form data before submission");
       try {
         if (userId) {
-          console.log("user IS logged in and is going to create")
-          await axios.post('/createGem', formData);
-          console.log(formData);
+          const res = await axios.post('/createGem', formData);
+          console.log('Form submitted successfully', formData);
+          // Display success message and optionally reset form here
+          setSubmissionStatus('Gem created successfully!');
+          setIsSubmitted(true);
+  
+          // Here's where you might navigate after a successful submission
+          navigate("/details", { state: { gemId: res.data.newGem.gemId } });
+  
+          // Reset form (optional)
+          setFormData({
+            name: '',
+            description: '',
+            imgUrl: '',
+            lat: 0.0,
+            lng: 0.0,
+            userId
+          });
         } else {
-          console.log("user is NOT logged in and is not going to create")
+          console.log("User is not logged in");
+          // Handle the case where the user is not logged in
+          setSubmissionStatus('You need to be logged in to create a gem.');
         }
       } catch (error) {
         console.error('Error submitting form:', error);
+        setSubmissionStatus('Error submitting the form. Please try again.');
       }
+    } else {
+      // Handle validation failure
+      setSubmissionStatus('Please fill in all required fields and select a location.');
     }
   };
+  
 
   const updateCords = (newLat, newLng) => {
     setFormData({...formData, lat: newLat, lng: newLng})
@@ -88,6 +117,7 @@ function CreateGem() {
   return (
     <>
       <div className="cr-container">
+        {submissionStatus && <div className="submission-status">{submissionStatus}</div>}
         <form onSubmit={handleSubmit} className="cr-form">
           <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
           <h2>Gem Description</h2>
