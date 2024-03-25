@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS/Gems.css";
 import RatingBar from "../components/RatingBar";
+import GemCard from "./GemCard";
 
 function TopGems() {
   const [gems, setGems] = useState([]);
@@ -21,7 +22,8 @@ function TopGems() {
 
   const gemCards = gems
     .sort((a, b) => b.enjoyAvg - a.enjoyAvg)
-    .map((gem, i) => (
+    .map((gem, i) => // <GemCard gem={gem} idx={i} />
+    (
       <div key={i} className="gem-card">
         <h2 className="gem-location">
           {i + 1}. {gem.name}
