@@ -212,6 +212,20 @@ Tag.init(
     },
 );
 
+class Friendship extends Model {
+    [util.inspect.custom]() {
+        return this.toJSON();
+    }
+}
+
+Friendship.init(
+    {},
+    {
+        modelName: 'friendship',
+        sequelize: db
+    }
+)
+
 
 // User - Gem
 User.hasMany(Gem, { foreignKey: "userId"});
@@ -234,8 +248,10 @@ Gem.hasMany(Rating, { foreignKey: "gemId"});
 Rating.belongsTo(Gem, { foreignKey: "gemId"});
 
 // Gem manytomany Tag
-Gem.belongsToMany(Tag, {through: 'GemTag'})
-Tag.belongsToMany(Gem, {through: 'GemTag'})
+Gem.belongsToMany(Tag, {through: 'GemTag'});
+Tag.belongsToMany(Gem, {through: 'GemTag'});
 
+// User - Friend // one to many
+User.belongsToMany(User, {as: 'Friendship', through: Friendship, foreignKey: "userId", otherKey: 'friendId'});
 
-export { User, Gem, Comment, Rating, Tag };
+export { User, Gem, Comment, Rating, Tag, Friendship };
