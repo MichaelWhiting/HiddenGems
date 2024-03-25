@@ -33,8 +33,11 @@ const handlerFunctions = {
             include: [{model: Comment}, {model: Rating}]
         }); 
 
-        gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
-        gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
+        const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+        const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+        
+        gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+        gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
 
         if (gem) {
             res.send({
@@ -55,8 +58,11 @@ const handlerFunctions = {
         }); 
 
         gems.forEach((gem) => {
-            gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
-            gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
+            const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+            const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+            
+            gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+            gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
         })
 
         if (gems) {
@@ -250,7 +256,6 @@ const handlerFunctions = {
     createGem: async (req, res) => {
        
             
-            // Extract form data from the request body
             const { name, description, imgUrl, lat, lng } = req.body;
             // Create a new record in the database
             const newGem = await Gem.create({
@@ -305,23 +310,26 @@ const handlerFunctions = {
                     gemId
                 })
                 res.send({
-                    message: "created rating",
+                    message: "Created enjoyability rating",
                     success: true
                 })
+                return;
             } else if (popularity) {
                 await Rating.create({
                     popularity,
                     gemId
                 })
                 res.send({
-                    message: "created rating",
+                    message: "Created populatiry rating",
                     success: true
                 })
+                return;
             } else {
                 res.send({
                     message: "failed to create rating",
                     success: false
                 })
+                return;
             }
         }
     },
