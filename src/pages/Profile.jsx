@@ -43,7 +43,8 @@ function Profile() {
     getUser()
   }, [userId, navigate]);
 
-     const script = document.createElement("script");
+  useEffect(() => {
+    const script = document.createElement("script");
     script.src = "https://sdk.amazonaws.com/js/aws-sdk-2.813.0.min.js";
     script.async = true;
     script.onload = () => {

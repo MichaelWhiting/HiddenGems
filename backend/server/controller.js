@@ -384,7 +384,7 @@ const handlerFunctions = {
                 success: false
             })
         }
-    }
+    },
     // Add this to your handlerFunctions object in controller.js
 
 updateUserProfileImg: async (req, res) => {
