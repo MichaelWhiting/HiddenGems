@@ -40,7 +40,6 @@ function DetailsPage() {
       const newComment = response.data.newComment;
 
       setGems(gems.map(gem => {
-       
         if (response.data.success) {
           return {...gem, comments: [...gem.comments, newComment]};
         }

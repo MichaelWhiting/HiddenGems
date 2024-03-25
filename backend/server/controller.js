@@ -298,7 +298,6 @@ const handlerFunctions = {
         }
     },
     createRating: async (req, res) => {
-       
         if (req.session.userId) {
             const { enjoyability, popularity, gemId } = req.body
             await Rating.create({
