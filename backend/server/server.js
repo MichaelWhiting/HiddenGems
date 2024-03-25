@@ -44,9 +44,10 @@ app.post("/createComment", handlerFunctions.createComment);
 app.post("/createRating", handlerFunctions.createRating)
 
 // PUT
+app.put("/updateGem/:gemId", handlerFunctions.updateGem);
 
 // DELETE
-
+app.delete("/deleteGem/:gemId", handlerFunctions.deleteGem);
 
 
 // Server Startup

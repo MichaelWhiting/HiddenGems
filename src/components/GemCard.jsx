@@ -1,10 +1,25 @@
 import React from 'react'
 import RatingBar from './RatingBar.jsx';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function GemCard(props) {
     const { gem, i, reload, setReload } = props;
     const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate(`/updateGem/${gem.gemId}`);
+    };
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`/deleteGem/${gem.gemId}`);
+            setReload(!reload);
+        } catch (error) {
+            console.error("Error deleting gem:", error);
+        }
+    };
+
     return (
         <div key={i} className="gem-card">
             <h2 className="gem-location">
@@ -28,6 +43,10 @@ function GemCard(props) {
                     rating={gem.popularAvg ? gem.popularAvg : 0}
                     type="popularity"
                 />
+            </div>
+            <div>
+                <button onClick={handleEdit}>Edit</button>
+                <button onClick={handleDelete}>Delete</button>
             </div>
             <button
                 className="hyper-link"

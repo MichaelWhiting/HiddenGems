@@ -354,6 +354,77 @@ const handlerFunctions = {
           return res.status(500).json({ message: 'Internal server error' });
         }
     },
-}
+    updateGem: async (req, res) => {
+        const { gemId } = req.params;
+        const { name, description, imgUrl, lat, lng } = req.body;
+
+        try {
+            // Check if the user is authenticated
+            if (!req.session.userId) {
+                return res.status(401).json({ message: "Unauthorized: User not logged in" });
+            }
+    
+            // Find the gem by ID
+            const gem = await Gem.findByPk(gemId);
+    
+            // Check if the gem exists
+            if (!gem) {
+                return res.status(404).json({ message: "Gem not found" });
+            }
+    
+            // Check if the gem belongs to the logged-in user
+            if (gem.userId !== req.session.userId) {
+                return res.status(403).json({ message: "Forbidden: You are not authorized to update this gem" });
+            }
+
+            // Update the gem attributes
+            gem.name = name;
+            gem.description = description;
+            gem.imgUrl = imgUrl;
+            gem.lat = lat;
+            gem.lng = lng;
+
+            // Save the updated gem
+            await gem.save();
+
+            return res.status(200).json({ message: "Gem updated successfully", gem });
+        } catch (error) {
+            console.error("Error updating gem:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+    deleteGem: async (req, res) => {
+        const { gemId } = req.params;
+    
+        try {
+            // Check if the user is authenticated
+            if (!req.session.userId) {
+                return res.status(401).json({ message: "Unauthorized: User not logged in" });
+            }
+    
+            // Find the gem by ID
+            const gem = await Gem.findByPk(gemId);
+    
+            // Check if the gem exists
+            if (!gem) {
+                return res.status(404).json({ message: "Gem not found" });
+            }
+    
+            // Check if the gem belongs to the logged-in user
+            if (gem.userId !== req.session.userId) {
+                alert('This is not your gem silly!'); // Add the alert here
+                return res.status(403).json({ message: "Forbidden: You are not authorized to delete this gem" });
+            }
+    
+            // Delete the gem
+            await gem.destroy();
+    
+            return res.status(200).json({ message: "Gem deleted successfully" });
+        } catch (error) {
+            console.error("Error deleting gem:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+};
 
 export default handlerFunctions;
