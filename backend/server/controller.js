@@ -33,8 +33,11 @@ const handlerFunctions = {
             include: [{model: Comment}, {model: Rating}]
         }); 
 
-        gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
-        gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
+        const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+        const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+        
+        gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+        gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
 
         if (gem) {
             res.send({
@@ -55,8 +58,11 @@ const handlerFunctions = {
         }); 
 
         gems.forEach((gem) => {
-            gem.enjoyAvg = Math.round(gem.ratings.map((rating) => rating.enjoyability).reduce((a, c) => a + c, 0) / gem.ratings.length);
-            gem.popularAvg = Math.round(gem.ratings.map((rating) => rating.popularity).reduce((a, c) => a + c, 0) / gem.ratings.length);
+            const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+            const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+            
+            gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+            gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
         })
 
         if (gems) {
@@ -250,9 +256,7 @@ const handlerFunctions = {
     createGem: async (req, res) => {
        
             
-            // Extract form data from the request body
             const { name, description, imgUrl, lat, lng } = req.body;
-
             // Create a new record in the database
             const newGem = await Gem.create({
                 name,
@@ -261,6 +265,7 @@ const handlerFunctions = {
                 lat,
                 lng
             });
+            console.log(imgUrl, 'lkasdlfkj')
 
             // Send a success response back to the frontend
             res.send({
@@ -273,8 +278,6 @@ const handlerFunctions = {
     createComment: async (req, res) => {
 
         if (req.session.userId) {
-
-            
             const { comment } = req.body
             
             const { text, gemId } = comment;
@@ -298,21 +301,58 @@ const handlerFunctions = {
         }
     },
     createRating: async (req, res) => {
-       
         if (req.session.userId) {
             const { enjoyability, popularity, gemId } = req.body
-            await Rating.create({
-                enjoyability,
-                popularity,
-                gemId
-            })
-            console.log(gemId)
-            res.send({
-                message: "created rating",
-                success: true
-            })
+
+            if (enjoyability) {
+                await Rating.create({
+                    enjoyability,
+                    gemId
+                })
+                res.send({
+                    message: "Created enjoyability rating",
+                    success: true
+                })
+                return;
+            } else if (popularity) {
+                await Rating.create({
+                    popularity,
+                    gemId
+                })
+                res.send({
+                    message: "Created populatiry rating",
+                    success: true
+                })
+                return;
+            } else {
+                res.send({
+                    message: "failed to create rating",
+                    success: false
+                })
+                return;
+            }
         }
-    }
+    },
+    getUserInfo: async (req, res) => {
+
+        const userId = req.params.userId; // Assuming userId is received from the request params
+
+        try {
+          const user = await User.findOne({
+            where: { userId: userId },
+            include: [{ model: Gem }, { model: Comment }]
+          });
+      
+          if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+          }
+      
+          return res.status(200).json({ user: user });
+        } catch (error) {
+          console.error('Error retrieving user:', error);
+          return res.status(500).json({ message: 'Internal server error' });
+        }
+    },
 }
 
 export default handlerFunctions;

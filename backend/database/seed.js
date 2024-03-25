@@ -87,32 +87,32 @@ await Comment.create({
     userId: 4
 });
 
-await Rating.create({
-    enjoyability: 95,
-    popularity: 18,
-    userId: 1,
-    gemId: 1
-});
+// await Rating.create({
+//     enjoyability: 95,
+//     popularity: 18,
+//     userId: 1,
+//     gemId: 1
+// });
 
-await Rating.create({
-    enjoyability: 50,
-    popularity: 25,
-    userId: 2,
-    gemId: 1
-});
+// await Rating.create({
+//     enjoyability: 50,
+//     popularity: 25,
+//     userId: 2,
+//     gemId: 1
+// });
 
-await Rating.create({
-    enjoyability: 55,
-    popularity: 12,
-    userId: 4,
-    gemId: 2
-});
+// await Rating.create({
+//     enjoyability: 55,
+//     popularity: 12,
+//     userId: 4,
+//     gemId: 2
+// });
 
-await Rating.create({
-    enjoyability: 12,
-    popularity: 50,
-    userId: 4,
-    gemId: 2
-});
+// await Rating.create({
+//     enjoyability: 12,
+//     popularity: 50,
+//     userId: 4,
+//     gemId: 2
+// });
 
 await db.close();

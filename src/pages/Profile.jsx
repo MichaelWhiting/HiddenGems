@@ -1,58 +1,70 @@
 import { useNavigate } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import GemCard from "../components/GemCard";
+
 
 
 function Profile() {
+  
   const userId = useSelector(state => state.userId);
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(null);
 
-  const user = {
-    username: "Michael",
-    email: "michael@test.com"
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    if (!userId) {
+        navigate("/login");
+    } else {
+        axios.get(`/getUserInfo/${userId}`)
+            .then(response => {
+                setUserInfo(response.data.user);
+            })
+            .catch(error => {
+                console.error('Error fetching user info:', error);
+            });
+    }
+}, [userId, navigate]);
+
+  if (!userInfo) {
+    return <div>Loading...</div>; // Or some loading spinner
   }
 
-  useEffect(() => { // this checks if the user is logged in, if not they can't go the account page and have to login
-    if (!userId) {
-        navigate("/login")
-    }
-  }, []);
+  const gemCards = userInfo.gems.map((gem, i) => {
+    return (
+      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
+    )
+  });
 
   return (
-    <div style={{textAlign: "center", justifyContent: "center", alignItems: "center", width: "100%"}}>
-      <div >
-        <Icon.Person style={{width: "20%", height: "20%"}}/>
+    <div style={{ textAlign: 'center', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+      <div>
+        <Icon.Person style={{ width: '20%', height: '20%' }} />
       </div>
-      <h1>{user.username}</h1>
-      <h1>{user.email}</h1>
-      <hr/>
-      <div style={{textAlign: "center"}}>
-        <h2>Posts</h2>
+     
+      <h1>{userInfo.email}</h1>
+      <hr />
+      <div style={{ textAlign: 'center' }}>
+        <h2>Gems You Created</h2>
         <ul>
-          <h4>-Place 1</h4>
-          <h4>-Place 2</h4>
-          <h4>-Place 3</h4>
+          {gemCards}
+
         </ul>
       </div>
-      <div style={{textAlign: "center"}}>
+      <div style={{ textAlign: 'center' }}>
         <h2>Comments</h2>
         <ul>
-          <h4>-Comment 1</h4>
-          <h4>-Comment 2</h4>
-          <h4>-Comment 3</h4>
-        </ul>
-      </div>
-      <div style={{textAlign: "center"}}>
-        <h2>Friends</h2>
-        <ul>
-          <h4>-Friend 1</h4>
-          <h4>-Friend 2</h4>
-          <h4>-Friend 3</h4>
+          {userInfo.comments.map(comment => (
+            <h4 key={comment.id}>-{comment.text}</h4> 
+          ))}
         </ul>
       </div>
        {/* Add Edit button */}
        <button onClick={() => navigate(`/edit-gem/${gem.gemId}`)}>Edit</button>
+
     </div>
   )
 }

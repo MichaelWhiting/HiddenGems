@@ -2,10 +2,12 @@ import ViteExpress from "vite-express";
 import session from "express-session";
 import express from "express";
 import morgan from "morgan";
+import dotenv from 'dotenv'
 
 // Handlers
 import handlerFunctions from "./controller.js";
 
+dotenv.config()
 // Server Boilerplate
 const app = express();
 
@@ -32,6 +34,7 @@ app.get("/getComments/:gemId", handlerFunctions.getComments);
 app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
 app.get('/session-check', handlerFunctions.sessionCheck);
 app.get("/logout", handlerFunctions.logout);
+app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
 
 // POST
 app.post("/login", handlerFunctions.login);

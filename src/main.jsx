@@ -12,7 +12,6 @@ import Home from "./pages/Home.jsx";
 import Discover from "./pages/Discover.jsx";
 import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
-import FullDetails from "./pages/FullDetails.jsx";
 import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
 import Game2048 from './pages/game2048.jsx'
@@ -29,7 +28,6 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
         <Route path="/details" element={<DetailsPage />} />
-        <Route path="/fullDetails" element={<FullDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="2048" element={<Game2048 />} />
         <Route path="/edit-gem/:gemId" element={<EditGem />} />
