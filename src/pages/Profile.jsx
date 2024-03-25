@@ -13,10 +13,6 @@ function Profile() {
   const [reload, setReload] = useState(false);
   const [imgUploadStatus, setImgUploadStatus] = useState("");
 
-  const handleIconClick = () => {
-    document.getElementById("fileInput").click();
-  };
-
   useEffect(() => {
     if (!userId) {
       navigate("/login");
@@ -49,37 +45,46 @@ function Profile() {
     };
   }, []);
 
-  const uploadFile = (file) => {
+  const uploadFile = (file, type) => {
     const s3 = new window.AWS.S3();
+    const keyPrefix = type === "profile" ? "profile-images/" : "header-images/";
     const params = {
-      Bucket: "hidden-gems-dev-mountain", // Replace with your bucket name
-      Key: `${userId}-${file.name}`,
+      Bucket: "hidden-gems-dev-mountain",
+      Key: `${keyPrefix}${userId}-${file.name}`,
       Body: file,
     };
     s3.upload(params, async (err, data) => {
       if (err) {
         console.error("Error uploading file:", err);
-        setImgUploadStatus("Failed to upload image.");
+        setImgUploadStatus(`Failed to upload ${type} image.`);
       } else {
         console.log(`File uploaded successfully. ${data.Location}`);
         try {
-          await axios.put(`/updateUserProfileImg/${userId}`, {
-            imgUrl: data.Location,
+          const updateEndpoint =
+            type === "profile"
+              ? `/updateUserProfileImg/${userId}`
+              : `/updateUserHeaderImg/${userId}`;
+          await axios.put(updateEndpoint, {
+            [type === "profile" ? "imgUrl" : "headerImgUrl"]: data.Location,
           });
-          setImgUploadStatus("Image uploaded successfully.");
+          setImgUploadStatus(
+            `${
+              type.charAt(0).toUpperCase() + type.slice(1)
+            } image uploaded successfully.`
+          );
           setReload(!reload); // Trigger reload to fetch updated user info
         } catch (error) {
-          console.error("Error updating user profile image:", error);
-          setImgUploadStatus("Failed to update profile image.");
+          console.error(`Error updating ${type} profile image:`, error);
+          setImgUploadStatus(`Failed to update ${type} profile image.`);
         }
       }
     });
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (file) {
-      uploadFile(file);
+      uploadFile(file, type);
     }
   };
 
@@ -104,16 +109,37 @@ function Profile() {
         <input
           type="file"
           id="fileInput"
-          onChange={handleFileChange}
+          onChange={(e) => handleFileChange(e, "profile")}
           className="file-input"
           style={{ display: "none" }}
         />
         <button
           className="icon-button"
-          onClick={handleIconClick}
-          aria-label="Upload file"
+          onClick={() => document.getElementById("fileInput").click()}
+          aria-label="Upload profile image"
         >
           <Upload size={24} /> {/* Adjust size as needed */}
+        </button>
+        {userInfo?.headerImgUrl && (
+          <img
+            src={userInfo.headerImgUrl}
+            alt="User header"
+            className="header-image"
+          />
+        )}
+        <input
+          type="file"
+          id="headerFileInput"
+          onChange={(e) => handleFileChange(e, "header")}
+          className="file-input"
+          style={{ display: "none" }}
+        />
+        <button
+          className="icon-button header-upload-btn"
+          onClick={() => document.getElementById("headerFileInput").click()}
+          aria-label="Upload header image"
+        >
+          <Upload size={50} /> {/* Adjust size as needed */}
         </button>
         {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
       </div>

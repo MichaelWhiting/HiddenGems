@@ -30,6 +30,10 @@ User.init(
         imgUrl: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        headerImgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {
