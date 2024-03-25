@@ -51,6 +51,8 @@ function Profile() {
           <h4>-Friend 3</h4>
         </ul>
       </div>
+       {/* Add Edit button */}
+       <button onClick={() => navigate(`/edit-gem/${gem.gemId}`)}>Edit</button>
     </div>
   )
 }
