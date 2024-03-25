@@ -45,6 +45,7 @@ app.post("/createComment", handlerFunctions.createComment);
 app.post("/createRating", handlerFunctions.createRating)
 
 // PUT
+app.put('/updateUserProfileImg/:userId', handlerFunctions.updateUserProfileImg);
 
 // DELETE
 

@@ -11,9 +11,8 @@ function GemCard(props) {
             <h2 className="gem-location">
                 {i + 1}. {gem.name}
             </h2>
-            {}
-            <p className="gem-description" style={{minHeight: 70, maxHeight: 70, overflow: 'scroll'}}>{gem.description}</p>
-            <hr/>
+            {gem?.imgUrl && <img src={gem.imgUrl} alt={gem.name} className="gem-image" />}
+            <p className="gem-description">{gem.description}</p>
             <div>
                 Enjoyability:
                 <RatingBar
