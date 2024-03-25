@@ -15,6 +15,7 @@ import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
 import Game2048 from './pages/game2048.jsx'
+import EditGem from './components/EditGem.jsx'
 
 import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route path="/details" element={<DetailsPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="2048" element={<Game2048 />} />
+        <Route path="/edit-gem/:gemId" element={<EditGem />} />
       </Route>
   )
 )

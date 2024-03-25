@@ -62,7 +62,9 @@ function Profile() {
           ))}
         </ul>
       </div>
-      {/* Similarly for Friends if you have that relation in your backend */}
+       {/* Add Edit button */}
+       <button onClick={() => navigate(`/edit-gem/${gem.gemId}`)}>Edit</button>
+
     </div>
   )
 }
