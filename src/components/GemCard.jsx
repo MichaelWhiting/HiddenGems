@@ -10,6 +10,8 @@ function GemCard(props) {
             <h2 className="gem-location">
                 {i + 1}. {gem.name}
             </h2>
+            {gem?.imgUrl && <img src={gem.imgUrl} alt={gem.name} className="gem-image" />}
+
             <p className="gem-description">{gem.description}</p>
             <div>
                 Enjoyability:
