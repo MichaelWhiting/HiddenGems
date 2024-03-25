@@ -1,17 +1,17 @@
 import React from 'react'
 import RatingBar from './RatingBar.jsx';
 import { useNavigate } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 
 function GemCard(props) {
     const { gem, i, reload, setReload } = props;
     const navigate = useNavigate();
     return (
-        <div key={i} className="gem-card">
+        <div key={i} className="gem-card" style={{textAlign: "center", marginTop: 5}}>
             <h2 className="gem-location">
                 {i + 1}. {gem.name}
             </h2>
             {gem?.imgUrl && <img src={gem.imgUrl} alt={gem.name} className="gem-image" />}
-
             <p className="gem-description">{gem.description}</p>
             <div>
                 Enjoyability:
@@ -31,12 +31,14 @@ function GemCard(props) {
                     type="popularity"
                 />
             </div>
-            <button
+            <Button
+                variant='outline-info'
                 className="hyper-link"
                 onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}
+                style={{margin: "auto"}}
             >
                 Full Details
-            </button>{" "}
+            </Button>
             {/* Adjust the navigation path as needed */}
         </div>
     )

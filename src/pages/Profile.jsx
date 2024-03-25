@@ -7,9 +7,10 @@ import "../CSS/Profile.css"; // Import the CSS file for styling
 import { Upload } from "react-bootstrap-icons";
 
 function Profile() {
-  const userId = useSelector((state) => state.userId);
+  const userId = useSelector(state => state.userId);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
+  const [gems, setGems] = useState([]);
   const [reload, setReload] = useState(false);
   const [imgUploadStatus, setImgUploadStatus] = useState("");
 
@@ -21,19 +22,28 @@ function Profile() {
     if (!userId) {
       navigate("/login");
     } else {
-      axios
-        .get(`/getUserInfo/${userId}`)
-        .then((response) => {
-          setUserInfo(response.data.user);
-        })
-        .catch((error) => {
-          console.error("Error fetching user info:", error);
-        });
+      getUser();
     }
-  }, [userId, navigate, reload]);
+  }, [reload]);
+
+  const getUser = async () => {
+    console.log("page refreashed")
+    if (!userId) {
+      navigate("/login");
+    } else {
+      //  await axios.get(`/getUserInfo/${userId}`)
+      const response = await axios.get(`/getUserInfo/${userId}`)
+      setUserInfo(response.data.user);
+      const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+      setGems(data.gems);
+    }
+  }
 
   useEffect(() => {
-    const script = document.createElement("script");
+    getUser()
+  }, [userId, navigate]);
+
+     const script = document.createElement("script");
     script.src = "https://sdk.amazonaws.com/js/aws-sdk-2.813.0.min.js";
     script.async = true;
     script.onload = () => {
@@ -87,9 +97,11 @@ function Profile() {
     return <div>Loading...</div>; // Or some loading spinner
   }
 
-  const gemCards = userInfo.gems.map((gem, i) => (
-    <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} />
-  ));
+  const gemCards = gems.map((gem, i) => {
+    return (
+      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} />
+    )
+  });
 
   return (
     <div className="profile-container">
@@ -117,6 +129,7 @@ function Profile() {
         </button>
         {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
       </div>
+
 
       <h1 className="user-email">{userInfo.email}</h1>
       <hr />

@@ -354,6 +354,37 @@ const handlerFunctions = {
           return res.status(500).json({ message: 'Internal server error' });
         }
     },
+    getUserGems: async (req, res) => {
+        const { userId } = req.params;
+
+        const gems = await Gem.findAll({
+            where: {
+                userId: userId
+            },
+            include: { model: Rating }
+        })
+
+        gems.forEach((gem) => {
+            const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+            const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+            
+            gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+            gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
+        });
+
+        if (gems) {
+            res.send({
+                message: "Got gems for user",
+                success: true,
+                gems
+            })
+        } else {
+            res.send({
+                message: "Did not get gems for user",
+                success: false
+            })
+        }
+    }
     // Add this to your handlerFunctions object in controller.js
 
 updateUserProfileImg: async (req, res) => {
@@ -385,7 +416,6 @@ updateUserProfileImg: async (req, res) => {
         });
     }
 },
-
 }
 
 export default handlerFunctions;
