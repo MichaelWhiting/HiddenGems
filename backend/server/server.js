@@ -34,6 +34,7 @@ app.get("/getComments/:gemId", handlerFunctions.getComments);
 app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
 app.get('/session-check', handlerFunctions.sessionCheck);
 app.get("/logout", handlerFunctions.logout);
+app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
 
 // POST
 app.post("/login", handlerFunctions.login);

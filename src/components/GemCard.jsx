@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 function GemCard(props) {
     const { gem, i, reload, setReload } = props;
     const navigate = useNavigate();
-    
     return (
         <div key={i} className="gem-card">
             <h2 className="gem-location">

@@ -332,7 +332,27 @@ const handlerFunctions = {
                 return;
             }
         }
-    }
+    },
+    getUserInfo: async (req, res) => {
+
+        const userId = req.params.userId; // Assuming userId is received from the request params
+
+        try {
+          const user = await User.findOne({
+            where: { userId: userId },
+            include: [{ model: Gem }, { model: Comment }]
+          });
+      
+          if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+          }
+      
+          return res.status(200).json({ user: user });
+        } catch (error) {
+          console.error('Error retrieving user:', error);
+          return res.status(500).json({ message: 'Internal server error' });
+        }
+    },
 }
 
 export default handlerFunctions;
