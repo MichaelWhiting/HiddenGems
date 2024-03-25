@@ -112,28 +112,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-image-section">
-        {userInfo?.imgUrl && (
-          <img
-            src={userInfo.imgUrl}
-            alt="User profile"
-            className="profile-image"
-          />
-        )}
-        <input
-          type="file"
-          id="fileInput"
-          onChange={(e) => handleFileChange(e, "profile")}
-          className="file-input"
-          style={{ display: "none" }}
-        />
-        <button
-          className="icon-button"
-          onClick={() => document.getElementById("fileInput").click()}
-          aria-label="Upload profile image"
-        >
-          <Upload size={24} /> {/* Adjust size as needed */}
-        </button>
-        {userInfo?.headerImgUrl && (
+      {userInfo?.headerImgUrl && (
           <img
             src={userInfo.headerImgUrl}
             alt="User header"
@@ -152,9 +131,34 @@ function Profile() {
           onClick={() => document.getElementById("headerFileInput").click()}
           aria-label="Upload header image"
         >
-          <Upload size={50} /> {/* Adjust size as needed */}
+          <Upload size={24} /> {/* Adjust size as needed */}
+          <h4>Header image</h4>
         </button>
         {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
+        {userInfo?.imgUrl && (
+          <img
+            src={userInfo.imgUrl}
+            alt="User profile"
+            className="profile-image"
+          />
+        )}
+         <button
+          className="icon-button"
+          onClick={() => document.getElementById("fileInput").click()}
+          aria-label="Upload profile image"
+        >
+          <Upload size={24} /> {/* Adjust size as needed */}
+          <h4>Profile image</h4>
+        </button>
+        <input
+          type="file"
+          id="fileInput"
+          onChange={(e) => handleFileChange(e, "profile")}
+          className="file-input"
+          style={{ display: "none" }}
+        />
+       
+       
       </div>
 
 

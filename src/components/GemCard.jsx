@@ -2,6 +2,7 @@ import React from 'react'
 import RatingBar from './RatingBar.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "react-bootstrap";
+import "../CSS/GemCard.css"
 
 function GemCard(props) {
     const { gem, i, reload, setReload } = props;
