@@ -263,7 +263,8 @@ const handlerFunctions = {
                 description,
                 imgUrl,
                 lat,
-                lng
+                lng,
+                userId: req.session.userId,
             });
             console.log(imgUrl, 'lkasdlfkj')
 

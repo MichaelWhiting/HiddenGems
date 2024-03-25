@@ -16,7 +16,8 @@ function Profile() {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    if (!userId) {
+
+     if (!userId) {
         navigate("/login");
     } else {
         axios.get(`/getUserInfo/${userId}`)
@@ -27,7 +28,25 @@ function Profile() {
                 console.error('Error fetching user info:', error);
             });
     }
+  }, [reload]);
+
+  const getUser = async () => {
+    console.log("page refreashed")
+    if (!userId) {
+        navigate("/login");
+    } else {
+      //  await axios.get(`/getUserInfo/${userId}`)
+        const response =await axios.get(`/getUserInfo/${userId}`)
+                setUserInfo(response.data.user);
+    
+            
+    }
+  }
+
+  useEffect(() => {
+    getUser()
 }, [userId, navigate]);
+
 
   if (!userInfo) {
     return <div>Loading...</div>; // Or some loading spinner
@@ -58,7 +77,7 @@ function Profile() {
         <h2>Comments</h2>
         <ul>
           {userInfo.comments.map(comment => (
-            <h4 key={comment.id}>-{comment.text}</h4> 
+            <h4 key={comment.commentId}>-{comment.text}</h4> 
           ))}
         </ul>
       </div>
