@@ -161,7 +161,7 @@ function CreateGem() {
         <form onSubmit={handleSubmit} className="cr-form">
           <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
           <h2>Add A Tag</h2>
-           <div>
+          <div>
            {tags.map(tag => (
             <React.Fragment key={tag.tagId}>
             <input type="checkbox" id={`tag-${tag.tagId}`} value={tag.tagName}
