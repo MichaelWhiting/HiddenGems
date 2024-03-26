@@ -5,10 +5,15 @@ import morgan from "morgan";
 import dotenv from 'dotenv'
 
 // Handlers
-import handlerFunctions from "./controller.js";
+import userHandler from "./handlers/userHandler.js";
+import friendHandler from "./handlers/friendHandler.js";
+import gemHandler from "./handlers/gemHandler.js";
+import imgHandler from "./handlers/imgHandler.js";
+import ratingHandler from "./handlers/ratingHandler.js";
+import commentHandler from "./handlers/commentHandler.js";
 
-dotenv.config()
 // Server Boilerplate
+dotenv.config()
 const app = express();
 
 app.use(morgan("dev"));
@@ -24,38 +29,45 @@ app.use(
 
 // Routes
 
-// GET
-app.get("/getUser/:userId", handlerFunctions.getUser);
-app.get("/getFriends/:userId", handlerFunctions.getFriends);
-app.get("/getGem/:gemId", handlerFunctions.getGem);
-app.get("/getAllGems", handlerFunctions.getAllGems);
+// User Routes
+app.get('/session-check', userHandler.sessionCheck);
+app.get("/logout", userHandler.logout);
+app.get("/getUser/:userId", userHandler.getUser);
+app.get("/getUserInfo/:userId", userHandler.getUserInfo)
 
-app.get("/getComments/:gemId", handlerFunctions.getComments);
-app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
-app.get('/session-check', handlerFunctions.sessionCheck);
-app.get("/logout", handlerFunctions.logout);
-app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
-app.get("/getGemsFromUserId/:userId", handlerFunctions.getUserGems)
+app.post("/login", userHandler.login);
+app.post("/register", userHandler.register);
 
-app.get("/getFriends", handlerFunctions.getFriends);
-app.get("/getSearchResults/:searchText", handlerFunctions.getSearchResults);
+// Friends/Following Routes
+app.get("/getFriends", friendHandler.getFriends);
+app.get("/getSearchResults/:searchText", friendHandler.getSearchResults);
 
+// Gem Routes
+app.get("/getGem/:gemId", gemHandler.getGem);
+app.get("/getAllGems", gemHandler.getAllGems);
+app.get("/getGemsFromUserId/:userId", gemHandler.getUserGems);
 
-// POST
-app.post("/login", handlerFunctions.login);
-app.post("/register", handlerFunctions.register);
-app.post("/createGem", handlerFunctions.createGem);
-app.post("/createComment", handlerFunctions.createComment);
-app.post("/createRating", handlerFunctions.createRating)
+app.post("/createGem", gemHandler.createGem);
 
-// PUT
-app.put("/updateGem/:gemId", handlerFunctions.updateGem);
-app.put('/updateUserProfileImg/:userId', handlerFunctions.updateUserProfileImg);
-app.put('/updateUserHeaderImg/:userId', handlerFunctions.updateUserHeaderImg);
+app.put("/updateGem/:gemId", gemHandler.updateGem);
 
-// DELETE
-app.delete("/deleteGem/:gemId", handlerFunctions.deleteGem);
-app.delete('/deleteComment/:commentId', handlerFunctions.deleteComment);
+app.delete("/deleteGem/:gemId", gemHandler.deleteGem);
+
+// Img Routes
+app.put('/updateUserProfileImg/:userId', imgHandler.updateUserProfileImg);
+app.put('/updateUserHeaderImg/:userId', imgHandler.updateUserHeaderImg);
+
+// Ratings Routes
+app.get("/getRatings/:gemId", ratingHandler.getRatingsAvg);
+
+app.post("/createRating", ratingHandler.createRating);
+
+// Comments Routes
+app.get("/getComments/:gemId", commentHandler.getComments);
+
+app.post("/createComment", commentHandler.createComment);
+
+app.delete('/deleteComment/:commentId', commentHandler.deleteComment);
 
 
 
