@@ -147,7 +147,6 @@ function CreateGem() {
     if (selectedTags.includes(tagId)) {
       setSelectedTags(selectedTags.filter(id => id !== tagId)); // Deselect tag if already selected
     } else {
-      setSelectedTags([...selectedTags, tagId]); // Select tag if not selected
       setFormData({...formData, tags: [...formData.tags, tagId]})
     }
   };
