@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "../CSS/Login.css"; // Import the CSS file for styling
+
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -82,64 +84,77 @@ function Login() {
 
   return (
     <>
-      <h1>Hidden Gems</h1>
-      <h2>{isLogin ? "Login" : "Create Account"}</h2>
+      <div className="login-container">
+        <h1 className="title">Hidden Gems</h1>
+        <h2 className="subtitle">{isLogin ? "Login" : "Create Account"}</h2>
 
-      {!userId && (
-        <form onSubmit={isLogin ? handleLogin : handleRegister} id="key">
-          {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message if exists */}
-          <div>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {!isLogin && (
-            <>
-              <div>
-                <input
-                  id="firstName"
-                  type="text"
-                  value={firstName}
-                  placeholder="First Name"
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  id="lastName"
-                  type="text"
-                  value={lastName}
-                  placeholder="Last Name"
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-            </>
-          )}
-          <div>
-            <input
-              className="Login"
-              type="submit"
-              value={isLogin ? "Login" : "Register"}
-            />
-            <label onClick={(e) => setIsLogin(!isLogin)}>
-              {isLogin ? "Register Here" : "Login Here"}
-            </label>
-          </div>
-        </form>
-      )}
+        {!userId && (
+          <form
+            onSubmit={isLogin ? handleLogin : handleRegister}
+            className="auth-form"
+          >
+            {error && <p className="error-message">{error}</p>}{" "}
+            {/* Display error message if exists */}
+            <div className="input-group">
+              <input
+                id="email"
+                type="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            <div className="input-group">
+              <input
+                id="password"
+                type="password"
+                value={password}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            {!isLogin && (
+              <>
+                <div className="input-group">
+                  <input
+                    id="firstName"
+                    type="text"
+                    value={firstName}
+                    placeholder="First Name"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="input-field"
+                  />
+                </div>
+                <div className="input-group">
+                  <input
+                    id="lastName"
+                    type="text"
+                    value={lastName}
+                    placeholder="Last Name"
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="input-field"
+                  />
+                </div>
+              </>
+            )}
+            <div className="action-group">
+              <input
+                className="submit-button"
+                type="submit"
+                value={isLogin ? "Login" : "Register"}
+              />
+              <span
+                onClick={(e) => setIsLogin(!isLogin)}
+                className="toggle-form"
+              >
+                {isLogin ? "Register Here" : "Login Here"}
+              </span>
+            </div>
+          </form>
+        )}
+      </div>
     </>
   );
 }
