@@ -1,4 +1,4 @@
-import { User, Friendship } from "../database/model.js";
+import { User, Friendship } from  "../../database/model.js";
 import { Op } from "sequelize";
 
 const friendHandler = {

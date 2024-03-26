@@ -1,4 +1,4 @@
-import { Rating } from "../database/model.js";
+import { Rating } from  "../../database/model.js";
 
 const ratingHandler = {
     createRating: async (req, res) => {

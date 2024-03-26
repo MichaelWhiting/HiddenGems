@@ -1,4 +1,4 @@
-import { User, Gem, Comment } from "../database/model.js";
+import { User, Gem, Comment } from "../../database/model.js";
 
 const userHandler = {
     sessionCheck: async (req, res) => {

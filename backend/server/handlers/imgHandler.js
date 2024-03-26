@@ -1,4 +1,4 @@
-import { User } from "../database/model.js";
+import { User } from  "../../database/model.js";
 
 const imgHandler = {
     updateUserProfileImg: async (req, res) => {

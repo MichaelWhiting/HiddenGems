@@ -1,4 +1,4 @@
-import { Comment } from "../database/model.js";
+import { Comment } from  "../../database/model.js";
 
 const commentHandler = {
     getComments: async (req, res) => {

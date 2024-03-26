@@ -1,4 +1,4 @@
-import { Gem, Comment, Rating } from "../database/model.js";
+import { Gem, Comment, Rating } from  "../../database/model.js";
 
 const gemHandler = {
     getGem: async (req, res) => {
