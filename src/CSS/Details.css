@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1200px; /* Or your desired max width */
+  max-width: 1500px;
   margin: auto;
   padding: 20px;
 }
@@ -13,23 +13,19 @@
   width: 100%;
 }
 
-.gem-details {
+.gem-details-container {
   flex: 0 0 70%;
   padding: 20px;
+  border: 1px solid #ccc; /* Border around the gem details container */
 }
 
-.comments {
-  flex: 0 0 30%;
+.comments-container {
+  flex: 0 0 30%; /* Width of the comments container */
   padding: 20px;
-  border-left: 1px solid #ccc; /* Visually separates comments from details */
-  max-height: 600px; /* Optional: Adjust based on your design */
-}
-.comments-section {
-  flex: 0 0 30%;
-  padding: 20px;
-  max-height: 70%; /* Optional: Adjust based on your design */
-
-  overflow-y: auto; /* Allows scrolling for many comments */
+  border: 1px solid #ccc; /* Border around the comments container */
+  margin-left: 20px; /* Add some space between the gem details and comments */
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .gem-details-image {
@@ -38,18 +34,77 @@
   margin-bottom: 20px;
 }
 
-.gem-details-comment-form, .comment-textarea, .comment-submit-btn {
-  width: 100%;
-  margin-top: 10px;
- 
-
+.gem-details-ratings-map {
+  display: flex;
+  height: 100%;
+  padding-right: 20px; /* Adds padding to the right inside the container, effectively moving its children slightly to the left */
 }
+
+
+.gem-details-ratings {
+  flex: 1;
+  padding-right: 20px;
+  
+}
+
+.gem-details-map {
+  flex: 1;
+  max-width: 100%;
+  max-height: 100%;
+  margin-right: 30px; /* Add some margin to the right to move the map slightly to the left */
+}
+
+.comment-container {
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-user-id {
+  margin-bottom: 1px;
+}
+
+.comment-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trash-icon-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.small-trash-icon {
+  font-size: 1.5rem;
+  color: rgb(153, 15, 15);
+}
+
+.small-trash-icon:hover {
+  color: rgb(5, 3, 3);
+}
+
+.gem-details-description {
+  text-align: left;
+}
+
+.gem-details-ratings p {
+  margin: 0;
+}
+
+.gem-details-comment-form {
+  margin-top: 20px;
+}
+
 .comment-textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
-  resize: vertical; /* Allows the user to resize the textarea vertically */
+  resize: vertical;
+  width: 100%;
 }
 
 .comment-submit-btn {
@@ -61,52 +116,9 @@
   cursor: pointer;
   transition: background-color 0.3s;
   font-weight: bold;
-  margin-top: 10px; /* Additional spacing above the submit button */
+  margin-top: 10px;
 }
 
 .comment-submit-btn:hover {
   background-color: #0056b3;
-}
-
-/* Additional Styles for a Cohesive Look */
-
-.gem-details-location,
-.gem-details-description {
-  margin-bottom: 15px;
-  text-align: left; /* Aligns text to the left for readability */
-}
-
-.gem-details-ratings {
-  display: flex;
-  flex-direction: column;
-  align-items: start; /* Aligns rating bars to the start */
-  gap: 10px; /* Adds space between enjoyability and popularity ratings */
-  margin-bottom: 20px; /* Additional space before map or comments section */
-}
-
-.gem-details-map {
-  margin-top: 20px; /* Space above the map */
-}
-
-/* Styling for the Ratings Component */
-.rating-bar {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-}
-
-.rating-bar .rating-value {
-  margin-left: 10px;
-  font-size: 14px;
-}
-
-/* Comments Section Styling */
-.comments-section h6 {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.comments-section p {
-  text-align: left;
-  margin-bottom: 5px;
 }

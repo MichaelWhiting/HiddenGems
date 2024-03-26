@@ -51,7 +51,7 @@ function MapComponent(props) {
 
     return (
         <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
-            <div className='Map' style={{height: "65vh", width: "100%", color:'red'}}>
+            <div className='Map' style={{height: "100%", width: "100%", color:'red'}}>
                 <Map 
                     mapId="8041ba05ec4f9f0a" // mapId from the API website
                     center={isMapInitialized ? undefined : initialCenter} // tells the map where to initially start

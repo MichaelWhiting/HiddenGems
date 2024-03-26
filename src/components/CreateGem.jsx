@@ -63,7 +63,7 @@ function CreateGem() {
       Key: file.name,
       Body: file,
     };
-
+  
     s3.upload(params, function (err, data) {
       if (err) {
         throw err;
@@ -73,6 +73,8 @@ function CreateGem() {
         ...currentFormData,
         imgUrl: data.Location,
       }));
+      // Set submission status to display the success message
+      setSubmissionStatus("File uploaded successfully!");
     });
   }
 
@@ -141,6 +143,7 @@ function CreateGem() {
               value={formData.name}
               onChange={handleChange}
             />
+            
           </h1>
           <h2>Gem Description</h2>
           <textarea

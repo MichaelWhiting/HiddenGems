@@ -15,7 +15,13 @@
     height: 30%; /* Ensure equal width and height for a circle */
     border-radius: 50%; /* Circular shape */
     object-fit: cover; /* Covers the area of the circle */
-  }
+    transition: filter 0.3s ease, cursor 0.3s ease; /* Add transition effect */
+}
+
+.profile-image:hover {
+    filter: brightness(90%); /* Darken the image on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
   
   .placeholder-icon {
     width: 200px;

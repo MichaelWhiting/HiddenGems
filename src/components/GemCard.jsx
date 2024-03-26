@@ -7,6 +7,7 @@ import "../CSS/GemCard.css"
 function GemCard(props) {
     const { gem, i, reload, setReload } = props;
     const navigate = useNavigate();
+    console.log(gem.gemId)
     return (
         <div key={i} className="gem-card" style={{textAlign: "center"}}>
             <h2 className="gem-location">
@@ -40,7 +41,10 @@ function GemCard(props) {
             <Button
                 variant='outline-info'
                 className="hyper-link"
-                onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}
+                onClick={() => {
+                    navigate("/details", { state: { gemId: gem.gemId } })
+                    console.log("button was clicked")
+                }}
                 style={{margin: "auto", marginTop: 5}}
             >
                 Full Details
