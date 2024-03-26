@@ -18,6 +18,14 @@ User.init(
             autoIncrement: true,
             primaryKey: true,
         },
+        firstName: {
+            type: DataTypes.STRING(30),
+            allowNull: true,   
+        },
+        lastName: {
+            type: DataTypes.STRING(30),
+            allowNull: true,   
+        },
         email: {
             type: DataTypes.STRING(30),
             allowNull: false,
@@ -26,6 +34,14 @@ User.init(
         password: {
             type: DataTypes.STRING(500),
             allowNull: false,
+        },
+        imgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        headerImgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {
@@ -159,6 +175,20 @@ Tag.init(
     },
 );
 
+class Friendship extends Model {
+    [util.inspect.custom]() {
+        return this.toJSON();
+    }
+}
+
+Friendship.init(
+    {},
+    {
+        modelName: 'friendship',
+        sequelize: db
+    }
+)
+
 
 // User - Gem
 User.hasMany(Gem, { foreignKey: "userId"});
@@ -181,8 +211,10 @@ Gem.hasMany(Rating, { foreignKey: "gemId"});
 Rating.belongsTo(Gem, { foreignKey: "gemId"});
 
 // Gem manytomany Tag
-Gem.belongsToMany(Tag, {through: 'GemTag'})
-Tag.belongsToMany(Gem, {through: 'GemTag'})
+Gem.belongsToMany(Tag, {through: 'GemTag'});
+Tag.belongsToMany(Gem, {through: 'GemTag'});
 
+// User - Friend // many to many
+User.belongsToMany(User, {as: 'Friendship', through: Friendship, foreignKey: "userId", otherKey: 'friendId'});
 
-export { User, Gem, Comment, Rating, Tag };
+export { User, Gem, Comment, Rating, Tag, Friendship };

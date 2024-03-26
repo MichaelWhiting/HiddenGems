@@ -1,120 +1,164 @@
-import axios from 'axios';
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import "../CSS/Login.css"; // Import the CSS file for styling
+import { Button } from "react-bootstrap";
+
 
 function Login() {
-    // To login i need a user to enter user name and password
-    // keep track of them with state values
-    // when form is submitted send state values to server as req.body
-    const [isLogin, setIsLogin] = useState(true)
-    const navigate = useNavigate()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [error, setError] = useState(null); // New state to hold error information
 
-    // const [userId, setUserId] = useState(null)
+  const userId = useSelector((state) => state.userId);
+  const dispatch = useDispatch();
 
-    // to use redux we need to subscribe (useSelector())to the dstore
-    const userId = useSelector((state) => state.userId)
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    const dispatch = useDispatch()
+    const bodyObj = {
+      email,
+      password,
+    };
 
-    // how to handle the submittion of the form? create a function form submission invokes
-    const handleLogin = async (e) => {
-        e.preventDefault()
+    try {
+      const res = await axios.post("/login", bodyObj);
 
-        // need to create my req.body object:
-        const bodyObj = {
-            email,
-            password
-        }
-
-        // send the data to our /login endpoin to validate:
-        const res = await axios.post("/login", bodyObj)
-
-        // get response and save the userId to redux store
-        if (res.data.success) {
-
-            //what do i do with the userId that it returns to me
-            // dispatch the userId to the store
-            dispatch({
-                type: "USER_AUTH",
-                payload: res.data.userId
-
-            })
-            setEmail("")
-            setPassword("")
-            navigate('/')
-        }
+      if (res.data.success) {
+        dispatch({
+          type: "USER_AUTH",
+          payload: res.data.userId,
+        });
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+    } catch (error) {
+      setError(error.response.data.message); // Set error state with the error message from the server
     }
+  };
 
-    const handleRegister = async (e) => {
-        e.preventDefault()
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-        const bodyObj = {
-            email,
-            password
-        }
+    const bodyObj = {
+      email,
+      password,
+      firstName,
+      lastName,
+    };
 
-        const res = await axios.post("/register", bodyObj)
+    try {
+      const res = await axios.post("/register", bodyObj);
 
-        if (res.data.success) {
-            handleLogin(e)
-        }
-
+      if (res.data.success) {
+        handleLogin(e);
+      }
+    } catch (error) {
+      setError(error.response.data.message); // Set error state with the error message from the server
     }
-    // On initial render, I want this component to determine if 
-    // there is a userId saved in the servers rew.session object
-    //1. define a funciton to do it,
-    const sessionCheck = async () => {
-        const res = await axios.get("/session-check")
+  };
 
+  const sessionCheck = async () => {
+    try {
+      const res = await axios.get("/session-check");
 
-        if (res.data.success) {
-            // setUserId(res.data.userId)
-            dispatch({
-                type: "USER_AUTH",
-                payload: res.data.userId
-
-            })
-        }
+      if (res.data.success) {
+        dispatch({
+          type: "USER_AUTH",
+          payload: res.data.userId,
+        });
+      }
+    } catch (error) {
+      console.error("Error checking session:", error);
     }
+  };
 
-    //2. invoke that function on intitial reder only (with a useEffect() hook)
-    // useffect takes in a (callback, optionalDependencyArray)
-    // if the dependencyArray is not provided, useEffect will run on EvERy render
-    // if dependencyArray is empty ([]), then this tells useEffect to only 
-    // run on the initial render
-    // if the dependencyArray contains values, useEffect will only run
-    // each time one of those vaues is changes/used
-    useEffect(() => {
-        sessionCheck()
-    }, [])
+  useEffect(() => {
+    sessionCheck();
+  }, []);
 
-    return (
-        <>
-            <h1>Hidden Gems</h1>
-            <h2>{isLogin ? "Login" : "Create Account"}</h2>
+  return (
+    <>
+      <div className="login-container">
+        <h1 className="title">Hidden Gems</h1>
+        <h2 className="subtitle">{isLogin ? "Login" : "Create Account"}</h2>
 
-            {!userId && (
-
-                <form onSubmit={isLogin ? handleLogin : handleRegister} id="key">
-                    <div>
-                        <input id="email" type="email" value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div>
-                        <input id="password" type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <div >
-                        <input className='Login' type="submit" value={isLogin ? 'Login' : 'Register'} />
-                        <label onClick={(e) => setIsLogin(!isLogin)} >{isLogin ? "Register Here" : "Login Here"}</label>
-                    </div>
-                </form>
-            )
-            }
-        </>
-    )
+        {!userId && (
+          <form
+            onSubmit={isLogin ? handleLogin : handleRegister}
+            className="auth-form"
+          >
+            {error && <p className="error-message">{error}</p>}{" "}
+            {/* Display error message if exists */}
+            <div className="input-group">
+              <input
+                id="email"
+                type="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            <div className="input-group">
+              <input
+                id="password"
+                type="password"
+                value={password}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            {!isLogin && (
+              <>
+                <div className="input-group">
+                  <input
+                    id="firstName"
+                    type="text"
+                    value={firstName}
+                    placeholder="First Name"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="input-field"
+                  />
+                </div>
+                <div className="input-group">
+                  <input
+                    id="lastName"
+                    type="text"
+                    value={lastName}
+                    placeholder="Last Name"
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="input-field"
+                  />
+                </div>
+              </>
+            )}
+            <div className="action-group">
+              <Button
+                className="submit-button"
+                type="submit"
+                
+                variant="info"
+            >{isLogin ? "Login" : "Register"}</Button>
+              <span
+                onClick={(e) => setIsLogin(!isLogin)}
+                className="toggle-form"
+              >
+                {isLogin ? "Register Here" : "Login Here"}
+              </span>
+            </div>
+          </form>
+        )}
+      </div>
+    </>
+  );
 }
 
-export default Login
+export default Login;

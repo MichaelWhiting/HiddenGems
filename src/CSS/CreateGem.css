@@ -53,4 +53,17 @@
     border-radius: 5px;
     overflow: hidden;
   }
- 
+  .upload-button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #007bff; /* Use your theme's primary color here */
+  }
+  
+  .upload-button:hover {
+    color: #0056b3; /* A slightly darker shade for hover effect */
+  }

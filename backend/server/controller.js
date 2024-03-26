@@ -1,4 +1,5 @@
-import { User, Gem, Comment, Rating, Tag } from "../database/model.js";
+import { User, Gem, Comment, Rating, Tag, Friendship } from "../database/model.js";
+import { Op } from "sequelize";
 
 const handlerFunctions = {
     getUser: async (req, res) => {
@@ -19,12 +20,62 @@ const handlerFunctions = {
             })
         }
     },
-
     getFriends: async (req, res) => {
-        const { userId } = req.params;
-        // add rest of functionality later
-    },
+        const userId = req.session.userId;
 
+        const friendships = await Friendship.findAll({
+            where: {
+                userId: userId
+            }
+        });
+
+        const friends = [];
+
+        for (const friendship of friendships) {
+            const user = await User.findByPk(friendship.friendId);
+            friends.push(user);
+        }
+
+        if (friends) {
+            res.send({
+                message: "Retrieved all of the friends for logged in user",
+                success: true,
+                friends
+            });
+            return;
+        } else {
+            res.send({
+                message: "Failed to retrieve friends for logged in user",
+                success: false
+            });
+        }
+    },
+    getSearchResults: async (req, res) => {
+        const { searchText } = req.params;
+
+        const searchResults = await User.findAll({
+            where: {
+                email: {
+                    [Op.iLike]: `%${searchText}%`
+                }
+            }
+        });
+
+
+        if (searchResults) {
+            res.send({
+                message: "Found search results for search query",
+                success: true,
+                searchResults
+            });
+            return;
+        } else {
+            res.send({
+                message: "Did not find search results for search query",
+                success: false
+            });
+        }
+    },
     getGem: async (req, res) => {
         const { gemId } = req.params;
 
@@ -35,7 +86,7 @@ const handlerFunctions = {
 
         const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
         const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
-        
+
         gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
         gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
 
@@ -51,16 +102,16 @@ const handlerFunctions = {
                 success: false
             })
         }
-    }, 
+    },
     getAllGems: async (req, res) => {
         const gems = await Gem.findAll({
             include: Rating
-        }); 
+        });
 
         gems.forEach((gem) => {
             const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
             const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
-            
+
             gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
             gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
         })
@@ -77,8 +128,7 @@ const handlerFunctions = {
                 success: false
             })
         }
-    }, 
-
+    },
     getComments: async (req, res) => {
         const { gemId } = req.params;
 
@@ -100,8 +150,7 @@ const handlerFunctions = {
                 success: false
             });
         }
-    }, 
-
+    },
     getRatingsAvg: async (req, res) => {
         console.log("hitting the backend")
         const { gemId } = req.params;
@@ -120,7 +169,7 @@ const handlerFunctions = {
             popularityAvg.push(rating.popularity);
         });
 
-        enjoyabilityAvg = Math.round(enjoyabilityAvg.reduce((a, c) => a + c, 0)/ enjoyabilityAvg.length);
+        enjoyabilityAvg = Math.round(enjoyabilityAvg.reduce((a, c) => a + c, 0) / enjoyabilityAvg.length);
         popularityAvg = Math.round(popularityAvg.reduce((a, c) => a + c, 0) / popularityAvg.length);
 
         const averages = { enjoyabilityAvg, popularityAvg }
@@ -147,8 +196,8 @@ const handlerFunctions = {
             // const user = await User.findByPk (req.session.userId)
 
             res.send({
-                message:"user is still logged in",
-                success:true,
+                message: "user is still logged in",
+                success: true,
                 userId: req.session.userId
             })
             return
@@ -161,13 +210,13 @@ const handlerFunctions = {
     },
     login: async (req, res) => {
         // grab values of 'email'/'password' from body object
-        const { email, password} = req.body
+        const { email, password } = req.body
 
         // see if a user exists in the db with 
         // the provided username
         const user = await User.findOne({
             where: {
-                email:email
+                email: email
             }
         })
 
@@ -184,7 +233,7 @@ const handlerFunctions = {
         // if we're here, then the user was found
         // evaluate if the passwords match
 
-        if(user.password !== password) {
+        if (user.password !== password) {
             res.send({
                 message: 'password does not match',
                 success: false,
@@ -210,41 +259,40 @@ const handlerFunctions = {
             userId: req.session.userId
         })
     },
-
     register: async (req, res) => {
         const { email, password } = req.body;
-      
+
         // Check if the user with the provided email already exists
         const existingUser = await User.findOne({
-          where: {
-            email: email,
-          },
+            where: {
+                email: email,
+            },
         });
-      
+
         if (existingUser) {
-          res.send({
-            message: 'User already exists with this email',
-            success: false,
-          });
-          return;
+            res.send({
+                message: 'User already exists with this email',
+                success: false,
+            });
+            return;
         }
-      
+
         // Create a new user in the database
         const newUser = await User.create({
-          email: email,
-          password: password,
+            email: email,
+            password: password,
         });
-      
+
         // Set the user as logged in 
         req.session.userId = newUser.userId;
-      
+
         res.send({
-          message: 'User registered and logged in',
-          success: true,
-          userId: newUser.userId,
+            message: 'User registered and logged in',
+            success: true,
+            userId: newUser.userId,
         });
-      },
-      logout: async (req, res) => {
+    },
+    logout: async (req, res) => {
         req.session.destroy()
 
         res.send({
@@ -289,28 +337,26 @@ const handlerFunctions = {
                 success: true,
                 newGem: newGem
             })
-        
     },
     createComment: async (req, res) => {
-
         if (req.session.userId) {
             const { comment } = req.body
-            
+
             const { text, gemId } = comment;
-            
-            const newComment = await Comment.create({ 
+
+            const newComment = await Comment.create({
                 text,
                 gemId,
                 userId: req.session.userId
             })
-            
-            res.send ({
+
+            res.send({
                 message: "comment created",
-                success:true,
+                success: true,
                 newComment: newComment
             })
         } else {
-            res.send ({
+            res.send({
                 message: "comment NOT created",
                 success: false,
             })
@@ -350,23 +396,202 @@ const handlerFunctions = {
         }
     },
     getUserInfo: async (req, res) => {
-
         const userId = req.params.userId; // Assuming userId is received from the request params
 
         try {
-          const user = await User.findOne({
-            where: { userId: userId },
-            include: [{ model: Gem }, { model: Comment }]
-          });
-      
-          if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-          }
-      
-          return res.status(200).json({ user: user });
+            const user = await User.findOne({
+                where: { userId: userId },
+                include: [{ model: Gem }, { model: Comment }]
+            });
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            return res.status(200).json({ user: user });
         } catch (error) {
-          console.error('Error retrieving user:', error);
-          return res.status(500).json({ message: 'Internal server error' });
+            console.error('Error retrieving user:', error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    },
+    getUserGems: async (req, res) => {
+        const { userId } = req.params;
+
+        const gems = await Gem.findAll({
+            where: {
+                userId: userId
+            },
+            include: { model: Rating }
+        })
+
+        gems.forEach((gem) => {
+            const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+            const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+
+            gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+            gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
+        });
+
+        if (gems) {
+            res.send({
+                message: "Got gems for user",
+                success: true,
+                gems
+            })
+        } else {
+            res.send({
+                message: "Did not get gems for user",
+                success: false
+            })
+        }
+    },
+    // Add this to your handlerFunctions object in controller.js
+
+    updateGem: async (req, res) => {
+        const { gemId } = req.params;
+        const { name, description, imgUrl, lat, lng } = req.body;
+
+        try {
+            // Check if the user is authenticated
+            if (!req.session.userId) {
+                return res.status(401).json({ message: "Unauthorized: User not logged in" });
+            }
+    
+            // Find the gem by ID
+            const gem = await Gem.findByPk(gemId);
+    
+            // Check if the gem exists
+            if (!gem) {
+                return res.status(404).json({ message: "Gem not found" });
+            }
+    
+            // Check if the gem belongs to the logged-in user
+            if (gem.userId !== req.session.userId) {
+                return res.status(403).json({ message: "Forbidden: You are not authorized to update this gem" });
+            }
+
+            // Update the gem attributes
+            gem.name = name;
+            gem.description = description;
+            gem.imgUrl = imgUrl;
+            gem.lat = lat;
+            gem.lng = lng;
+
+            // Save the updated gem
+            await gem.save();
+
+            return res.status(200).json({ message: "Gem updated successfully", gem });
+        } catch (error) {
+            console.error("Error updating gem:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+    deleteGem: async (req, res) => {
+        const { gemId } = req.params;
+    
+        try {
+            // Check if the user is authenticated
+            if (!req.session.userId) {
+                return res.status(401).json({ message: "Unauthorized: User not logged in" });
+            }
+    
+            // Find the gem by ID
+            const gem = await Gem.findByPk(gemId);
+    
+            // Check if the gem exists
+            if (!gem) {
+                return res.status(404).json({ message: "Gem not found" });
+            }
+    
+            // Check if the gem belongs to the logged-in user
+            if (gem.userId !== req.session.userId) {
+                alert('This is not your gem silly!'); // Add the alert here
+                return res.status(403).json({ message: "Forbidden: You are not authorized to delete this gem" });
+            }
+    
+            // Delete the gem
+            await gem.destroy();
+    
+            return res.status(200).json({ message: "Gem deleted successfully" });
+        } catch (error) {
+            console.error("Error deleting gem:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+    
+    updateUserProfileImg: async (req, res) => {
+        const { userId } = req.params;
+        const { imgUrl } = req.body;
+
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).send({
+                    message: "User not found",
+                    success: false,
+                });
+            }
+
+            user.imgUrl = imgUrl;
+            await user.save();
+
+            res.send({
+                message: "User profile image updated successfully",
+                success: true,
+                user,
+            });
+        } catch (error) {
+            console.error('Error updating user profile image:', error);
+            res.status(500).send({
+                message: "Error updating user profile image",
+                success: false,
+            });
+        }
+    },
+    updateUserHeaderImg: async (req, res) => {
+        const { userId } = req.params;
+        const { headerImgUrl } = req.body;
+    
+        try {
+          const user = await User.findByPk(userId);
+          if (!user) {
+            return res.status(404).send({
+              message: "User not found",
+              success: false,
+            });
+          }
+    
+          user.headerImgUrl = headerImgUrl; // Assuming you have a field named headerImgUrl in your User model
+          await user.save();
+    
+          res.send({
+            message: "User header image updated successfully",
+            success: true,
+            user,
+          });
+        } catch (error) {
+          console.error("Error updating user header image:", error);
+          res.status(500).send({
+            message: "Error updating user header image",
+            success: false,
+          });
+        }
+      },
+      deleteComment: async (req, res) => {
+        const { commentId } = req.params;
+        try {
+          const deleted = await Comment.destroy({
+            where: { commentId: commentId },
+          });
+          if (deleted) {
+            return res
+              .status(200)
+              .send({ message: "Comment deleted successfully." });
+          }
+          return res.status(404).send({ message: "Comment not found." });
+        } catch (error) {
+          console.error("Error deleting comment:", error);
+          return res.status(500).send({ message: "Error deleting comment." });
         }
     },
     getAllTags: async (req, res) => {
@@ -378,7 +603,7 @@ const handlerFunctions = {
             tags: tags
         })
     },
-    
-}
+};
+
 
 export default handlerFunctions;

@@ -15,7 +15,9 @@ import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
 import Game2048 from './pages/game2048.jsx'
-import EditGem from './components/EditGem.jsx'
+// import EditGem from './components/EditGem.jsx'
+import Friends from './pages/Friends.jsx'
+import UpdateGem from './components/updateGem.jsx'
 
 import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
 
@@ -29,12 +31,12 @@ const router = createBrowserRouter(
         <Route path="/about" element={<About />} />
         <Route path="/details" element={<DetailsPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/friends" element={<Friends />} />
         <Route path="2048" element={<Game2048 />} />
-        <Route path="/edit-gem/:gemId" element={<EditGem />} />
+        <Route path="/updateGem/:gemId" element={<UpdateGem />} />
       </Route>
   )
 )
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
