@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../CSS/Login.css"; // Import the CSS file for styling
+import { Button } from "react-bootstrap";
 
 
 function Login() {
@@ -140,11 +141,12 @@ function Login() {
               </>
             )}
             <div className="action-group">
-              <input
+              <Button
                 className="submit-button"
                 type="submit"
-                value={isLogin ? "Login" : "Register"}
-              />
+                
+                variant="info"
+            >{isLogin ? "Login" : "Register"}</Button>
               <span
                 onClick={(e) => setIsLogin(!isLogin)}
                 className="toggle-form"

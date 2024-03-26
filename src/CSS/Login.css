@@ -44,11 +44,12 @@
   }
   
   .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #060708;
+    color: black;
   }
   
   .toggle-form {
-    color: #007bff;
+    color: #010102;
     cursor: pointer;
     text-decoration: underline;
   }
