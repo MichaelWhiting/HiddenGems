@@ -140,16 +140,11 @@ function Profile() {
             src={userInfo.imgUrl}
             alt="User profile"
             className="profile-image"
+            onClick={() => document.getElementById("fileInput").click()}
+
           />
         )}
-         <button
-          className="icon-button"
-          onClick={() => document.getElementById("fileInput").click()}
-          aria-label="Upload profile image"
-        >
-          <Upload size={24} /> {/* Adjust size as needed */}
-          <h4>Profile image</h4>
-        </button>
+        
         <input
           type="file"
           id="fileInput"
@@ -162,7 +157,8 @@ function Profile() {
       </div>
 
 
-      <h1 className="user-email">{userInfo.email}</h1>
+      <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
+      <h2 className="user-email">{userInfo.email}</h2>
       <hr />
 
       <div className="gems-section">
