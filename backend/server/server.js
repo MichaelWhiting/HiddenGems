@@ -47,6 +47,7 @@ app.get("/getSearchResults/:searchText", friendHandler.getSearchResults);
 app.get("/getGem/:gemId", gemHandler.getGem);
 app.get("/getAllGems", gemHandler.getAllGems);
 app.get("/getGemsFromUserId/:userId", gemHandler.getUserGems);
+app.get("/getAllTags", gemHandler.getAllTags);
 
 app.post("/createGem", gemHandler.createGem);
 
@@ -69,8 +70,6 @@ app.get("/getComments/:gemId", commentHandler.getComments);
 app.post("/createComment", commentHandler.createComment);
 
 app.delete('/deleteComment/:commentId', commentHandler.deleteComment);
-
-
 
 // Server Startup
 const port = 9998;
