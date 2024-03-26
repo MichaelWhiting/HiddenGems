@@ -117,6 +117,8 @@ function Profile() {
             src={userInfo.headerImgUrl}
             alt="User header"
             className="header-image"
+            onClick={() => document.getElementById("headerFileInput").click()}
+
           />
         )}
         <input
@@ -132,7 +134,7 @@ function Profile() {
           aria-label="Upload header image"
         >
           <Upload size={24} /> {/* Adjust size as needed */}
-          <h4>Header image</h4>
+          
         </button>
         {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
         {userInfo?.imgUrl && (
@@ -155,6 +157,8 @@ function Profile() {
        
        
       </div>
+      <br />
+      <br />
 
 
       <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
