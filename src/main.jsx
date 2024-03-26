@@ -15,7 +15,7 @@ import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
 import Game2048 from './pages/game2048.jsx'
-import EditGem from './components/EditGem.jsx'
+// import EditGem from './components/EditGem.jsx'
 import Friends from './pages/Friends.jsx'
 import UpdateGem from './components/updateGem.jsx'
 

@@ -58,7 +58,6 @@ function GemCard(props) {
                 <button onClick={handleDelete}>Delete</button>
             </div>
             )}
-            <button
             <Button
                 variant='outline-info'
                 className="hyper-link"
