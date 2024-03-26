@@ -1,0 +1,110 @@
+
+  
+  .header-image {
+    width: 1000px; /* Full width of its container */
+    height: 250px; /* Fixed height; adjust as needed */
+    object-fit: cover; /* Ensures the image covers the designated area */
+    border-radius: 0;
+    margin-bottom: -1px; /* Overlap effect; pulls subsequent content upwards */
+  }
+  
+ 
+  
+  .profile-image {
+    width: 30%; /* Specific size */
+    height: 30%; /* Ensure equal width and height for a circle */
+    border-radius: 50%; /* Circular shape */
+    object-fit: cover; /* Covers the area of the circle */
+    transition: filter 0.3s ease, cursor 0.3s ease; /* Add transition effect */
+}
+
+.profile-image:hover {
+    filter: brightness(90%); /* Darken the image on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+  
+  .placeholder-icon {
+    width: 200px;
+    height: 200px;
+    color: #080809;
+    margin-bottom: 15px;
+  }
+  
+  .file-input {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-input:hover {
+    background-color: #0056b3;
+  }
+  
+  .upload-status {
+    color: #28a745; /* Change to green to indicate success */
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  
+  .user-email {
+    color: #212529;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 120px; /* Adjusted to accommodate the profile image overlap */
+    margin-bottom: 20px;
+  }
+  
+  .gems-section, .comments-section {
+    width: 100%;
+    margin-top: 40px;
+  }
+  
+  .gems-section h2, .comments-section h2 {
+    color: #060607;
+    margin-bottom: 20px;
+  }
+  
+  .gem-cards {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .comment {
+    background-color: #f8f9fa;
+    border-left: 5px solid #007bff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #212529;
+  }
+  
+  .comment:nth-child(odd) {
+    border-left-color: #6c757d; /* Slightly change color for odd comments for better visual separation */
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #007bff; /* Adjust color to fit your design */
+  }
+  
+  .icon-button:hover {
+    color: #0056b3; /* Slightly darker blue on hover */
+  }
+  

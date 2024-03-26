@@ -1,0 +1,52 @@
+.gem-card {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    transition: transform 0.2s;
+  }
+  
+  .gem-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .gem-location {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .gem-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .gem-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .gem-card .rating-bar {
+    display: inline-block; /* Assuming RatingBar component has this class */
+    margin: 0 5px;
+  }
+  
+  .gem-card .hyper-link {
+    display: block;
+    margin: 20px auto;
+    border-color: #17a2b8; /* Bootstrap 'outline-info' color */
+  }
+  
+  /* Additional button hover effects if needed */
+  .gem-card .hyper-link:hover {
+    background-color: #17a2b8; /* Bootstrap 'info' color */
+    color: #fff;
+  }
+  

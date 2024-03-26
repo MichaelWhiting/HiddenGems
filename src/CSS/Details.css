@@ -1,67 +1,124 @@
-.top-gems-container {
-    margin: auto;
-    width: 80%;
-    padding: 20px;
-  }
-
-  .top-gems-title {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .gems-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-
-  .gem-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-
-  .gem-location {
-    font-size: 20px;
-    color: #333;
-  }
-
-  .gem-description {
-    font-size: 16px;
-    color: #666;
-  }
-  .gem-image {
-    max-width: 100%; /* Ensures image does not overflow its container */
-    height: auto; /* Keeps the aspect ratio of the image */
-  }
-  
-.comment-box {
+.details-container {
   display: flex;
   flex-direction: column;
-  max-width: 100%; /* Ensure it doesn't stretch out of bounds */
-  margin-top: 20px; /* Add some space between gem card and comment box */
+  align-items: center;
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
+  padding: 20px;
 }
 
-.d-comment-box textarea {
-  width: 100%; /* Take full width */
-  max-width: 100%; /* Ensure it doesn't stretch out of bounds */
-  padding: 10px; /* Adjust padding as needed */
-  margin-bottom: 10px; /* Add some space between textarea and submit button */
+.details-grid {
+  display: flex;
+  width: 100%;
 }
 
-.d-comment-box input[type="submit"] {
-  align-self: flex-end; /* Align the submit button to the right */
-  padding: 8px 15px; /* Adjust padding as needed */
-  background-color: #4CAF50;
+.gem-details-container {
+  flex: 0 0 70%;
+  padding: 20px;
+  border: 1px solid #ccc; /* Border around the gem details container */
+}
+
+.comments-container {
+  flex: 0 0 30%; /* Width of the comments container */
+  padding: 20px;
+  border: 1px solid #ccc; /* Border around the comments container */
+  margin-left: 20px; /* Add some space between the gem details and comments */
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.gem-details-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.gem-details-ratings-map {
+  display: flex;
+  height: 100%;
+  padding-right: 20px; /* Adds padding to the right inside the container, effectively moving its children slightly to the left */
+}
+
+
+.gem-details-ratings {
+  flex: 1;
+  padding-right: 20px;
+  
+}
+
+.gem-details-map {
+  flex: 1;
+  max-width: 100%;
+  max-height: 100%;
+  margin-right: 30px; /* Add some margin to the right to move the map slightly to the left */
+}
+
+.comment-container {
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-user-id {
+  margin-bottom: 1px;
+}
+
+.comment-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trash-icon-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.small-trash-icon {
+  font-size: 1.5rem;
+  color: rgb(153, 15, 15);
+}
+
+.small-trash-icon:hover {
+  color: rgb(5, 3, 3);
+}
+
+.gem-details-description {
+  text-align: left;
+}
+
+.gem-details-ratings p {
+  margin: 0;
+}
+
+.gem-details-comment-form {
+  margin-top: 20px;
+}
+
+.comment-textarea {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  resize: vertical;
+  width: 100%;
+}
+
+.comment-submit-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.d-comment-box input[type="submit"]:hover {
-  background-color: #45a049;
+.comment-submit-btn:hover {
+  background-color: #0056b3;
 }

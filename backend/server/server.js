@@ -35,6 +35,7 @@ app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
 app.get('/session-check', handlerFunctions.sessionCheck);
 app.get("/logout", handlerFunctions.logout);
 app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
+app.get("/getGemsFromUserId/:userId", handlerFunctions.getUserGems)
 
 // POST
 app.post("/login", handlerFunctions.login);
@@ -45,9 +46,13 @@ app.post("/createRating", handlerFunctions.createRating)
 
 // PUT
 app.put("/updateGem/:gemId", handlerFunctions.updateGem);
+app.put('/updateUserProfileImg/:userId', handlerFunctions.updateUserProfileImg);
+app.put('/updateUserHeaderImg/:userId', handlerFunctions.updateUserHeaderImg);
 
 // DELETE
 app.delete("/deleteGem/:gemId", handlerFunctions.deleteGem);
+app.delete('/deleteComment/:commentId', handlerFunctions.deleteComment);
+
 
 
 // Server Startup
