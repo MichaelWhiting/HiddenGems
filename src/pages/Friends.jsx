@@ -7,6 +7,9 @@ import axios from 'axios';
 
 import "../CSS/Friends.css"
 
+const animStr = (i) => `fadeInAnimation ${650}ms ease-out ${100 * (i + 1)}ms forwards`;
+const animStr2 = (i) => `fadeOutAnimation ${650}ms ease-out ${100 * (i + 1)}ms forwards`;
+
 function Friends() {
     const userId = useSelector(state => state.userId);
     const [searchResults, setSearchResults] = useState([]);
@@ -19,39 +22,46 @@ function Friends() {
     }, [])
 
     useEffect(() =>  {
+        // setSearchResults([]);
         getSearchResults();
     }, [searchText])
     
     const getSearchResults = async () => {
         const { data } = await axios.get(`/getSearchResults/${searchText}`);
-        console.log(data.message);
         if (data.success) {
             setSearchResults(data.searchResults);
-            console.log(data.searchResults);
         }
     }
 
     const getCurrentFriends = async () => {
         const { data } = await axios.get("/getFriends");
-        console.log(data.message);
         if (data.success) {
             setCurrentFriends(data.friends);
-            console.log(data.friends);
         }
     }
+
+    const searchCards = searchResults.map((user, i) => {
+        return (
+            <div key={i} className="user-display" style={{width: "80%", animation: animStr(i)}}>
+                <label className='email-label'>{user.email}</label>
+                <Button variant="outline-info">Add</Button>
+            </div>
+        )
+    });
     
     const friendCards = currentFriends.map((friend, i) => {
         return (
-            <div key={i}>
-                <h3>{friend.email}</h3>
+            <div key={i} className="user-display" style={{width: "100%", animation: animStr(i)}}>
+                <label className="email-label">{friend.email}</label>
+                <Button variant="outline-danger">Remove</Button>
             </div>
         )
-    })
+    });
     
     return (
         <div className="friends-container">
             <div className="add-friends">
-                <h1 className="center">Friends</h1>
+                <h1 className="center">Add Friends</h1>
                 <div className="search-bar">
                     <FloatingLabel label="email" className="custom-outline" style={{width: "60%"}}>
                         <Form.Control 
@@ -71,6 +81,7 @@ function Friends() {
                         <Icon.Search/>
                     </Button>
                 </div>
+                {searchCards}
             </div>
             <div className="current-friends">
                 <h1 className="center">Current Friends:</h1>

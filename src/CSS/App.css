@@ -21,3 +21,34 @@
 .center-middle {
   margin: auto;
 }
+
+/* Animations */
+.fade-out {
+  animation: fadeOutAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.fade-out-slow {
+  animation: fadeOutAnimation ease 0.75s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  100% {
+      opacity: 1;
+  }
+  0% {
+      opacity: 0;
+  }
+}
