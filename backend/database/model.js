@@ -148,55 +148,10 @@ Tag.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        food: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
+        tagName: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
-        adventure: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        entertainment: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        technology: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        travel: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        education: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        health: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        fashion: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        fitness: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        pet: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        family: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        arts: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-
     },
     {
         modelName: 'tag',

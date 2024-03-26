@@ -36,7 +36,7 @@ function Profile() {
         navigate("/login");
     } else {
       //  await axios.get(`/getUserInfo/${userId}`)
-        const response =await axios.get(`/getUserInfo/${userId}`)
+        const response = await axios.get(`/getUserInfo/${userId}`)
                 setUserInfo(response.data.user);
     
             

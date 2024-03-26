@@ -67,6 +67,12 @@ function DetailsPage() {
         <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
         Popularity:
         <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
+          {/* Tags are being displayed below */}
+          <div>
+          Tags: {gem.tags.map((tag, index) => (
+          <span key={index}>{tag.tagName}{index !== gem.tags.length - 1 && ', '}</span>
+          ))}
+          </div>
       </div>
         {/* Display all comments */}
         {gem.comments && gem.comments.length > 0 ? (

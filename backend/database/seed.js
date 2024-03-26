@@ -1,4 +1,4 @@
-import { db, User, Gem, Comment, Rating } from "./model.js";
+import { db, User, Gem, Comment, Rating, Tag } from "./model.js";
 
 await db.sync({ force: true });
 
@@ -114,5 +114,49 @@ await Comment.create({
 //     userId: 4,
 //     gemId: 2
 // });
+
+await Tag.create({
+    tagName: 'food'
+});
+await Tag.create({
+    tagName: 'adventure'
+});
+await Tag.create({
+    tagName: 'entertainment',
+});
+await Tag.create({
+    tagName: 'technology',
+});
+await Tag.create({
+    tagName: 'travel',
+});
+await Tag.create({
+    tagName: 'education',
+});
+await Tag.create({
+    tagName: 'health',
+});
+await Tag.create({
+    tagName: 'fashion',
+});
+await Tag.create({
+    tagName: 'fitness',
+});
+await Tag.create({
+    tagName: 'pet',
+});
+await Tag.create({
+    tagName: 'family',
+});
+await Tag.create({
+    tagName: 'arts',
+});
+
+    
+    
+
+
+
+
 
 await db.close();
