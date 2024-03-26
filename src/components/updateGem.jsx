@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import "../CSS/UpdateGem.css"
 
 const UpdateGem = () => {
   const [name, setName] = useState('');
@@ -49,7 +50,9 @@ const UpdateGem = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="form-container">
+    <form className="cr-form" onSubmit={handleSubmit}>
+    <p>Name:</p>
       <input
         type='text'
         placeholder='Name'
@@ -57,12 +60,14 @@ const UpdateGem = () => {
         onChange={(e) => setName(e.target.value)}
         required
       />
+      <p>Description:</p>
       <textarea
         placeholder='Description'
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
       />
+      <p>IMG URL:</p>
       <input
         type='text'
         placeholder='Image URL'
@@ -70,6 +75,7 @@ const UpdateGem = () => {
         onChange={(e) => setImgUrl(e.target.value)}
         required
       />
+      <p>Latitude:</p>
       <input
         type='text'
         placeholder='Latitude'
@@ -77,6 +83,7 @@ const UpdateGem = () => {
         onChange={(e) => setLat(e.target.value)}
         required
       />
+      <p>Longitude:</p>
       <input
         type='text'
         placeholder='Longitude'
@@ -86,6 +93,7 @@ const UpdateGem = () => {
       />
       <button type='submit'>Update Gem</button>
     </form>
+    </div>
   );
 };
 

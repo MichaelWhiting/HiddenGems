@@ -54,7 +54,7 @@ function Profile() {
 
   const gemCards = userInfo.gems.map((gem, i) => {
     return (
-      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
+      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={true}/>
     )
   });
 
@@ -81,8 +81,7 @@ function Profile() {
           ))}
         </ul>
       </div>
-       {/* Add Edit button */}
-       <button onClick={() => navigate(`/edit-gem/${gem.gemId}`)}>Edit</button>
+      
 
     </div>
   )

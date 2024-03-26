@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function GemCard(props) {
-    const { gem, i, reload, setReload } = props;
+    const { gem, i, reload, setReload, showButtons } = props;
     const navigate = useNavigate();
 
     const handleEdit = () => {
@@ -44,10 +44,12 @@ function GemCard(props) {
                     type="popularity"
                 />
             </div>
+            {showButtons && (
             <div>
                 <button onClick={handleEdit}>Edit</button>
                 <button onClick={handleDelete}>Delete</button>
             </div>
+            )}
             <button
                 className="hyper-link"
                 onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}
