@@ -38,6 +38,7 @@ app.get("/getUserInfo/:userId", userHandler.getUserInfo)
 app.post("/login", userHandler.login);
 app.post("/register", userHandler.register);
 
+
 // Friends/Following Routes
 app.get("/getFriends", friendHandler.getFriends);
 app.get("/getSearchResults/:searchText", friendHandler.getSearchResults);

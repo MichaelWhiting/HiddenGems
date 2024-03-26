@@ -32,6 +32,7 @@ function Profile() {
       navigate("/login");
     } else {
       //  await axios.get(`/getUserInfo/${userId}`)
+
       const response = await axios.get(`/getUserInfo/${userId}`)
       setUserInfo(response.data.user);
       const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
@@ -82,11 +83,7 @@ function Profile() {
           await axios.put(updateEndpoint, {
             [type === "profile" ? "imgUrl" : "headerImgUrl"]: data.Location,
           });
-          setImgUploadStatus(
-            `${
-              type.charAt(0).toUpperCase() + type.slice(1)
-            } image uploaded successfully.`
-          );
+          
           setReload(!reload); // Trigger reload to fetch updated user info
         } catch (error) {
           console.error(`Error updating ${type} profile image:`, error);

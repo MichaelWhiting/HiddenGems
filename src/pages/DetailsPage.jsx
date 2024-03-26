@@ -85,7 +85,7 @@ function DetailsPage() {
       console.error("Error deleting comment:", error);
     }
   };
-
+  
   return (
     <div className="details-container">
       {gems.map((gem, i) => (
@@ -113,6 +113,11 @@ function DetailsPage() {
                   <div className="gem-details-map">
                     <MapComponent gem={gem}  />
                   </div>
+                <div>
+                  Tags: {gem.tags.map((tag, index) => (
+                  <span key={index}>{tag.tagName}{index !== gem.tags.length - 1 && ', '}</span>
+                  ))}
+                </div>
                 </div>
               </div>
             </div>
