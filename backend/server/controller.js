@@ -1,4 +1,4 @@
-import { User, Gem, Comment, Rating, Friendship } from "../database/model.js";
+import { User, Gem, Comment, Rating, Tag, Friendship } from "../database/model.js";
 import { Op } from "sequelize";
 
 const handlerFunctions = {
@@ -80,9 +80,9 @@ const handlerFunctions = {
         const { gemId } = req.params;
 
         const gem = await Gem.findOne({
-            where: { gemId: gemId },
-            include: [{ model: Comment }, { model: Rating }]
-        });
+            where:{gemId: gemId},
+            include: [{model: Comment}, {model: Rating}, {model:Tag}]
+        }); 
 
         const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
         const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
@@ -302,25 +302,41 @@ const handlerFunctions = {
         return
     },
     createGem: async (req, res) => {
-        const { name, description, imgUrl, lat, lng } = req.body;
-        // Create a new record in the database
-        const newGem = await Gem.create({
-            name,
-            description,
-            imgUrl,
-            lat,
-            lng,
-            userId: req.session.userId,
-        });
-        console.log(imgUrl, 'lkasdlfkj')
 
-        // Send a success response back to the frontend
-        res.send({
-            message: "gem created",
-            success: true,
-            newGem: newGem
-        })
+            console.log("Hit createGem")
+            
+            const { name, description, imgUrl, lat, lng, tags  } = req.body;
+            // Create a new record in the database
+            let newGem = await Gem.create({
+                name,
+                description,
+                imgUrl,
+                lat,
+                lng,
+                userId: req.session.userId,
+        
+            });
 
+            // now loop over 'tags' and query for each tag from the db, then connect it to 'newGem'
+            for (const tag of tags) {
+                let dbTag = await Tag.findByPk(tag)
+                await newGem.addTag(dbTag)
+            }
+
+            console.log(imgUrl, 'lkasdlfkj')
+
+            // need to re-query 'newGem' if you want to send it back including all Tag objects in relationship
+            // because currently, 'newGem' is the value of its original query before we related the tags to it
+            newGem = await Gem.findByPk(newGem.gemId, {
+                include: Tag
+            })
+
+            // Send a success response back to the frontend
+            res.send({
+                message: "gem created",
+                success: true,
+                newGem: newGem
+            })
     },
     createComment: async (req, res) => {
         if (req.session.userId) {
@@ -577,7 +593,16 @@ const handlerFunctions = {
           console.error("Error deleting comment:", error);
           return res.status(500).send({ message: "Error deleting comment." });
         }
-      },
+    },
+    getAllTags: async (req, res) => {
+        const tags = await Tag.findAll()
+
+        res.send({
+            message: "Here are all the tags",
+            success: true,
+            tags: tags
+        })
+    },
 };
 
 

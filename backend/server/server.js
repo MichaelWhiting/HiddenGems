@@ -34,12 +34,12 @@ app.get("/getComments/:gemId", handlerFunctions.getComments);
 app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
 app.get('/session-check', handlerFunctions.sessionCheck);
 app.get("/logout", handlerFunctions.logout);
+app.get("/getAllTags", handlerFunctions.getAllTags);
 app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
 app.get("/getGemsFromUserId/:userId", handlerFunctions.getUserGems)
 
 app.get("/getFriends", handlerFunctions.getFriends);
 app.get("/getSearchResults/:searchText", handlerFunctions.getSearchResults);
-
 
 // POST
 app.post("/login", handlerFunctions.login);

@@ -9,8 +9,9 @@ import { Upload } from "react-bootstrap-icons";
 function CreateGem() {
   const userId = useSelector((state) => state.userId);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState("");
-
+  const [submissionStatus, setSubmissionStatus] = useState('');
+  const [tags, setTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState([]); // Track selected tags
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ function CreateGem() {
     lat: 0.0,
     lng: 0.0,
     userId,
+    tags: selectedTags, 
   });
 
   const handleFileClick = () => {
@@ -45,6 +47,16 @@ function CreateGem() {
     };
   }, []);
 
+  const fetchData = async () => {
+    const tags = await axios.get("/getAllTags");
+    setTags(tags.data.tags)
+    console.log(tags.data.tags)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, []);
+
   const handleChange = (e) => {
     if (e.target.name === "theimage") {
       const file = e.target.files[0];
@@ -55,6 +67,7 @@ function CreateGem() {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
+
 
   function uploadFile(file) {
     const s3 = new window.AWS.S3();
@@ -89,12 +102,12 @@ function CreateGem() {
       console.log("Validating form data before submission");
       try {
         if (userId) {
-          const res = await axios.post("/createGem", formData);
-          console.log("Form submitted successfully", formData);
+          const res = await axios.post('/createGem', formData);
+          console.log('Form submitted successfully', res.data.newGem);
           // Display success message and optionally reset form here
           setSubmissionStatus("Gem created successfully!");
           setIsSubmitted(true);
-
+          
           // Here's where you might navigate after a successful submission
           navigate("/details", { state: { gemId: res.data.newGem.gemId } });
 
@@ -106,6 +119,7 @@ function CreateGem() {
             lat: 0.0,
             lng: 0.0,
             userId,
+            tags: [], 
           });
         } else {
           console.log("User is not logged in");
@@ -128,6 +142,16 @@ function CreateGem() {
     setFormData({ ...formData, lat: newLat, lng: newLng });
   };
 
+  // Function to handle tag selection
+  const handleTagSelection = (tagId) => {
+    if (selectedTags.includes(tagId)) {
+      setSelectedTags(selectedTags.filter(id => id !== tagId)); // Deselect tag if already selected
+    } else {
+      setSelectedTags([...selectedTags, tagId]); // Select tag if not selected
+      setFormData({...formData, tags: [...formData.tags, tagId]})
+    }
+  };
+
   return (
     <>
       <div className="cr-container">
@@ -135,16 +159,19 @@ function CreateGem() {
           <div className="submission-status">{submissionStatus}</div>
         )}
         <form onSubmit={handleSubmit} className="cr-form">
-          <h1>
-            Gem Name:{" "}
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+          <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
+          <h2>Add A Tag</h2>
+           <div>
+           {tags.map(tag => (
+            <React.Fragment key={tag.tagId}>
+            <input type="checkbox" id={`tag-${tag.tagId}`} value={tag.tagName}
+            onChange={() => handleTagSelection(tag.tagId)} 
+            checked={selectedTags.includes(tag.tagId)} 
             />
-            
-          </h1>
+            <label htmlFor={`tag-${tag.tagId}`}>{tag.tagName}</label>
+            </React.Fragment>
+            ))}
+          </div>
           <h2>Gem Description</h2>
           <textarea
             name="description"
