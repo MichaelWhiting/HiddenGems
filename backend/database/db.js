@@ -19,4 +19,6 @@ async function connectToDB(dbURI) {
     return sequelize;
 }
 
+
+
 export default connectToDB;

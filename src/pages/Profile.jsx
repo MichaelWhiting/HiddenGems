@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import GemCard from "../components/GemCard";
-import "../CSS/Profile.css"; // Import the CSS file for styling
 import { Upload } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Button } from "react-bootstrap"
+import axios from "axios";
+
+import "../CSS/Profile.css"; // Import the CSS file for styling
+
+// Components
+import GemCard from "../components/GemCard";
 
 function Profile() {
   const userId = useSelector(state => state.userId);
@@ -164,12 +168,17 @@ function Profile() {
       <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
       <h2 className="user-email">{userInfo.email}</h2>
       <hr />
+      <Button 
+        variant="outline-info"
+        onClick={() => navigate("/friends")}
+      >
+        Friends
+      </Button>
 
       <div className="gems-section">
         <h2>Gems You Created</h2>
         <ul className="gem-cards">{gemCards}</ul>
       </div>
-
       <div className="comments-section">
         <h2>Comments</h2>
         <ul>

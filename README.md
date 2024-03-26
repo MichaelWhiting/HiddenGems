@@ -4,6 +4,7 @@ This project is a web application where you can see a bunch of different locatio
 ## Dependencies
 - @reduxjs/toolkit
 - @vis.gl/react-google-maps
+- aws-sdk
 - axios
 - bootstrap
 - dotenv

@@ -10,8 +10,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 
 import "./CSS/App.css"
 function App() {
-  const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
+  const dispatch = useDispatch();
 
   const sessionCheck = async () => {
     const res = await axios.get("/session-check");

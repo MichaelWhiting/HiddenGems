@@ -37,6 +37,10 @@ app.get("/logout", handlerFunctions.logout);
 app.get("/getUserInfo/:userId", handlerFunctions.getUserInfo)
 app.get("/getGemsFromUserId/:userId", handlerFunctions.getUserGems)
 
+app.get("/getFriends", handlerFunctions.getFriends);
+app.get("/getSearchResults/:searchText", handlerFunctions.getSearchResults);
+
+
 // POST
 app.post("/login", handlerFunctions.login);
 app.post("/register", handlerFunctions.register);
