@@ -150,7 +150,14 @@ function Profile() {
 
           />
         )}
-        
+        <button
+          className="icon-button"
+          onClick={() => document.getElementById("fileInput").click()}
+          aria-label="Upload profile image"
+        >
+          <Upload size={24} /> {/* Adjust size as needed */}
+
+        </button>
         <input
           type="file"
           id="fileInput"
