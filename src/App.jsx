@@ -7,8 +7,8 @@ import axios from "axios"
 
 import "./CSS/App.css"
 function App() {
-  const dispatch = useDispatch();
   const userId = useSelector(state => state.userId);
+  const dispatch = useDispatch();
 
   const sessionCheck = async () => {
     const res = await axios.get("/session-check");

@@ -1,0 +1,46 @@
+.friends-container {
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    box-shadow: #FFFFFf;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 10px;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+}
+
+.search-button {
+    left: 5px;
+}
+
+.current-friends {
+    width: 40%;
+    height: 100%;
+    background: green;
+}
+
+.add-friends {
+    width: 60%;
+    height: 100%;
+    background: red
+}
+
+.custom-outline .form-control:focus {
+    border-color: #6edff6;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
