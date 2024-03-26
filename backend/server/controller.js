@@ -346,13 +346,185 @@ const handlerFunctions = {
         return;
       } else {
         res.send({
-          message: "failed to create rating",
-          success: false,
-        });
-        return;
-      }
-    }
-  },
+            message: "user logged out",
+            success: true
+        })
+        return
+    },
+    createGem: async (req, res) => {
+       
+            
+            const { name, description, imgUrl, lat, lng } = req.body;
+            // Create a new record in the database
+            const newGem = await Gem.create({
+                name,
+                description,
+                imgUrl,
+                lat,
+                lng,
+                userId: req.session.userId,
+            });
+            console.log(imgUrl, 'lkasdlfkj')
+
+            // Send a success response back to the frontend
+            res.send({
+                message: "gem created",
+                success: true,
+                newGem: newGem
+            })
+        
+    },
+    createComment: async (req, res) => {
+
+        if (req.session.userId) {
+            const { comment } = req.body
+            
+            const { text, gemId } = comment;
+            
+            const newComment = await Comment.create({ 
+                text,
+                gemId,
+                userId: req.session.userId
+            })
+            
+            res.send ({
+                message: "comment created",
+                success:true,
+                newComment: newComment
+            })
+        } else {
+            res.send ({
+                message: "comment NOT created",
+                success: false,
+            })
+        }
+    },
+    createRating: async (req, res) => {
+        if (req.session.userId) {
+            const { enjoyability, popularity, gemId } = req.body
+
+            if (enjoyability) {
+                await Rating.create({
+                    enjoyability,
+                    gemId
+                })
+                res.send({
+                    message: "Created enjoyability rating",
+                    success: true
+                })
+                return;
+            } else if (popularity) {
+                await Rating.create({
+                    popularity,
+                    gemId
+                })
+                res.send({
+                    message: "Created populatiry rating",
+                    success: true
+                })
+                return;
+            } else {
+                res.send({
+                    message: "failed to create rating",
+                    success: false
+                })
+                return;
+            }
+        }
+    },
+    getUserInfo: async (req, res) => {
+
+        const userId = req.params.userId; // Assuming userId is received from the request params
+
+        try {
+          const user = await User.findOne({
+            where: { userId: userId },
+            include: [{ model: Gem }, { model: Comment }]
+          });
+      
+          if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+          }
+      
+          return res.status(200).json({ user: user });
+        } catch (error) {
+          console.error('Error retrieving user:', error);
+          return res.status(500).json({ message: 'Internal server error' });
+        }
+    },
+    updateGem: async (req, res) => {
+        const { gemId } = req.params;
+        const { name, description, imgUrl, lat, lng } = req.body;
+
+        try {
+            // Check if the user is authenticated
+            if (!req.session.userId) {
+                return res.status(401).json({ message: "Unauthorized: User not logged in" });
+            }
+    
+            // Find the gem by ID
+            const gem = await Gem.findByPk(gemId);
+    
+            // Check if the gem exists
+            if (!gem) {
+                return res.status(404).json({ message: "Gem not found" });
+            }
+    
+            // Check if the gem belongs to the logged-in user
+            if (gem.userId !== req.session.userId) {
+                return res.status(403).json({ message: "Forbidden: You are not authorized to update this gem" });
+            }
+
+            // Update the gem attributes
+            gem.name = name;
+            gem.description = description;
+            gem.imgUrl = imgUrl;
+            gem.lat = lat;
+            gem.lng = lng;
+
+            // Save the updated gem
+            await gem.save();
+
+            return res.status(200).json({ message: "Gem updated successfully", gem });
+        } catch (error) {
+            console.error("Error updating gem:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+    deleteGem: async (req, res) => {
+        const { gemId } = req.params;
+    
+        try {
+            // Check if the user is authenticated
+            if (!req.session.userId) {
+                return res.status(401).json({ message: "Unauthorized: User not logged in" });
+            }
+    
+            // Find the gem by ID
+            const gem = await Gem.findByPk(gemId);
+    
+            // Check if the gem exists
+            if (!gem) {
+                return res.status(404).json({ message: "Gem not found" });
+            }
+    
+            // Check if the gem belongs to the logged-in user
+            if (gem.userId !== req.session.userId) {
+                alert('This is not your gem silly!'); // Add the alert here
+                return res.status(403).json({ message: "Forbidden: You are not authorized to delete this gem" });
+            }
+    
+            // Delete the gem
+            await gem.destroy();
+    
+            return res.status(200).json({ message: "Gem deleted successfully" });
+        } catch (error) {
+            console.error("Error deleting gem:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+};
+
   getUserInfo: async (req, res) => {
     const userId = req.params.userId; // Assuming userId is received from the request params
 

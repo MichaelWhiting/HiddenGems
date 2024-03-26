@@ -105,7 +105,7 @@ function Profile() {
 
   const gemCards = gems.map((gem, i) => {
     return (
-      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} />
+      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={true}/>
     )
   });
 
@@ -181,3 +181,4 @@ function Profile() {
 }
 
 export default Profile;
+

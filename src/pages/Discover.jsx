@@ -24,7 +24,7 @@ function Discover() {
 
   const gemCards = gems.map((gem, i) => {
     return (
-      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
+      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={false}/>
     )
   });
 
