@@ -4,21 +4,29 @@ await db.sync({ force: true });
 
 // seed here
 await User.create({
+    firstName: "Michael",
+    lastName: "Whiting",
     email: "michael@gmail.com",
     password: "test"
 });
 
 await User.create({
+    firstName: "Josh",
+    lastName: "Lara",
     email: "josh@gmail.com",
     password: "test"
 });
 
 await User.create({
+    firstName: "Ty",
+    lastName: "Cannon",
     email: "ty@gmail.com",
     password: "test"
 });
 
 await User.create({
+    firstName: "Jesse",
+    lastName: "Garlick",
     email: "jesse@gmail.com",
     password: "test"
 });

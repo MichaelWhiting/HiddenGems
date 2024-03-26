@@ -109,39 +109,20 @@ function Profile() {
 
   const gemCards = gems.map((gem, i) => {
     return (
-      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} />
+      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={true}/>
     )
   });
 
   return (
     <div className="profile-container">
       <div className="profile-image-section">
-        {userInfo?.imgUrl && (
-          <img
-            src={userInfo.imgUrl}
-            alt="User profile"
-            className="profile-image"
-          />
-        )}
-        <input
-          type="file"
-          id="fileInput"
-          onChange={(e) => handleFileChange(e, "profile")}
-          className="file-input"
-          style={{ display: "none" }}
-        />
-        <button
-          className="icon-button"
-          onClick={() => document.getElementById("fileInput").click()}
-          aria-label="Upload profile image"
-        >
-          <Upload size={24} /> {/* Adjust size as needed */}
-        </button>
-        {userInfo?.headerImgUrl && (
+      {userInfo?.headerImgUrl && (
           <img
             src={userInfo.headerImgUrl}
             alt="User header"
             className="header-image"
+            onClick={() => document.getElementById("headerFileInput").click()}
+
           />
         )}
         <input
@@ -156,13 +137,36 @@ function Profile() {
           onClick={() => document.getElementById("headerFileInput").click()}
           aria-label="Upload header image"
         >
-          <Upload size={50} /> {/* Adjust size as needed */}
+          <Upload size={24} /> {/* Adjust size as needed */}
+          
         </button>
         {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
+        {userInfo?.imgUrl && (
+          <img
+            src={userInfo.imgUrl}
+            alt="User profile"
+            className="profile-image"
+            onClick={() => document.getElementById("fileInput").click()}
+
+          />
+        )}
+        
+        <input
+          type="file"
+          id="fileInput"
+          onChange={(e) => handleFileChange(e, "profile")}
+          className="file-input"
+          style={{ display: "none" }}
+        />
+       
+       
       </div>
+      <br />
+      <br />
 
 
-      <h1 className="user-email">{userInfo.email}</h1>
+      <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
+      <h2 className="user-email">{userInfo.email}</h2>
       <hr />
       <Button 
         variant="outline-info"
@@ -190,3 +194,4 @@ function Profile() {
 }
 
 export default Profile;
+

@@ -49,9 +49,13 @@ app.post("/createComment", handlerFunctions.createComment);
 app.post("/createRating", handlerFunctions.createRating)
 
 // PUT
+app.put("/updateGem/:gemId", handlerFunctions.updateGem);
 app.put('/updateUserProfileImg/:userId', handlerFunctions.updateUserProfileImg);
+app.put('/updateUserHeaderImg/:userId', handlerFunctions.updateUserHeaderImg);
 
 // DELETE
+app.delete("/deleteGem/:gemId", handlerFunctions.deleteGem);
+app.delete('/deleteComment/:commentId', handlerFunctions.deleteComment);
 
 
 

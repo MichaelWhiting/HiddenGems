@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: auto;
   padding: 20px;
 }
@@ -13,15 +13,17 @@
   width: 100%;
 }
 
-.gem-details {
+.gem-details-container {
   flex: 0 0 70%;
   padding: 20px;
+  border: 1px solid #ccc; /* Border around the gem details container */
 }
 
-.comments-section {
-  flex: 0 0 30%;
+.comments-container {
+  flex: 0 0 30%; /* Width of the comments container */
   padding: 20px;
-  border-left: 1px solid #ccc;
+  border: 1px solid #ccc; /* Border around the comments container */
+  margin-left: 20px; /* Add some space between the gem details and comments */
   max-height: 600px;
   overflow-y: auto;
 }
@@ -32,10 +34,68 @@
   margin-bottom: 20px;
 }
 
+.gem-details-ratings-map {
+  display: flex;
+  height: 100%;
+  padding-right: 20px; /* Adds padding to the right inside the container, effectively moving its children slightly to the left */
+}
+
+
+.gem-details-ratings {
+  flex: 1;
+  padding-right: 20px;
+  
+}
+
+.gem-details-map {
+  flex: 1;
+  max-width: 100%;
+  max-height: 100%;
+  margin-right: 30px; /* Add some margin to the right to move the map slightly to the left */
+}
+
+.comment-container {
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-user-id {
+  margin-bottom: 1px;
+}
+
 .comment-entry {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+}
+
+.trash-icon-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.small-trash-icon {
+  font-size: 1.5rem;
+  color: rgb(153, 15, 15);
+}
+
+.small-trash-icon:hover {
+  color: rgb(5, 3, 3);
+}
+
+.gem-details-description {
+  text-align: left;
+}
+
+.gem-details-ratings p {
+  margin: 0;
+}
+
+.gem-details-comment-form {
+  margin-top: 20px;
 }
 
 .comment-textarea {
@@ -57,63 +117,9 @@
   transition: background-color 0.3s;
   font-weight: bold;
   margin-top: 10px;
+
 }
 
 .comment-submit-btn:hover {
   background-color: #0056b3;
 }
-
-/* Additional Styles /
-.gem-details-location,
-.gem-details-description {
-  text-align: left;
-}
-
-.gem-details-ratings {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.gem-details-map {
-  margin-top: 20px;
-}
-
-
-
-.comment-container {
-  border: 1px solid #ccc;
-  border-radius: 1px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.comment-user-id {
-  margin-bottom: 1px;
-}
-
-.comment-entry {
-  display: flex;
-  justify-content: space-between; / Align items to the start and end of the container /
-  align-items: center;
-}
-
-
-
-.trash-icon-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-
-.small-trash-icon {
-  font-size: 1.5rem; / Adjust the size of the Trash icon /
-  color: rgb(153, 15, 15); / Change the color of the Trash icon /
-}
-
-.small-trash-icon:hover {
-  color: rgb(5, 3, 3); / Change the color of the Trash icon on hover
-*/
