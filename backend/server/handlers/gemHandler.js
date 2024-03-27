@@ -32,7 +32,6 @@ const gemHandler = {
     getAllGems: async (req, res) => {
         const gems = await Gem.findAll({
             include:[ { model: Rating }, { model: Tag }]
-
         });
 
         gems.forEach((gem) => {
@@ -214,7 +213,14 @@ const gemHandler = {
                 include: [{ model: Rating }, { model: Tag }]
             });
 
-            if (gems.length > 0) {
+            if (!gems) {
+                res.send({
+                    message: "no gems found with that name",
+                    success: false
+                })
+            }
+
+            if (gems) {
                 res.status(200).json({
                     message: `Found ${gems.length} gems matching the search query`,
                     success: true,
