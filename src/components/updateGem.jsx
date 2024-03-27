@@ -7,14 +7,29 @@ import { Upload } from "react-bootstrap-icons";
 const UpdateGem = () => {
   const { gemId } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    imgUrl: "",
-    lat: 0.0,
-    lng: 0.0,
-  });
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
   const [submissionStatus, setSubmissionStatus] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/getGem/${gemId}`);
+        const { name, description, imgUrl, lat, lng } = response.data.gem;
+        setName(name);
+        setDescription(description);
+        setImgUrl(imgUrl);
+        setLat(lat);
+        setLng(lng);
+      } catch (error) {
+        console.error("Error fetching gem data:", error);
+      }
+    };
+    fetchData();
+  }, [gemId]);
 
   useEffect(() => {
     // Load AWS SDK and configure it
@@ -57,14 +72,33 @@ const UpdateGem = () => {
         setSubmissionStatus("Failed to upload image.");
       } else {
         console.log(`File uploaded successfully. ${data.Location}`);
-        setFormData((prevState) => ({ ...prevState, imgUrl: data.Location }));
+        setImgUrl(data.Location);
         setSubmissionStatus("File uploaded successfully!");
       }
     });
   }
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "description":
+        setDescription(value);
+        break;
+      case "imgUrl":
+        setImgUrl(value);
+        break;
+      case "lat":
+        setLat(value);
+        break;
+      case "lng":
+        setLng(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -72,16 +106,18 @@ const UpdateGem = () => {
     try {
       await axios.put(
         `/updateGem/${gemId}`,
-        { ...formData },
-        {
-          withCredentials: true,
-        }
+        { name, description, imgUrl, lat, lng },
+        { withCredentials: true }
       );
       setSubmissionStatus("Gem updated successfully!");
+      navigate('/profile');
     } catch (error) {
       console.error("Error updating gem:", error);
       setSubmissionStatus("Error updating the gem. Please try again.");
     }
+  };
+  const handleCancel = () => {
+    navigate(-1); // Navigate back to the previous page
   };
 
   return (
@@ -94,14 +130,14 @@ const UpdateGem = () => {
         <input
           type="text"
           name="name"
-          value={formData.name}
+          value={name}
           onChange={handleChange}
           required
         />
         <p>Description:</p>
         <textarea
           name="description"
-          value={formData.description}
+          value={description}
           onChange={handleChange}
           required
         />
@@ -119,10 +155,10 @@ const UpdateGem = () => {
           onChange={handleFileChange}
           style={{ display: "none" }}
         />
-        {formData.imgUrl && (
+        {imgUrl && (
           <div className="image-preview">
             <img
-              src={formData.imgUrl}
+              src={imgUrl}
               alt="Uploaded Gem"
               style={{ width: "100px", height: "100px", marginTop: "10px" }}
             />
@@ -132,7 +168,7 @@ const UpdateGem = () => {
         <input
           type="number"
           name="lat"
-          value={formData.lat}
+          value={lat}
           onChange={handleChange}
           required
         />
@@ -140,7 +176,7 @@ const UpdateGem = () => {
         <input
           type="number"
           name="lng"
-          value={formData.lng}
+          value={lng}
           onChange={handleChange}
           required
         />
@@ -148,9 +184,12 @@ const UpdateGem = () => {
         <button type="submit" className="submit-btn">
           Update Gem
         </button>
+        <button type="button" onClick={handleCancel}>
+          Cancel
+        </button>
       </form>
     </div>
   );
 };
 
-export default UpdateGem
+export default UpdateGem;
