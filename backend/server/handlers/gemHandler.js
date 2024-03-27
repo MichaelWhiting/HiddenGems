@@ -30,7 +30,8 @@ const gemHandler = {
     },
     getAllGems: async (req, res) => {
         const gems = await Gem.findAll({
-            include: Rating
+            include:[ { model: Rating }, { model: Tag }]
+
         });
 
         gems.forEach((gem) => {
