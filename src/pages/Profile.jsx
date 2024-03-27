@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import "../CSS/Profile.css"; // Import the CSS file for styling
 import { Upload } from "react-bootstrap-icons";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap"
-import axios from "axios";
-
-import "../CSS/Profile.css"; // Import the CSS file for styling
+import Friends from "../components/Friends.jsx"
 
 // Components
 import GemCard from "../components/GemCard";
@@ -17,6 +17,7 @@ function Profile() {
   const [gems, setGems] = useState([]);
   const [reload, setReload] = useState(false);
   const [imgUploadStatus, setImgUploadStatus] = useState("");
+  const [showFriends, setShowFriends] = useState(false); // State to control Friends component visibility
 
   useEffect(() => {
     if (!userId) {
@@ -26,23 +27,35 @@ function Profile() {
     }
   }, [reload]);
 
-  const getUser = async () => {
-    console.log("page refreashed")
-    if (!userId) {
-      navigate("/login");
-    } else {
-      //  await axios.get(`/getUserInfo/${userId}`)
-
-      const response = await axios.get(`/getUserInfo/${userId}`)
+const getUser = async () => {
+  console.log("page refreashed")
+  if (!userId) {
+    navigate("/login");
+  } else {
+    try {
+      const response = await axios.get(`/getUserInfo/${userId}`);
       setUserInfo(response.data.user);
       const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
       setGems(data.gems);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
     }
   }
+};
 
   useEffect(() => {
-    getUser()
-  }, [userId, navigate]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/getUserInfo/${userId}`);
+        setUserInfo(response.data.user);
+        const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+        setGems(data.gems);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchData();
+  }, [userId]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -83,7 +96,6 @@ function Profile() {
           await axios.put(updateEndpoint, {
             [type === "profile" ? "imgUrl" : "headerImgUrl"]: data.Location,
           });
-          
           setReload(!reload); // Trigger reload to fetch updated user info
         } catch (error) {
           console.error(`Error updating ${type} profile image:`, error);
@@ -100,6 +112,10 @@ function Profile() {
     }
   };
 
+  const handleFriendsButtonClick = () => {
+    setShowFriends(true); // Show Friends component when button is clicked
+  };
+
   if (!userInfo) {
     return <div>Loading...</div>; // Or some loading spinner
   }
@@ -113,13 +129,12 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-image-section">
-      {userInfo?.headerImgUrl && (
+        {userInfo?.headerImgUrl && (
           <img
             src={userInfo.headerImgUrl}
             alt="User header"
             className="header-image"
             onClick={() => document.getElementById("headerFileInput").click()}
-
           />
         )}
         <input
@@ -135,7 +150,6 @@ function Profile() {
           aria-label="Upload header image"
         >
           <Upload size={24} /> {/* Adjust size as needed */}
-          
         </button>
         {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
         {userInfo?.imgUrl && (
@@ -144,7 +158,6 @@ function Profile() {
             alt="User profile"
             className="profile-image"
             onClick={() => document.getElementById("fileInput").click()}
-
           />
         )}
         <button
@@ -153,7 +166,6 @@ function Profile() {
           aria-label="Upload profile image"
         >
           <Upload size={24} /> {/* Adjust size as needed */}
-
         </button>
         <input
           type="file"
@@ -162,40 +174,38 @@ function Profile() {
           className="file-input"
           style={{ display: "none" }}
         />
-       
-       
       </div>
       <br />
       <br />
-
-
       <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
       <h2 className="user-email">{userInfo.email}</h2>
       <hr />
       <Button 
         variant="outline-info"
-        onClick={() => navigate("/friends")}
-      >
-        Friends
-      </Button>
-
-      <div className="gems-section">
-        <h2>Gems You Created</h2>
-        <ul className="gem-cards">{gemCards}</ul>
-      </div>
-      <div className="comments-section">
-        <h2>Comments</h2>
-        <ul>
-          {userInfo.comments.map((comment) => (
-            <li key={comment.commentId} className="comment">
-              {comment.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
-export default Profile;
-
+        onClick={handleFriendsButtonClick}
+          >
+            Friends
+          </Button>
+    
+          {showFriends && <Friends />} {/* Display Friends component when showFriends state is true */}
+    
+          <div className="gems-section">
+            <h2>Gems You Created</h2>
+            <ul className="gem-cards">{gemCards}</ul>
+          </div>
+          <div className="comments-section">
+            <h2>Comments</h2>
+            <ul>
+              {userInfo.comments.map((comment) => (
+                <li key={comment.commentId} className="comment">
+                  {comment.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+    
+    export default Profile;
+    

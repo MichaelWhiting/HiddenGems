@@ -16,7 +16,7 @@ import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
 import Game2048 from './pages/game2048.jsx'
 // import EditGem from './components/EditGem.jsx'
-import Friends from './pages/Friends.jsx'
+import Friends from './components/Friends.jsx'
 import UpdateGem from './components/updateGem.jsx'
 
 import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
