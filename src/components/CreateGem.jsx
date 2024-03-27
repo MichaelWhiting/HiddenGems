@@ -108,8 +108,6 @@ function CreateGem() {
           setSubmissionStatus("Gem created successfully!");
           setIsSubmitted(true);
           
-          // Here's where you might navigate after a successful submission
-          navigate("/details", { state: { gemId: res.data.newGem.gemId } });
 
           // Reset form (optional)
           setFormData({
