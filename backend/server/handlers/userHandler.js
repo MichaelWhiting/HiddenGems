@@ -152,6 +152,46 @@ const userHandler = {
             })
         }
     },
+    followUser: async (req, res) => {
+        const { idToFollow } = req.params;
+
+        const userToFollow = await User.findByPk(idToFollow);
+        const user = await User.findByPk(req.session.userId);
+
+        await user.addFriendship(userToFollow);
+
+        if (userToFollow && user) {
+            res.send({
+                message: `user${req.session.userId} is now following user${idToFollow}`,
+                success: true
+            });
+        } else {
+            res.send({
+                message: `Failed to follow`,
+                success: false
+            });
+        }
+    },
+    unfollowUser: async (req, res) => {
+        const { idToUnfollow } = req.params;
+
+        const userToUnfollow = await User.findByPk(idToUnfollow);
+        const user = await User.findByPk(req.session.userId);
+
+        await user.removeFriendship(userToUnfollow);
+        
+        if (userToUnfollow && user) {
+            res.send({
+                message: `user${req.session.userId} unfollowed user${idToUnfollow}`,
+                success: true
+            });
+        } else {
+            res.send({
+                message: `Failed to unfollow`,
+                success: false
+            });
+        }
+    }
 }
 
 export default userHandler;

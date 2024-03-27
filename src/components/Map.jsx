@@ -2,9 +2,11 @@ import {APIProvider, Map, Marker, AdvancedMarker} from '@vis.gl/react-google-map
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
+import pointerIcon from "../public/pointer.svg";
+import gemIcon from "../public/diamond.svg"
 
 const gemMarkerIcon = {
-    url: 'https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-3d/512/Gem-Stone-3d-icon.png',
+    url: gemIcon,
     scaledSize: {width: 55, height: 55}
 };
 
@@ -42,7 +44,13 @@ function MapComponent(props) {
       key={gem.gemId} 
       position={{lat: gem.lat, lng: gem.lng}} 
       title={gem.name} icon={gemMarkerIcon} 
-      onClick={() => navigate("/details", { state: { gemId: gem.gemId }})}/>
+      onClick={() => {
+        if (isCreating) {
+            return;
+        } else {
+            navigate("/details", { state: { gemId: gem.gemId }})}}
+        }
+        />
     })
 
     useEffect(() => {
@@ -50,8 +58,8 @@ function MapComponent(props) {
     }, []);
 
     return (
-        <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
-            <div className='Map' style={{height: "100%", width: "100%", color:'red'}}>
+        <div className='Map' style={{height: "80vh", width: "100%", color:'red'}}>
+            <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
                 <Map 
                     mapId="8041ba05ec4f9f0a" // mapId from the API website
                     center={isMapInitialized ? undefined : initialCenter} // tells the map where to initially start
@@ -64,8 +72,8 @@ function MapComponent(props) {
                     {gemMarkers} 
                     {/*  ^ loads all of the markers for the gems onto the map */}
                 </Map>
-            </div>
-        </APIProvider>
+            </APIProvider>
+        </div>
     )
 }
 

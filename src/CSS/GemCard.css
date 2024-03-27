@@ -49,4 +49,40 @@
     background-color: #17a2b8; /* Bootstrap 'info' color */
     color: #fff;
   }
-  
+  /* General button styles */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.icon-button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+/* Edit button specific styles */
+.edit-button {
+  margin-right: 10px; /* Adds some space between edit and delete buttons */
+  color: #4CAF50; /* Green color for an intuitive edit action */
+}
+
+.edit-button:hover {
+  background-color: #d5f5e3; /* Lighter green on hover */
+}
+
+/* Delete button specific styles */
+.delete-button {
+  color: #F44336; /* Red color for an intuitive delete action */
+}
+
+.delete-button:hover {
+  background-color: #fddede; /* Lighter red on hover */
+}

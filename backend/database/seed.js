@@ -68,13 +68,15 @@ await Gem.create({
     description: "Coding bootcamp.",
     lat: 40.42082717117126, 
     lng: -111.87613180911558,
-    userId: 2
+    userId: 2,
+   
 })
 
 await Comment.create({
     text: "This place is awesome!",
     gemId: 1,
-    userId: 1
+    userId: 1,
+    
 });
 
 await Comment.create({

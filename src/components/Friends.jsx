@@ -8,7 +8,6 @@ import axios from 'axios';
 import "../CSS/Friends.css"
 
 const animStr = (i) => `fadeInAnimation ${650}ms ease-out ${100 * (i + 1)}ms forwards`;
-const animStr2 = (i) => `fadeOutAnimation ${650}ms ease-out ${100 * (i + 1)}ms forwards`;
 
 function Friends() {
     const userId = useSelector(state => state.userId);
@@ -40,11 +39,27 @@ function Friends() {
         }
     }
 
+    const followUser = async (idToFollow) => {
+        const { data } = await axios.post(`/followUser/${idToFollow}`);
+        console.log(data.message);
+        if (data.success) {
+            getCurrentFriends();
+        }
+    }
+
+    const unfollowUser = async (idToUnfollow) => {
+        const { data } = await axios.delete(`/unfollowUser/${idToUnfollow}`);
+        console.log(data.message);
+        if (data.success) {
+            getCurrentFriends();
+        }
+    }
+
     const searchCards = searchResults.map((user, i) => {
         return (
             <div key={i} className="user-display" style={{width: "80%", animation: animStr(i)}}>
                 <label className='email-label'>{user.email}</label>
-                <Button variant="outline-info">Add</Button>
+                <Button variant="outline-info" onClick={() => followUser(user.userId)}>Follow</Button>
             </div>
         )
     });
@@ -53,7 +68,7 @@ function Friends() {
         return (
             <div key={i} className="user-display" style={{width: "100%", animation: animStr(i)}}>
                 <label className="email-label">{friend.email}</label>
-                <Button variant="outline-danger">Remove</Button>
+                <Button variant="outline-danger" onClick={() => unfollowUser(friend.userId)}>Unfollow</Button>
             </div>
         )
     });
@@ -61,7 +76,7 @@ function Friends() {
     return (
         <div className="friends-container">
             <div className="add-friends">
-                <h1 className="center">Add Friends</h1>
+                <h1 className="center">Find User</h1>
                 <div className="search-bar">
                     <FloatingLabel label="email" className="custom-outline" style={{width: "60%"}}>
                         <Form.Control 
@@ -84,7 +99,7 @@ function Friends() {
                 {searchCards}
             </div>
             <div className="current-friends">
-                <h1 className="center">Current Friends:</h1>
+                <h1 className="center">Following:</h1>
                 {friendCards}
             </div>
         </div>

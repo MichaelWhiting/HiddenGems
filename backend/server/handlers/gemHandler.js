@@ -31,7 +31,8 @@ const gemHandler = {
     },
     getAllGems: async (req, res) => {
         const gems = await Gem.findAll({
-            include: Rating
+            include:[ { model: Rating }, { model: Tag }]
+
         });
 
         gems.forEach((gem) => {
@@ -232,8 +233,30 @@ const gemHandler = {
                 success: false
             });
         }
-    }
-};
+    },
+    getAllbyTags: async (req, res) => {
+        const { tagId } = req.params; // Assuming tagId is sent as a parameter in the request
+        
+       
+          // Find gems associated with the specified tagId
+          const tag = await Tag.findByPk(tagId, {
+            include: Gem
+        })
+        
 
+        if (tag) {
+            res.send({
+                message: "Found gem",
+                success: true,
+                tag: tag,
+            });
+        } else {
+            res.send({
+                message: "Could not find gem",
+                success: false
+            })
+        }
+      },
+}
 
 export default gemHandler;

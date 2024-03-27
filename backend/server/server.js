@@ -33,11 +33,13 @@ app.use(
 app.get('/session-check', userHandler.sessionCheck);
 app.get("/logout", userHandler.logout);
 app.get("/getUser/:userId", userHandler.getUser);
-app.get("/getUserInfo/:userId", userHandler.getUserInfo)
+app.get("/getUserInfo/:userId", userHandler.getUserInfo);
 
 app.post("/login", userHandler.login);
 app.post("/register", userHandler.register);
+app.post("/followUser/:idToFollow", userHandler.followUser);
 
+app.delete("/unfollowUser/:idToUnfollow", userHandler.unfollowUser)
 
 // Friends/Following Routes
 app.get("/getFriends", friendHandler.getFriends);
@@ -48,14 +50,14 @@ app.get("/getGem/:gemId", gemHandler.getGem);
 app.get("/getAllGems", gemHandler.getAllGems);
 app.get("/getGemsFromUserId/:userId", gemHandler.getUserGems);
 app.get("/getAllTags", gemHandler.getAllTags);
+app.get("/getAllByTag/:tagId", gemHandler.getAllbyTags)
+app.get("/searchGems/:query", gemHandler.searchGemsByName);
 
 app.post("/createGem", gemHandler.createGem);
 
 app.put("/updateGem/:gemId", gemHandler.updateGem);
 
 app.delete("/deleteGem/:gemId", gemHandler.deleteGem);
-
-app.get("/searchGems/:query", gemHandler.searchGemsByName);
 
 // Img Routes
 app.put('/updateUserProfileImg/:userId', imgHandler.updateUserProfileImg);

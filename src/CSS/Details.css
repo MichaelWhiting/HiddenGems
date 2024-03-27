@@ -16,29 +16,21 @@
 .gem-details-container {
   flex: 0 0 70%;
   padding: 20px;
-  border: 1px solid #ccc; /* Border around the gem details container */
 }
 
 .comments-container {
-  flex: 0 0 30%; /* Width of the comments container */
-  padding: 20px;
-  border: 1px solid #ccc; /* Border around the comments container */
-  margin-left: 20px; /* Add some space between the gem details and comments */
-  max-height: 100%;
-  overflow-y: auto;
-}
-
-.gem-details-image {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.gem-details-ratings-map {
   display: flex;
-  height: 100%;
-  padding-right: 20px; /* Adds padding to the right inside the container, effectively moving its children slightly to the left */
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjust width as necessary */
+  margin-left: 20px;
 }
+
+
+
+
 
 
 .gem-details-ratings {
@@ -47,18 +39,13 @@
   
 }
 
-.gem-details-map {
-  flex: 1;
-  max-width: 100%;
-  max-height: 100%;
-  margin-right: 30px; /* Add some margin to the right to move the map slightly to the left */
-}
+
 
 .comment-container {
-  border: 1px solid #ccc;
-  border-radius: 1px;
+  border: 2.5px solid #71eeff;
+  border-radius: 30px;
   padding: 10px;
-  margin-top: 500px;
+ 
 }
 
 .comment-user-id {
@@ -84,10 +71,12 @@
 
 .small-trash-icon:hover {
   color: rgb(5, 3, 3);
+  transform: scale(1.2); /* Slightly enlarge on hover for interaction feedback */
+
 }
 
 .gem-details-description {
-  text-align: left;
+  text-align: center;
 }
 
 .gem-details-ratings p {
@@ -104,7 +93,8 @@
   padding: 10px;
   font-size: 14px;
   resize: vertical;
-  width: 100%;
+  width: 80%;
+  margin-left: 50px;
 }
 
 .comment-submit-btn {
@@ -116,10 +106,62 @@
   cursor: pointer;
   transition: background-color 0.3s;
   font-weight: bold;
-  margin-top: 10px;
+  margin-left: 50px;
 
 }
 
 .comment-submit-btn:hover {
-  background-color: #0056b3;
+  background-color: #02060b;
+  transform: scale(1.1); /* Slightly enlarge on hover for interaction feedback */
+
+}
+.img-description-tags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  width: 90%; /* Adjust width as necessary */
+}
+
+.gem-details-image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px; /* Slightly increased for a softer look */
+  border: 10px solid #040303; /* Lighter border for subtlety */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  display: block;
+  margin: 20px auto; /* Centers the image and adds some space around */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.gem-details-image:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover for interaction feedback */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover for emphasis */
+}
+
+
+.gem-details-description {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #060404;
+}
+
+/* Optional: Style for the tags */
+.img-description-tags span {
+  background-color: #c6f4f8;
+  color: #333;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+.gem-details-map {
+  height: 500px; /* Adjust as necessary */
+  width: 500px;
+  margin-top: 20px;
 }

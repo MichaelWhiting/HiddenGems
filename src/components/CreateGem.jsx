@@ -108,8 +108,6 @@ function CreateGem() {
           setSubmissionStatus("Gem created successfully!");
           setIsSubmitted(true);
           
-          // Here's where you might navigate after a successful submission
-          navigate("/details", { state: { gemId: res.data.newGem.gemId } });
 
           // Reset form (optional)
           setFormData({
@@ -147,7 +145,6 @@ function CreateGem() {
     if (selectedTags.includes(tagId)) {
       setSelectedTags(selectedTags.filter(id => id !== tagId)); // Deselect tag if already selected
     } else {
-      setSelectedTags([...selectedTags, tagId]); // Select tag if not selected
       setFormData({...formData, tags: [...formData.tags, tagId]})
     }
   };
@@ -161,7 +158,7 @@ function CreateGem() {
         <form onSubmit={handleSubmit} className="cr-form">
           <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
           <h2>Add A Tag</h2>
-           <div>
+          <div>
            {tags.map(tag => (
             <React.Fragment key={tag.tagId}>
             <input type="checkbox" id={`tag-${tag.tagId}`} value={tag.tagName}
