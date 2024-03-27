@@ -94,15 +94,21 @@ function DetailsPage() {
           <div className="gem-details-container">
             <div className="gem-details-content">
               <div className="gem-details-info">
-                <h2 className="gem-details-location">{gem.name}</h2>
+                <div className="img-description-tags">
+                  <h2 className="gem-details-location">{gem.name}</h2>
                 {gem?.imgUrl && (
                   <img
                     src={gem.imgUrl}
                     alt={gem.name}
                     className="gem-details-image"
+                    
                   />
+                  
                 )}
                 <p className="gem-details-description">{gem.description}</p>
+                  Tags: {gem.tags.map((tag, index) => (
+                    <span key={index}>{tag.tagName}{index !== gem.tags.length - 1 && ', '}</span>
+                  ))}
                 <div className="gem-details-ratings-map">
                   <div className="gem-details-ratings">
                     <p>Enjoyability:</p>
@@ -113,11 +119,8 @@ function DetailsPage() {
                   <div className="gem-details-map">
                     <MapComponent gem={gem}  />
                   </div>
-                <div>
-                  Tags: {gem.tags.map((tag, index) => (
-                    <span key={index}>{tag.tagName}{index !== gem.tags.length - 1 && ', '}</span>
-                  ))}
                 </div>
+               
                 </div>
               </div>
             </div>
