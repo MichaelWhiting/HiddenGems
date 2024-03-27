@@ -1,4 +1,14 @@
-//  import {User, Gem, Comment, Tag, db } from "./model.js"
+ import {User, Gem, Comment, Tag, db } from "./model.js"
+
+// let tagId = 1
+
+//  const gem = await Gem.findAll({
+//     include: [{
+//       model: Tag,
+//       where: { id: tagId } // Filtering by tagId
+//     }]
+//   });
+
 
 // // console.log(await Tag.findAll())
 
@@ -13,10 +23,28 @@
 
 // // console.log(await Gem.findOne({ include: Tag })) 
 
-// const tag2 = await Tag.findByPk(2, {
-//     include: Gem
-// })
+const tag2 = await Tag.findByPk(2, {
+    include: Gem
+})
 
+const tag3 = await Tag.findByPk(2, {
+    include: [{
+        model: Gem,
+        attributes: ['gemId'] // Only include the gemId attribute
+    }]
+});
+
+const tag4 = await Tag.findByPk(2, {
+    include: [{
+        model: Gem,
+        attributes: ['gemId'], // Only include the gemId attribute
+        through: { attributes: [] } // Exclude the intermediate table (GemTag) attributes
+    }]
+});
+
+console.log(tag2)
+console.log(tag3)
+console.log(tag4)
 // console.log(await Gem.findAll({ include: Tag }))
 
 // // console.log(tag2.gems)
@@ -54,7 +82,7 @@
 //   await user2.addFriendship(user1);
 
 
-//   await db.close();
+  await db.close();
 
 
 
