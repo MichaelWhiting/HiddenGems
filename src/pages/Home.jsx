@@ -13,8 +13,10 @@ function Home() {
   return (
     <>
     {!showCreateGem && (
-      <>
-        <MapComponent />
+        <>
+        <div>
+          <MapComponent />
+        </div>
         <button onClick={handleCreateGemClick}>Create Gem</button>
       </>
     )}
