@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "../CSS/UpdateGem.css";
 import { Upload } from "react-bootstrap-icons";
+import MapComponent from "./Map.jsx";
 
 const UpdateGem = () => {
   const { gemId } = useParams();
@@ -10,9 +11,14 @@ const UpdateGem = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
   const [submissionStatus, setSubmissionStatus] = useState("");
+
+  const updateCords = (newLat, newLng) => {
+    setLat(newLat);
+    setLng(newLng);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,23 +170,9 @@ const UpdateGem = () => {
             />
           </div>
         )}
-        <p>Latitude:</p>
-        <input
-          type="number"
-          name="lat"
-          value={lat}
-          onChange={handleChange}
-          required
-        />
-        <p>Longitude:</p>
-        <input
-          type="number"
-          name="lng"
-          value={lng}
-          onChange={handleChange}
-          required
-        />
-
+        <div style={{width: "100%", height: 300}}>
+          <MapComponent updateCords={updateCords} isCreating={true} />
+        </div>
         <button type="submit" className="submit-btn">
           Update Gem
         </button>

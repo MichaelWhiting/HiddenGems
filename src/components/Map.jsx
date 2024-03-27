@@ -42,7 +42,13 @@ function MapComponent(props) {
       key={gem.gemId} 
       position={{lat: gem.lat, lng: gem.lng}} 
       title={gem.name} icon={gemMarkerIcon} 
-      onClick={() => navigate("/details", { state: { gemId: gem.gemId }})}/>
+      onClick={() => {
+        if (isCreating) {
+            return;
+        } else {
+            navigate("/details", { state: { gemId: gem.gemId }})}}
+        }
+        />
     })
 
     useEffect(() => {
