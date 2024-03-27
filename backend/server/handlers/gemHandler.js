@@ -220,6 +220,14 @@ const gemHandler = {
                 })
             }
 
+            gems.forEach((gem) => {
+                const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+                const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+    
+                gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+                gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
+            });
+
             if (gems) {
                 res.status(200).json({
                     message: `Found ${gems.length} gems matching the search query`,
