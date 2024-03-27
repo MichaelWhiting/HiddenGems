@@ -51,14 +51,13 @@ app.get("/getAllGems", gemHandler.getAllGems);
 app.get("/getGemsFromUserId/:userId", gemHandler.getUserGems);
 app.get("/getAllTags", gemHandler.getAllTags);
 app.get("/getAllByTag/:tagId", gemHandler.getAllbyTags)
+app.get("/searchGems/:query", gemHandler.searchGemsByName);
 
 app.post("/createGem", gemHandler.createGem);
 
 app.put("/updateGem/:gemId", gemHandler.updateGem);
 
 app.delete("/deleteGem/:gemId", gemHandler.deleteGem);
-
-
 
 // Img Routes
 app.put('/updateUserProfileImg/:userId', imgHandler.updateUserProfileImg);

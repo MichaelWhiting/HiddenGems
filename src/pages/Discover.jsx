@@ -1,15 +1,17 @@
 
+
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import '../CSS/Discover.css'
 import RatingBar from '../components/RatingBar.jsx';
 import GemCard from '../components/GemCard.jsx';
 
-
 function Discover() {
+  const [query, setQuery] = useState('');
   const [gems, setGems] = useState([]);
-  const [ratings, setRatings] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
   const [tags, setTags] = useState([])
@@ -18,7 +20,21 @@ function Discover() {
     7: false, 8: false, 9: false, 10: false, 11: false, 12: false
   }); // Track selected tags
 
+  const handleSearch = async () => {
+    try {
+      const searchRes = await axios.get(`/searchGems/${query}`);
+      setSearchResults(searchRes.data.gems);
+    } catch (error) {
+      console.error("Error searching gems:", error);
+      // Handle error, e.g., display an error message to the user
+    }
+  };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
   const gemCards = gems.filter((gem) => {
     for (const tag of gem.tags) { // loops through each of the tags on the gem
       if (selectedTags[tag.tagId]) { // checks to see if that tag is selected
@@ -40,8 +56,15 @@ function Discover() {
   }
 
   useEffect(() => {
-    fetchData()
-  }, []);
+    if (searchQuery.trim() !== '') {
+      handleSearch();
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchQuery]);
+  useEffect(() => {
+    handleSearch();
+  }, [query])
 
   const fetchTags = async () => {
     const tags = await axios.get("/getAllTags");
@@ -71,6 +94,16 @@ function Discover() {
     <>
       <div className='discover'>
         <h1>GEMS YOU MIGHT LIKE</h1>
+        <div className='search-bar'>
+          <input
+            type='text'
+            placeholder='Search gems...'
+            id='searchInput' // Add a unique id attribute
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <button onClick={handleSearch}>Search</button>
         <h5>Filter by Tag:</h5>
         <div>
           {tags.map((tag, i) => (
@@ -92,9 +125,7 @@ function Discover() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Discover
-
-
+export default Discover;
