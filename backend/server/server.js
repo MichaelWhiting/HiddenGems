@@ -55,6 +55,8 @@ app.put("/updateGem/:gemId", gemHandler.updateGem);
 
 app.delete("/deleteGem/:gemId", gemHandler.deleteGem);
 
+app.get("/searchGems/:query", gemHandler.searchGemsByName);
+
 // Img Routes
 app.put('/updateUserProfileImg/:userId', imgHandler.updateUserProfileImg);
 app.put('/updateUserHeaderImg/:userId', imgHandler.updateUserHeaderImg);

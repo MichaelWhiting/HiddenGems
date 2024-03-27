@@ -1,4 +1,5 @@
 import { Gem, Comment, Rating, Tag } from  "../../database/model.js";
+import { Op } from 'sequelize';
 
 const gemHandler = {
     getGem: async (req, res) => {
@@ -200,6 +201,39 @@ const gemHandler = {
             tags: tags
         })
     },
-}
+    searchGemsByName: async (req, res) => {
+        try {
+            const { query } = req.params;
+            const gems = await Gem.findAll({
+                where: {
+                    name: {
+                        [Op.iLike]: `%${query}%` // Case-insensitive search for gem names containing the query string
+                    }
+                },
+                include: [{ model: Rating }, { model: Tag }]
+            });
+
+            if (gems.length > 0) {
+                res.status(200).json({
+                    message: `Found ${gems.length} gems matching the search query`,
+                    success: true,
+                    gems
+                });
+            } else {
+                res.status(404).json({
+                    message: "No gems found matching the search query",
+                    success: false
+                });
+            }
+        } catch (error) {
+            console.error("Error searching gems:", error);
+            res.status(500).json({
+                message: "Internal server error",
+                success: false
+            });
+        }
+    }
+};
+
 
 export default gemHandler;
