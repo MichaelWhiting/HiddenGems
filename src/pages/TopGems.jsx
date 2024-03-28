@@ -21,7 +21,7 @@ function TopGems() {
   }, [reload]);
 
   const gemCards = gems
-    // .sort((a, b) => b.enjoyAvg - a.enjoyAvg)
+    .sort((a, b) => b.enjoyAvg - a.enjoyAvg)
     .map((gem, i) => (
       <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={false}/>
     ));
