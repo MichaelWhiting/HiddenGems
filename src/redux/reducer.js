@@ -1,7 +1,7 @@
 const initialState = {
     userId: null,
     navbarColor: "#0dcaf0",
-    backgroundColor: "#93e0ef",
+    backgroundColor: "#E0FAFF",
     foregroundColor: "#FFFFFF"
 };
 

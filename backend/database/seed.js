@@ -3,9 +3,9 @@ import { db, User, Gem, Comment, Rating, Tag } from "./model.js";
 await db.sync({ force: true });
 
 const defaultColors = {
-    navbarColor: "#2b3035",
-    backgroundColor: "#FFFFFF",
-    foregroundColor: "#FFFFFF",
+    navbarColor: "#0dcaf0",
+    backgroundColor: "#E0FAFF",
+    foregroundColor: "#FFFFFF"
 }
 // seed here
 await User.create({

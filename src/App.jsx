@@ -12,7 +12,6 @@ import "./CSS/App.css"
 function App() {
   const userId = useSelector(state => state.userId);
   const navbarColor = useSelector(state => state.navbarColor);
-  const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
 
   const sessionCheck = async () => {
