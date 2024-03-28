@@ -1,27 +1,78 @@
 
 import CreateGem from '../components/CreateGem.jsx';
 import MapComponent from '../components/Map.jsx'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from "react-bootstrap";
+import "../CSS/Home.css"
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import GemCard from '../components/GemCard.jsx';
 
 function Home() {
+  const userId = useSelector(state => state.userId);
   const [showCreateGem, setShowCreateGem] = useState(false);
+  const [followingGems, setFollowingGems] = useState([]);
+  const [reload, setReload] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleCreateGemClick = () => {
     setShowCreateGem(true)
   };
 
+  const getFollowingGems = async () => {
+    const gemsToUpdate = [];
+    const { data } = await axios.get("/getFriends")
+    const friends = data.friends
+    console.log(friends)
+    for (let i = 0; i < friends.length; i++) {
+      const res = await axios.get(`/getFollowingGems/${friends[i].userId}`);
+      gemsToUpdate.push(...res.data.gems);
+      if (i === friends.length - 1) {
+        console.log("on the last gem, so now updatting followingGems to:", gemsToUpdate)
+        setFollowingGems(gemsToUpdate);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (userId) {
+      getFollowingGems()
+    } else {
+      navigate("/login")
+    }
+  }, [])
+
+  useEffect(() => {
+    getFollowingGems()
+  }, [reload])
+
+  const gemCards = followingGems.map((gem, i) => (
+    <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={false}/>
+  ));
   return (
     <>
-    {!showCreateGem && (
-        <>
-        <div>
-          <MapComponent />
+      {!showCreateGem && (
+        <div className="home-page center">
+          <label className="title">Gems Near You</label>
+          <div className="home-map">
+            <MapComponent />
+          </div>
+            <Button 
+              variant="info" 
+              className="create-gem-btn"
+              onClick={handleCreateGemClick}>
+              Create Gem
+            </Button>
+          <div>
+            <label className="sub-title">Following Feed:</label>
+            {gemCards}
+          </div>
         </div>
-        <button onClick={handleCreateGemClick}>Create Gem</button>
-      </>
-    )}
-    {showCreateGem && <CreateGem />}
-  </>
+      )}
+      {showCreateGem && <CreateGem />}
+    </>
   )
 }
 

@@ -65,7 +65,7 @@ function App() {
           <Navbar.Collapse>
             <Nav className="me-auto">
               <NavLink to="/" className="nav-link">
-                <Icon.HouseFill className="navbar-icon"/>
+                <Icon.House className="navbar-icon"/>
                 Home
               </NavLink>
               <NavLink to="/topGems" className="nav-link">

@@ -45,15 +45,17 @@ await Gem.create({
     description: "At this resort, this trail is not used at all and the snow is super fresh",
     lat: -50.4214,
     lng: 10.9864,
-    userId: 1
+    userId: 1,
+    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
     name: "Cool Shop",
     description: "This is a really cool shop, has some unique items",
-    lat: 18.592,
+    lat: 25.592,
     lng: 10.1005,
-    userId: 2
+    userId: 2,
+    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -61,7 +63,8 @@ await Gem.create({
     description: "This comedy club is a hidden gem!",
     lat: 54.323,
     lng: 15.92872,
-    userId: 3
+    userId: 3,
+    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -69,7 +72,8 @@ await Gem.create({
     description: "This is a beautiful cave that no one knows about!",
     lat: 32.198,
     lng: 12.996,
-    userId: 4
+    userId: 4,
+    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -78,7 +82,7 @@ await Gem.create({
     lat: 40.42082717117126, 
     lng: -111.87613180911558,
     userId: 2,
-   
+    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 })
 
 await Comment.create({
