@@ -88,19 +88,6 @@ function Discover() {
   }, []);
 
 
-  // const handleTagSelection = async (tagId) => {
-  //   console.log(tagId)
-  //   try {
-  //     // Assuming your server endpoint to fetch gems based on tagId is '/gems'
-  //     const response = await axios.get(`/getAllByTag/${tagId}`);
-
-  //     setGems(response.data.tag.gems)
-  //   } catch (error) {
-  //     console.error('Error fetching gems:', error);
-
-  //   }
-  // };
-
   return (
     <>
       <div className='discover'>
@@ -117,22 +104,25 @@ function Discover() {
             />
             <button onClick={handleSearch}>Search</button>
           </div>
-          <div >
-            <h5>Filter by Tag:</h5>
+          <div class="tags-container">
+            {/* <h5 className='TagTitle'>Filter by Tag</h5> */}
+           
+
             {tags.map((tag, i) => (
-                 <button
-                id='tagsButton' 
-                key={`tag-${tag.tagId}`} 
-                value={tag.tagName}
-                onClick={() => {
+              <button
+              id='tagsButton' 
+              key={`tag-${tag.tagId}`} 
+              value={tag.tagName}
+              onClick={() => {
                 setSelectedTags({ ...selectedTags, [i + 1]: !selectedTags[i + 1] });
-                   }}
-                  className={selectedTags[i + 1] ? 'selected' : ''}
-                  >
+              }}
+              className={selectedTags[i + 1] ? 'selected' : ''}
+              >
                 {tag.tagName}
                 </button>
               
-            ))}
+              ))}
+             
           </div>
         </div>
         <div className="discover-container">
