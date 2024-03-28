@@ -2,7 +2,8 @@
 import CreateGem from '../components/CreateGem.jsx';
 import MapComponent from '../components/Map.jsx'
 import { useState } from 'react';
-
+import { Button } from "react-bootstrap";
+import "../CSS/Home.css"
 function Home() {
   const [showCreateGem, setShowCreateGem] = useState(false);
 
@@ -12,16 +13,19 @@ function Home() {
 
   return (
     <>
-    {!showCreateGem && (
-        <>
-        <div>
-          <MapComponent />
+      {!showCreateGem && (
+        <div className="home-page">
+          <div className="home-map">
+            <MapComponent />
+          </div>
+          <Button variant="info" onClick={handleCreateGemClick}>Create Gem</Button>
+          <div>
+            {/* gem cards of friends would go here*/}
+          </div>
         </div>
-        <button onClick={handleCreateGemClick}>Create Gem</button>
-      </>
-    )}
-    {showCreateGem && <CreateGem />}
-  </>
+      )}
+      {showCreateGem && <CreateGem />}
+    </>
   )
 }
 

@@ -1,7 +1,7 @@
-import {APIProvider, Map, Marker, AdvancedMarker} from '@vis.gl/react-google-maps';
+import { APIProvider, Map, Marker, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 // Icons
@@ -90,7 +90,7 @@ function MapComponent(props) {
     }, []);
 
     return (
-        <div className='Map' style={{height: "80vh", width: "100%", color:'red'}}>
+        <div className='Map' style={{height: "100%", width: "100%", color:'red'}}>
             <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
                 <Map 
                     mapId="8041ba05ec4f9f0a" // mapId from the API website
