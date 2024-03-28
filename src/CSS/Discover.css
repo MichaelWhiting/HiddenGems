@@ -31,3 +31,62 @@
     font-size: 16px;
     color: #667;
   }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    max-width: 400px; /* Adjust width as needed */
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 20px; /* Round the corners */
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease; /* Add transition for smoother interaction */
+  }
+  
+  .search-bar input[type="text"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px; /* Round the corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add transition for smoother interaction */
+  }
+  
+  .search-bar button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  
+  /* Adjust styling for checkbox and label */
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Adjust styling for tag filter container */
+  .header {
+    margin-bottom: 20px;
+  }
+  
+  .d-flex {
+    display: flex;
+    align-items: center;
+  }
+  
+  .justify-content-center {
+    justify-content: center;
+  }
