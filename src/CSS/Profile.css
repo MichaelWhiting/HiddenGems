@@ -72,6 +72,7 @@
 .user-name {
   font-size: 24px;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .user-email {

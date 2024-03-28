@@ -1,67 +1,307 @@
 .friends-container {
-    margin: auto;
-    width: 80%;
-    height: 800px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px; /* Ensures container is not too wide on large screens */
     display: flex;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 10px;
+    border: 1px solid #e0e0e0; /* Lighter border for subtlety */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Slightly more pronounced shadow for depth */
+    background-color: #ffffff; /* Ensure background is white for contrast */
+    height: auto;
 }
 
 .center {
     text-align: center;
     width: 100%;
-    margin: auto;
 }
 
 .search-bar {
+    margin: 20px auto;
+    width: 80%; /* Make search bar a bit narrower for focus */
     display: flex;
-    justify-content: center;
-    margin: auto;
-    width: 100%;
+    align-items: center; /* Vertically center items */
 }
 
 .search-button {
-    width: 10%;
-    overflow: hidden;
+    width: auto; /* Auto width based on content */
+    margin-left: 10px; /* Space between input and button */
+    cursor: pointer; /* Indicate clickable */
+    padding: 5px 10px; /* Padding for touch friendliness */
+    border-radius: 5px; /* Rounded corners for modern look */
+    background-color: #5CB85C; /* Bootstrap success color for friendliness */
+    color: white; /* Contrast text color */
+    border: none; /* Remove border */
+}
+
+.current-friends, .add-friends {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    gap: 15px; /* Space between children */
 }
 
 .current-friends {
     width: 40%;
-    height: 100%;
-    justify-content: center;
+    padding-right: 20px; /* Space between sections */
 }
 
 .add-friends {
     width: 60%;
-    height: 100%;
 }
+
 .email-label {
-    font-size: 20px;
-    font-weight: 100;
-    width: 70%;
+    font-size: 18px; /* Slightly smaller for subtlety */
+    font-weight: 400; /* Normal weight for readability */
+    margin-bottom: 5px; /* Space before input */
 }
 
 .user-display {
     display: flex;
-    justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    justify-content: space-between;
     padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 10px;
-    opacity: 0%;
+    margin: 10px 0;
+    border: 1px solid #ccc; /* Adds a light gray border */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    background-color: #f9f9f9; /* Light background to distinguish card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover effects */
 }
 
+.user-display:hover {
+    transform: translateY(-2px); /* Slightly raise the card on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increased shadow for a lifted effect */
+}
+
+/* Enhancements for the label to better fit the card design */
+.email-label {
+    font-size: 16px;
+    font-weight: 500; /* Semi-bold for readability */
+    color: #333; /* Darker text for contrast */
+}
+
+/* Adjustments for button styling within the card */
+.user-display .btn-outline-info, .user-display .btn-outline-danger {
+    font-size: 14px;
+    padding: 5px 10px; /* Smaller padding for a compact look */
+    margin-left: 10px; /* Ensures spacing between text and button */
+}
+
+/* Styles for the image within the card for a uniform appearance */
+.gem-details-image {
+    width: 70px; /* Adjust based on your design */
+    height: 70px; /* Adjust to maintain aspect ratio */
+    border-radius: 50%; /* Circular images */
+    object-fit: cover; /* Ensure the image covers the area */
+    margin-right: 10px; /* Space between image and text */
+}
+
+
 .title-label {
-    font-size: 50px;
-    font-weight: 300;
+    font-size: 30px; /* Less dominating size */
+    margin-bottom: 20px; /* Space after title */
 }
 
 .custom-outline .form-control:focus {
-    border-color: #6edff6;
-    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    border-color: #0b0f10; /* Bright, engaging color */
+    box-shadow: 0 0 0 0.2rem rgba(110, 223, 246, 1); /* Softer glow */
+   
 }
+
+.custom-outline {
+  margin-left: 100px;
+}
+/* Add responsiveness to layout */
+@media (max-width: 768px) {
+    .friends-container {
+        flex-direction: column; /* Stack sections vertically on smaller screens */
+    }
+
+    .current-friends, .add-friends {
+        width: 100%; /* Full width for each section */
+        padding: 0; /* Reset padding */
+    }
+
+    .search-bar {
+        flex-direction: column; /* Stack search elements on smaller screens */
+        width: 90%; /* Adjust width for smaller screens */
+    }
+
+    .search-button {
+        margin-top: 10px; /* Space between input and button on smaller screens */
+        width: 100%; /* Button width to match input */
+    }
+}
+.update-gem-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #a0e2ff ;
+  }
+  
+  .update-gem-form {
+    width: 50%;
+    background-color: #ffffff ;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-group input[type="text"],
+  .form-group textarea {
+    width: calc(100% - 20px); /* Adjusted width to accommodate padding */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .upload-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .upload-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .image-preview {
+    margin-top: 10px;
+  }
+  
+  
+  .image-container {
+    width: 300px;
+    height: 300px;
+    margin-top: 10px;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .image-container:hover {
+    filter: brightness(70%); /* Makes the image darker on hover */
+    cursor: pointer;
+  }
+  
+  
+  
+  .map-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px; /* Adjust the height as needed */
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .form-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 80px;
+  }
+  
+  .submit-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #bd2130;
+  }
+  
+  .submission-status {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+  }
+  .friends-list-section {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .friends-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .friend-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .friend-image-container {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+  }
+  
+  .friend-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .friend-info {
+    padding: 10px;
+  }
+  
+  .friend-name, .friend-email {
+    margin: 5px 0;
+  }
+  
+  .friend-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .friend-email {
+    font-size: 14px;
+    color: #666;
+  }

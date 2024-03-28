@@ -9,9 +9,9 @@ import MapComponent from "./Map.jsx";
 const UpdateGem = () => {
   const { gemId } = useParams();
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [submissionStatus, setSubmissionStatus] = useState("");
@@ -117,7 +117,7 @@ const UpdateGem = () => {
         { withCredentials: true }
       );
       setSubmissionStatus("Gem updated successfully!");
-      navigate('/profile');
+      navigate("/profile");
     } catch (error) {
       console.error("Error updating gem:", error);
       setSubmissionStatus("Error updating the gem. Please try again.");
@@ -128,61 +128,91 @@ const UpdateGem = () => {
   };
 
   return (
-    <div className="form-container">
+    <div className="update-gem-container">
       {submissionStatus && (
         <div className="submission-status">{submissionStatus}</div>
       )}
-      <form className="cr-form" onSubmit={handleSubmit}>
-        <p>Name:</p>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleChange}
-          required
-        />
-        <p>Description:</p>
-        <textarea
-          name="description"
-          value={description}
-          onChange={handleChange}
-          required
-        />
-        <p>Image:</p>
-        <button
-          type="button"
-          onClick={() => document.getElementById("fileUpload").click()}
-          className="upload-button"
-        >
-          <Upload size={24} /> Upload New Image
-        </button>
-        <input
-          type="file"
-          id="fileUpload"
-          onChange={handleFileChange}
-          style={{ display: "none" }}
-        />
-        {imgUrl && (
-          <div className="image-preview">
+      <form className="update-gem-form" onSubmit={handleSubmit}>
+      <div className="title">
+        <h1>Edit Gem</h1>
+      </div>
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description:</label>
+          <textarea
+            id="description"
+            name="description"
+            value={description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="file"
+            id="fileUpload"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+              <label htmlFor="Gem image">Gem image:</label>
+          {imgUrl && (
+            <div className="image-container" onClick={() => document.getElementById("fileUpload").click()}>
             <img
+              className="image"
               src={imgUrl}
               alt="Uploaded Gem"
-              style={{ width: "100px", height: "100px", marginTop: "10px" }}
-            />
+              />
           </div>
-        )}
-        <div style={{width: "100%", height: 300}}>
+          
+          )}
+          <Upload
+            size={15}
+            onClick={() => document.getElementById("fileUpload").click()}
+          />
+        </div>
+        <div className="map-container">
+          <div className="form-group">
+          <label htmlFor="location">Location:</label>
+          </div>
           <MapComponent updateCords={updateCords} isCreating={true} />
         </div>
-        <button type="submit" className="submit-btn">
-          Update Gem
-        </button>
-        <button type="button" onClick={handleCancel}>
-          Cancel
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="submit-btn">
+            Update Gem
+          </button>
+          <button type="button" onClick={handleCancel} className="cancel-btn">
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
 export default UpdateGem;
+
+// const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // Added for background color change
+// const handleChangeComplete = (color) => {
+//   document.body.style.backgroundColor = color; // Apply selected color to body background
+//   setBackgroundColor(color); // Update state to keep input value in sync
+// };
+
+//   {/* Color Picker Button and Input */}
+//   <div style={{ margin: "20px 0" }}>
+//   <h4>Choose Background Color:</h4>
+//   <input 
+//     type="color" 
+//     value={backgroundColor} 
+//     onChange={(e) => handleChangeComplete(e.target.value)} 
+//   />
+// </div>

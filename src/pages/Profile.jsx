@@ -4,20 +4,21 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../CSS/Profile.css"; // Import the CSS file for styling
 import { Upload } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap"
-import Friends from "../components/Friends.jsx"
+import { Button } from "react-bootstrap";
+import Friends from "../components/Friends.jsx";
 
 // Components
 import GemCard from "../components/GemCard";
 
 function Profile() {
-  const userId = useSelector(state => state.userId);
+  const userId = useSelector((state) => state.userId);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const [gems, setGems] = useState([]);
   const [reload, setReload] = useState(false);
   const [imgUploadStatus, setImgUploadStatus] = useState("");
   const [showFriends, setShowFriends] = useState(false); // State to control Friends component visibility
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // Added for background color change
 
   useEffect(() => {
     if (!userId) {
@@ -27,21 +28,21 @@ function Profile() {
     }
   }, [reload]);
 
-const getUser = async () => {
-  console.log("page refreashed")
-  if (!userId) {
-    navigate("/login");
-  } else {
-    try {
-      const response = await axios.get(`/getUserInfo/${userId}`);
-      setUserInfo(response.data.user);
-      const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
-      setGems(data.gems);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+  const getUser = async () => {
+    console.log("page refreshed");
+    if (!userId) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await axios.get(`/getUserInfo/${userId}`);
+        setUserInfo(response.data.user);
+        const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+        setGems(data.gems);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     }
-  }
-};
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,18 +114,21 @@ const getUser = async () => {
   };
 
   const handleFriendsButtonClick = () => {
-    setShowFriends(true); // Show Friends component when button is clicked
+    setShowFriends(!showFriends); // Toggle Friends component visibility
+  };
+
+  const handleChangeComplete = (color) => {
+    document.body.style.backgroundColor = color; // Apply selected color to body background
+    setBackgroundColor(color); // Update state to keep input value in sync
   };
 
   if (!userInfo) {
-    return <div>Loading...</div>; // Or some loading spinner
+    return <div>Loading...</div>; // Loading state
   }
 
-  const gemCards = gems.map((gem, i) => {
-    return (
-      <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={true}/>
-    )
-  });
+  const gemCards = gems.map((gem, i) => (
+    <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={true} />
+  ));
 
   return (
     <div className="profile-container">
@@ -149,9 +153,8 @@ const getUser = async () => {
           onClick={() => document.getElementById("headerFileInput").click()}
           aria-label="Upload header image"
         >
-          <Upload size={24} /> {/* Adjust size as needed */}
+          <Upload size={24} />
         </button>
-        {imgUploadStatus && <p className="upload-status">{imgUploadStatus}</p>}
         {userInfo?.imgUrl && (
           <img
             src={userInfo.imgUrl}
@@ -160,13 +163,6 @@ const getUser = async () => {
             onClick={() => document.getElementById("fileInput").click()}
           />
         )}
-        <button
-          className="icon-button"
-          onClick={() => document.getElementById("fileInput").click()}
-          aria-label="Upload profile image"
-        >
-          <Upload size={24} /> {/* Adjust size as needed */}
-        </button>
         <input
           type="file"
           id="fileInput"
@@ -174,38 +170,47 @@ const getUser = async () => {
           className="file-input"
           style={{ display: "none" }}
         />
+        <button
+          className="icon-button"
+          onClick={() => document.getElementById("fileInput").click()}
+          aria-label="Upload profile image"
+        >
+          <Upload size={24} />
+        </button>
       </div>
       <br />
-      <br />
-      <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
+      <h1 className="user-name">
+        {userInfo.firstName} {userInfo.lastName}
+      </h1>
       <h2 className="user-email">{userInfo.email}</h2>
       <hr />
-      <Button 
-        variant="outline-info"
-        onClick={handleFriendsButtonClick}
-          >
-            Friends
-          </Button>
-    
-          {showFriends && <Friends />} {/* Display Friends component when showFriends state is true */}
-    
-          <div className="gems-section">
-            <h2>Gems You Created</h2>
-            <ul className="gem-cards">{gemCards}</ul>
-          </div>
-          <div className="comments-section">
-            <h2>Comments</h2>
-            <ul>
-              {userInfo.comments.map((comment) => (
-                <li key={comment.commentId} className="comment">
-                  {comment.text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      );
-    }
-    
-    export default Profile;
-    
+      {/* Color Picker Button and Input */}
+      <div style={{ margin: "20px 0" }}>
+        <h4>Choose Background Color:</h4>
+        <input 
+          type="color" 
+          value={backgroundColor} 
+          onChange={(e) => handleChangeComplete(e.target.value)} 
+        />
+      </div>
+      <Button variant="outline-info" onClick={handleFriendsButtonClick}>
+        Friends
+      </Button>
+      {showFriends && <Friends />}
+      <div className="gems-section">
+        <h2>Gems You Created</h2>
+        <ul className="gem-cards">{gemCards}</ul>
+      </div>
+      <div className="comments-section">
+        <h2>Comments</h2>
+        <ul>
+          {userInfo.comments.map((comment, index) => (
+            <li key={index} className="comment">{comment.text}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default Profile;

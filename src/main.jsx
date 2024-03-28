@@ -18,6 +18,7 @@ import Game2048 from './pages/game2048.jsx'
 // import EditGem from './components/EditGem.jsx'
 import Friends from './components/Friends.jsx'
 import UpdateGem from './components/updateGem.jsx'
+import Profile2 from './pages/Profile2.jsx'
 
 import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="/topGems" element={<TopGems />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile2/:userId" element={<Profile2 />} />
         <Route path="/about" element={<About />} />
         <Route path="/details" element={<DetailsPage />} />
         <Route path="/login" element={<Login />} />
