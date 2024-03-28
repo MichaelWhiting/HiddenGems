@@ -55,7 +55,6 @@ function App() {
 
   return (
     <>
-    
       <Navbar expand='md' bg='dark' data-bs-theme='dark'>
         <Container fluid className="d-flex">
           <Navbar.Brand>

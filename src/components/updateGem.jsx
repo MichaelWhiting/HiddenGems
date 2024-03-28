@@ -5,6 +5,7 @@ import "../CSS/UpdateGem.css";
 import { Upload } from "react-bootstrap-icons";
 import MapComponent from "./Map.jsx";
 
+
 const UpdateGem = () => {
   const { gemId } = useParams();
   const navigate = useNavigate();

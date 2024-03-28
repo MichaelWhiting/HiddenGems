@@ -3,10 +3,18 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
 
-const gemMarkerIcon = {
-    url: 'https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-3d/512/Gem-Stone-3d-icon.png',
-    scaledSize: {width: 55, height: 55}
-};
+
+// Icons
+import pointerIcon from "../public/pointer.svg";
+
+import red1 from "../public/red1.png";
+import red2 from "../public/red2.png";
+import yellow1 from "../public/yellow1.png";
+import yellow2 from "../public/yellow2.png";
+import green1 from "../public/green1.png";
+import green2 from "../public/green2.png";
+import blue1 from "../public/blue1.png";
+import purple1 from "../public/purple1.png";
 
 function MapComponent(props) {
     const [gems, setGems] = useState([]); // all of the gems from the database
@@ -37,11 +45,37 @@ function MapComponent(props) {
         setGems(data.gems); // updates the gems state variable
     }
 
+    const getGemMarkerIcon = (gem) => {
+        let iconUrl = "";
+        const enjoyAvg = gem.enjoyAvg;
+
+        if (enjoyAvg >= 95) {
+            iconUrl = purple1; 
+        } else if (enjoyAvg >= 90) {
+            iconUrl = blue1;
+        } else if (enjoyAvg >= 75) {
+            iconUrl = green2;
+        } else if (enjoyAvg >= 60) {
+            iconUrl = green1;
+        } else if (enjoyAvg >= 45) {
+            iconUrl = yellow2;
+        } else if (enjoyAvg >= 30) {
+            iconUrl = yellow1;
+        } else if (enjoyAvg >= 15) {
+            iconUrl = red2;
+        } else {
+            iconUrl = red1;
+        }
+
+
+        return { url: iconUrl, scaledSize: {width: 55, height: 55}};
+    }
+
     const gemMarkers = gems.map((gem) => { // for each of the gems in the gems array, this creates a marker on the map for them
       return <Marker 
       key={gem.gemId} 
       position={{lat: gem.lat, lng: gem.lng}} 
-      title={gem.name} icon={gemMarkerIcon} 
+      title={gem.name} icon={getGemMarkerIcon(gem)} 
       onClick={() => {
         if (isCreating) {
             return;
@@ -56,8 +90,8 @@ function MapComponent(props) {
     }, []);
 
     return (
-        <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
-            <div className='Map' style={{height: "100%", width: "100%", color:'red'}}>
+        <div className='Map' style={{height: "80vh", width: "100%", color:'red'}}>
+            <APIProvider apiKey={import.meta.env.VITE_API_KEY}>
                 <Map 
                     mapId="8041ba05ec4f9f0a" // mapId from the API website
                     center={isMapInitialized ? undefined : initialCenter} // tells the map where to initially start
@@ -70,8 +104,8 @@ function MapComponent(props) {
                     {gemMarkers} 
                     {/*  ^ loads all of the markers for the gems onto the map */}
                 </Map>
-            </div>
-        </APIProvider>
+            </APIProvider>
+        </div>
     )
 }
 

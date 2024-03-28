@@ -1,4 +1,5 @@
 import { Gem, Comment, Rating, Tag } from  "../../database/model.js";
+import { Op } from 'sequelize';
 
 const gemHandler = {
     getGem: async (req, res) => {
@@ -30,7 +31,7 @@ const gemHandler = {
     },
     getAllGems: async (req, res) => {
         const gems = await Gem.findAll({
-            include: Rating
+            include:[ { model: Rating }, { model: Tag }]
         });
 
         gems.forEach((gem) => {
@@ -199,6 +200,53 @@ const gemHandler = {
             success: true,
             tags: tags
         })
+    },
+    searchGemsByName: async (req, res) => {
+        try {
+            const { query } = req.params;
+            const gems = await Gem.findAll({
+                where: {
+                    name: {
+                        [Op.iLike]: `%${query}%` // Case-insensitive search for gem names containing the query string
+                    }
+                },
+                include: [{ model: Rating }, { model: Tag }]
+            });
+
+            if (!gems) {
+                res.send({
+                    message: "no gems found with that name",
+                    success: false
+                })
+            }
+
+            gems.forEach((gem) => {
+                const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+                const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+    
+                gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
+                gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
+            });
+
+            if (gems) {
+                res.status(200).json({
+                    message: `Found ${gems.length} gems matching the search query`,
+                    success: true,
+                    gems
+                });
+            } else {
+                res.status(404).json({
+                    message: "No gems found matching the search query",
+                    success: false
+                });
+            }
+        } catch (error) {
+            console.error("Error searching gems:", error);
+            res.status(500).json({
+                message: "Internal server error",
+                success: false
+            });
+        }
     },
     getAllbyTags: async (req, res) => {
         const { tagId } = req.params; // Assuming tagId is sent as a parameter in the request
