@@ -41,11 +41,7 @@ function Home() {
       getFollowingGems()
     } else {
       navigate("/login")
-    }
-  }, [])
-
-  useEffect(() => {
-    getFollowingGems()
+   }
   }, [reload])
 
   const gemCards = followingGems.map((gem, i) => (
