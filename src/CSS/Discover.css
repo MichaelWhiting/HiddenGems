@@ -34,20 +34,22 @@
   }
 
   .search-bar {
-    display: flex;
+    display: flex; /* Establish flex container */
     align-items: center;
-    max-width: 400px; /* Adjust width as needed */
-    margin-bottom: 20px;
+    justify-content: space-between; /* Space between the search elements and the sort button */
+    max-width: 600px; /* Adjust the width as needed */
+    margin: auto; /* Center the search bar */
+    gap: 10px; /* Adds space between elements */
   }
   
   .search-bar input[type="text"] {
-    width: 100%;
+    flex-grow: 2; /* Allows the input to grow, taking more space */
     padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 20px; /* Round the corners */
+    border-radius: 20px;
     font-size: 16px;
     outline: none;
-    transition: border-color 0.3s ease; /* Add transition for smoother interaction */
+    transition: border-color 0.3s ease;
   }
   
   .search-bar input[type="text"]:focus {
@@ -62,6 +64,7 @@
     border-radius: 20px; /* Round the corners */
     cursor: pointer;
     transition: background-color 0.3s ease; /* Add transition for smoother interaction */
+    /* No width specified, allowing it to shrink/grow as needed */
   }
   
   .search-bar button:hover {
