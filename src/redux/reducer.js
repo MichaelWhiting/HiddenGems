@@ -1,6 +1,8 @@
 const initialState = {
     userId: null,
-    otherValue: "hello"
+    navbarColor: "#FFFFFF",
+    backgroundColor: "#FFFFFF",
+    foregroundColor: "#FFFFFF"
 };
 
 
@@ -13,15 +15,28 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userId: action.payload,
             };
-             // triggered from front end with this dispatch action object: { type: "LOGOUT" }
-            case "LOGOUT":
-                return {
-                    ...state,
-                    userId: null,
-                };
-
-                default:
-                    return state;
+        case "LOGOUT":
+            return {
+                ...state,
+                userId: null,
+            };
+        case "UPDATE_NAVBAR":
+            return {
+                ...state,
+                navbarColor: action.payload
+            }
+        case "UPDATE_BACKGROUND":
+            return {
+                ...state,
+                backgroundColor: action.payload
+            }
+        case "UPDATE_FOREGROUND":
+            return {
+                ...state,
+                foregroundColor: action.payload
+            }
+        default:
+            return state;
     }
 }
 

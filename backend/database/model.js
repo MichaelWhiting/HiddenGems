@@ -42,7 +42,19 @@ User.init(
         headerImgUrl: {
             type: DataTypes.STRING,
             allowNull: true
-        }
+        },
+        navbarColor: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }, 
+        backgroundColor: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }, 
+        foregroundColor: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }, 
     },
     {
         modelName: 'user',

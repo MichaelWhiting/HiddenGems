@@ -6,19 +6,26 @@ import { Upload } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import Friends from "../components/Friends.jsx";
-
+import { useDispatch } from "react-redux";
 // Components
 import GemCard from "../components/GemCard";
 
 function Profile() {
   const userId = useSelector((state) => state.userId);
+  const backgroundColorState = useSelector(state => state.backgroundColor);
+  const foregroundColorState = useSelector(state => state.foregroundColor);
+  const navbarColorState = useSelector(state => state.navbarColor);
+
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const [gems, setGems] = useState([]);
   const [reload, setReload] = useState(false);
   const [imgUploadStatus, setImgUploadStatus] = useState("");
   const [showFriends, setShowFriends] = useState(false); // State to control Friends component visibility
-  const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // Added for background color change
+  const [navbarColor, setNavbarColor] = useState(navbarColorState); // Added for background color change
+  const [backgroundColor, setBackgroundColor] = useState(backgroundColorState); // Added for background color change
+  const [foregroundColor, setForegroundColor] = useState(foregroundColorState); // Added for background color change
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!userId) {
@@ -27,6 +34,30 @@ function Profile() {
       getUser();
     }
   }, [reload]);
+
+  useEffect(() => {
+    dispatch({
+      type: "UPDATE_NAVBAR",
+      payload: navbarColor
+    })
+    console.log("updating navbar color")
+  }, [navbarColor])
+
+  useEffect(() => {
+    dispatch({
+      type: "UPDATE_BACKGROUND",
+      payload: backgroundColor
+    })
+    console.log("updating background color")
+  }, [backgroundColor])
+
+  useEffect(() => {
+    dispatch({
+      type: "UPDATE_FOREGROUND",
+      payload: foregroundColor
+    })
+    console.log("updating foreground color")
+  }, [foregroundColor])
 
   const getUser = async () => {
     console.log("page refreshed");
@@ -117,10 +148,9 @@ function Profile() {
     setShowFriends(!showFriends); // Toggle Friends component visibility
   };
 
-  const handleChangeComplete = (color) => {
-    document.body.style.backgroundColor = color; // Apply selected color to body background
-    setBackgroundColor(color); // Update state to keep input value in sync
-  };
+  useEffect(() => {
+    document.body.style.backgroundColor = backgroundColorState
+  }, [backgroundColor])
 
   if (!userInfo) {
     return <div>Loading...</div>; // Loading state
@@ -131,7 +161,7 @@ function Profile() {
   ));
 
   return (
-    <div className="profile-container">
+    <div className="profile-container" style={{backgroundColor: foregroundColor}}>
       <div className="profile-image-section">
         {userInfo?.headerImgUrl && (
           <img
@@ -186,11 +216,23 @@ function Profile() {
       <hr />
       {/* Color Picker Button and Input */}
       <div style={{ margin: "20px 0" }}>
+        <h4>Choose Navbar Color:</h4>
+        <input 
+          type="color" 
+          value={navbarColor} 
+          onChange={(e) => setNavbarColor(e.target.value)} 
+        />
         <h4>Choose Background Color:</h4>
         <input 
           type="color" 
           value={backgroundColor} 
-          onChange={(e) => handleChangeComplete(e.target.value)} 
+          onChange={(e) => setBackgroundColor(e.target.value)} 
+        />
+        <h4>Choose Foreground Color:</h4>
+        <input 
+          type="color" 
+          value={foregroundColor} 
+          onChange={(e) => setForegroundColor(e.target.value)} 
         />
       </div>
       <Button variant="outline-info" onClick={handleFriendsButtonClick}>

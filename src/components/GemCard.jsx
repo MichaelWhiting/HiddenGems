@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import "../CSS/GemCard.css";
-
+import { useSelector } from "react-redux";
 function GemCard(props) {
   const { gem, i, reload, setReload, showButtons } = props;
+  const foregroundColorState = useSelector(state => state.foregroundColor);
   const navigate = useNavigate();
 
   const handleEdit = () => {
@@ -23,7 +24,7 @@ function GemCard(props) {
   };
 
   return (
-    <div key={i} className="gem-card" style={{ textAlign: "center" }}>
+    <div key={i} className="gem-card" style={{ textAlign: "center",  backgroundColor: foregroundColorState}}>
       <h2 className="gem-location">
         {i + 1}. {gem.name}
       </h2>

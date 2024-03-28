@@ -93,9 +93,16 @@ const userHandler = {
             return;
         }
 
+        const defaultColors = {
+            navbarColor: "#2b3035",
+            backgroundColor: "#FFFFFF",
+            foregroundColor: "#FFFFFF",
+        }
+
         // Create a new user in the database
         const diamondIconUrl = `${req.protocol}://${req.get('host')}/images/diamond.svg`;
         const newUser = await User.create({
+            ...defaultColors,
             email: email,
             password: password,
             imgUrl: diamondIconUrl,

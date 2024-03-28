@@ -2,8 +2,14 @@ import { db, User, Gem, Comment, Rating, Tag } from "./model.js";
 
 await db.sync({ force: true });
 
+const defaultColors = {
+    navbarColor: "#2b3035",
+    backgroundColor: "#FFFFFF",
+    foregroundColor: "#FFFFFF",
+}
 // seed here
 await User.create({
+    ...defaultColors,
     firstName: "Michael",
     lastName: "Whiting",
     email: "michael@gmail.com",
@@ -11,6 +17,7 @@ await User.create({
 });
 
 await User.create({
+    ...defaultColors,
     firstName: "Josh",
     lastName: "Lara",
     email: "josh@gmail.com",
@@ -18,6 +25,7 @@ await User.create({
 });
 
 await User.create({
+    ...defaultColors,
     firstName: "Ty",
     lastName: "Cannon",
     email: "ty@gmail.com",
@@ -25,6 +33,7 @@ await User.create({
 });
 
 await User.create({
+    ...defaultColors,
     firstName: "Jesse",
     lastName: "Garlick",
     email: "jesse@gmail.com",
