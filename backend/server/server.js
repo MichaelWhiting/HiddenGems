@@ -48,6 +48,7 @@ app.delete("/unfollowUser/:idToUnfollow", userHandler.unfollowUser)
 // Friends/Following Routes
 app.get("/getFriends", friendHandler.getFriends);
 app.get("/getSearchResults/:searchText", friendHandler.getSearchResults);
+app.get("/getFollowingGems/:friendId", friendHandler.getGemsFromFriend)
 
 // Gem Routes
 app.get("/getGem/:gemId", gemHandler.getGem);
