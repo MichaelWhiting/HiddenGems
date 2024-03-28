@@ -9,11 +9,13 @@ const userHandler = {
         if (req.session.userId) {
             // if you want more info about the user to return, you can just query right now with findByPk();
             // const user = await User.findByPk (req.session.userId)
+            const user = await User.findByPk(req.session.userId);
 
             res.send({
                 message: "user is still logged in",
                 success: true,
-                userId: req.session.userId
+                userId: req.session.userId,
+                user
             })
             return
         } else {
@@ -71,7 +73,8 @@ const userHandler = {
         res.send({
             message: "user logged in",
             success: true,
-            userId: req.session.userId
+            userId: req.session.userId,
+            user
         })
     },
     register: async (req, res) => {
@@ -202,6 +205,29 @@ const userHandler = {
                 success: false
             });
         }
+    },
+    saveColors: async (req, res) => {
+        const { navbarColor, backgroundColor, foregroundColor} = req.body;
+
+        if (req.session.userId) {
+            const user = await User.findByPk(req.session.userId)
+            user.backgroundColor = backgroundColor;
+            user.navbarColor = navbarColor;
+            user.foregroundColor = foregroundColor;
+
+            await user.save();
+
+            res.send({
+                message: "Updated colors",
+                success: true
+            })
+            return;
+        }
+
+        res.send({
+            message: "Colors not saved",
+            success: false
+        })
     }
 }
 

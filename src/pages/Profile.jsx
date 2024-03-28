@@ -137,6 +137,16 @@ function Profile() {
     });
   };
 
+  const saveColors = async () => {
+    const data = {
+      navbarColor,
+      backgroundColor,
+      foregroundColor
+    }
+    const res = await axios.put("/saveColors", data)
+    console.log(res.data.success);
+  }
+
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (file) {
@@ -234,6 +244,7 @@ function Profile() {
           value={foregroundColor} 
           onChange={(e) => setForegroundColor(e.target.value)} 
         />
+        <button onClick={saveColors}>Save</button>
       </div>
       <Button variant="outline-info" onClick={handleFriendsButtonClick}>
         Friends

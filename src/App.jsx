@@ -15,18 +15,15 @@ function App() {
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
 
-  
-
   const sessionCheck = async () => {
     const res = await axios.get("/session-check");
 
     if (res.data.success) {
       console.log("This is running anytime it checks if someone is logged in");
-      // setUserId(res.data.userId)
+      console.log(res.data)
       dispatch({
         type: "USER_AUTH",
         payload: res.data.userId
-
       })
     }
   }

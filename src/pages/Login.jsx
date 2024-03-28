@@ -34,6 +34,18 @@ function Login() {
           type: "USER_AUTH",
           payload: res.data.userId,
         });
+        dispatch({
+            type: "UPDATE_NAVBAR",
+            payload: res.data.user.navbarColor
+          })
+          dispatch({
+            type: "UPDATE_BACKGROUND",
+            payload: res.data.user.backgroundColor
+          })
+          dispatch({
+            type: "UPDATE_FOREGROUND",
+            payload: res.data.user.foregroundColor
+          })
         setEmail("");
         setPassword("");
         navigate("/");

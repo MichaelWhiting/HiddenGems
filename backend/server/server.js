@@ -41,6 +41,8 @@ app.post("/login", userHandler.login);
 app.post("/register", userHandler.register);
 app.post("/followUser/:idToFollow", userHandler.followUser);
 
+app.put("/saveColors", userHandler.saveColors)
+
 app.delete("/unfollowUser/:idToUnfollow", userHandler.unfollowUser)
 
 // Friends/Following Routes
