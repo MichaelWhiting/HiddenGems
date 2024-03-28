@@ -7,6 +7,7 @@ import '../CSS/Discover.css'
 import RatingBar from '../components/RatingBar.jsx';
 import GemCard from '../components/GemCard.jsx';
 
+
 function Discover() {
   const [query, setQuery] = useState('');
   const [gems, setGems] = useState([]);
@@ -116,18 +117,21 @@ function Discover() {
             />
             <button onClick={handleSearch}>Search</button>
           </div>
-          <div className='d-flex justify-content-center'>
+          <div >
             <h5>Filter by Tag:</h5>
             {tags.map((tag, i) => (
-              <React.Fragment key={tag.tagId}>
-                <input type="checkbox" id={`tag-${tag.tagId}`} value={tag.tagName}
-                  onChange={() => {
-                    setSelectedTags({ ...selectedTags, [i + 1]: !selectedTags[i + 1] })
-                  }}
-                  checked={selectedTags[i + 1]} // checks if that tag is selected or not
-                />
-                <label htmlFor={`tag-${tag.tagId}`}>{tag.tagName}</label>
-              </React.Fragment>
+                 <button
+                id='tagsButton' 
+                key={`tag-${tag.tagId}`} 
+                value={tag.tagName}
+                onClick={() => {
+                setSelectedTags({ ...selectedTags, [i + 1]: !selectedTags[i + 1] });
+                   }}
+                  className={selectedTags[i + 1] ? 'selected' : ''}
+                  >
+                {tag.tagName}
+                </button>
+              
             ))}
           </div>
         </div>
