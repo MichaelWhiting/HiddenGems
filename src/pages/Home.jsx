@@ -5,9 +5,7 @@ import { useState } from 'react';
 
 function Home() {
   const [showCreateGem, setShowCreateGem] = useState(false);
-  const backgroundColorState = useSelector(state => state.backgroundColor);
-  const foregroundColorState = useSelector(state => state.foregroundColor);
-  
+
   const handleCreateGemClick = () => {
     setShowCreateGem(true)
   };
