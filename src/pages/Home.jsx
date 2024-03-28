@@ -14,12 +14,19 @@ function Home() {
   return (
     <>
       {!showCreateGem && (
-        <div className="home-page">
+        <div className="home-page center">
+          <label className="title">Gems Near You</label>
           <div className="home-map">
             <MapComponent />
           </div>
-          <Button variant="info" onClick={handleCreateGemClick}>Create Gem</Button>
+            <Button 
+              variant="info" 
+              className="create-gem-btn"
+              onClick={handleCreateGemClick}>
+              Create Gem
+            </Button>
           <div>
+            <label className="sub-title">Following Feed:</label>
             {/* gem cards of friends would go here*/}
           </div>
         </div>
