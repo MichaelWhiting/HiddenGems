@@ -90,3 +90,20 @@
   .justify-content-center {
     justify-content: center;
   }
+
+  #tagsButton {
+    padding: 6px 16px;
+    background-color: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+   
+  }
+  
+  #tagsButton.selected {
+    background-color: #007bff; /* Change color when button is selected */
+    color: #fff;
+  
+  }

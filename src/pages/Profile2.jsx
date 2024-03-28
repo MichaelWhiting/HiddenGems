@@ -11,7 +11,6 @@ function Profile2() {
   const [userInfo, setUserInfo] = useState(null);
   const [gems, setGems] = useState([]);
   const [showFriends, setShowFriends] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
   useEffect(() => {
     const getUserInfoAndGems = async () => {
@@ -34,11 +33,7 @@ function Profile2() {
     setShowFriends(!showFriends);
   };
 
-  const handleChangeComplete = (color) => {
-    console.log("Changing color to", color); // Debugging line
-    document.body.style.backgroundColor = color;
-    setBackgroundColor(color);
-  };
+  
   
 
   if (!userInfo) {
@@ -58,14 +53,7 @@ function Profile2() {
       </div>
       <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
       <h2 className="user-email">{userInfo.email}</h2>
-      <div style={{ margin: "20px 0" }}>
-        <h4>Choose Background Color:</h4>
-        <input
-          type="color"
-          value={backgroundColor}
-          onChange={(e) => handleChangeComplete(e.target.value)}
-        />
-      </div>
+    
       <Button variant="outline-info" onClick={handleFriendsButtonClick}>Friends</Button>
       {showFriends && <Friends />}
       <div className="gems-section">

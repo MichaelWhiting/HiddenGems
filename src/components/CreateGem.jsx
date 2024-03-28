@@ -6,6 +6,7 @@ import "../CSS/CreateGem.css";
 import { useNavigate } from "react-router-dom";
 import { Upload } from "react-bootstrap-icons";
 
+
 function CreateGem() {
   const userId = useSelector((state) => state.userId);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -107,7 +108,7 @@ function CreateGem() {
           // Display success message and optionally reset form here
           setSubmissionStatus("Gem created successfully!");
           setIsSubmitted(true);
-          
+          navigate("/details", { state: { gemId: res.data.newGem.gemId } });
 
           // Reset form (optional)
           setFormData({
@@ -140,13 +141,15 @@ function CreateGem() {
     setFormData({ ...formData, lat: newLat, lng: newLng });
   };
 
-  // Function to handle tag selection
   const handleTagSelection = (tagId) => {
-    if (selectedTags.includes(tagId)) {
-      setSelectedTags(selectedTags.filter(id => id !== tagId)); // Deselect tag if already selected
-    } else {
-      setFormData({...formData, tags: [...formData.tags, tagId]})
-    }
+    const isCurrentlySelected = selectedTags.includes(tagId);
+    const newSelectedTags = isCurrentlySelected
+      ? selectedTags.filter(id => id !== tagId)
+      : [...selectedTags, tagId];
+  
+    setSelectedTags(newSelectedTags);
+    // Update formData with the new list of tags
+    setFormData({...formData, tags: newSelectedTags});
   };
 
   return (
@@ -159,15 +162,23 @@ function CreateGem() {
           <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
           <h2>Add A Tag</h2>
           <div>
-           {tags.map(tag => (
-            <React.Fragment key={tag.tagId}>
-            <input type="checkbox" id={`tag-${tag.tagId}`} value={tag.tagName}
-            onChange={() => handleTagSelection(tag.tagId)} 
-            checked={selectedTags.includes(tag.tagId)} 
-            />
-            <label htmlFor={`tag-${tag.tagId}`}>{tag.tagName}</label>
-            </React.Fragment>
-            ))}
+          {tags.map(tag => (
+              <React.Fragment key={tag.tagId}>
+              <label 
+               key={`tag-${tag.tagId}`}
+                className={selectedTags.includes(tag.tagId) ? 'selected' : ''} // This dynamically adds the 'selected' class
+               >
+                <input 
+                 type="checkbox" 
+                 key={`tag-checkbox-${tag.tagId}`} 
+                 value={tag.tagName}
+                 onChange={() => handleTagSelection(tag.tagId)} 
+                 checked={selectedTags.includes(tag.tagId)} // Ensures the checkbox is in sync with selection
+                />
+                {tag.tagName}
+              </label>
+             </React.Fragment>
+             ))}
           </div>
           <h2>Gem Description</h2>
           <textarea
