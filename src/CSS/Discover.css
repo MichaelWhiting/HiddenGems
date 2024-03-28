@@ -1,3 +1,4 @@
+
 .discover-container {
     margin: auto;
     width: 80%;
@@ -106,4 +107,22 @@
     background-color: #007bff; /* Change color when button is selected */
     color: #fff;
   
+  }
+
+  .TagTitle {
+    text-align: center;
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow the tags to wrap onto multiple lines */
+    justify-content: center; /* Center tags horizontally */
+    gap: 10px; /* Optional: Adds space between the tags */
+  }
+
+  .search-bar {
+    display: flex;
+    flex-wrap: wrap; /* Allow the tags to wrap onto multiple lines */
+    justify-content: center; /* Center tags horizontally */
+    gap: 10px; /* Optional: Adds space between the tags */
   }
