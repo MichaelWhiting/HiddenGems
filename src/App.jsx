@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'; // Make sure to import React and useEffect correctly
+import React, { useEffect, useState } from 'react'; // Make sure to import React and useEffect correctly
 import axios from 'axios'; // Ensure axios is correctly imported, note the missing quote at the end in your snippet
 import { useSelector, useDispatch } from 'react-redux'; // Redux hooks
 import { NavLink, Outlet } from 'react-router-dom'; // React Router components
@@ -11,6 +11,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 import "./CSS/App.css"
 function App() {
   const userId = useSelector(state => state.userId);
+  const navbarColor = useSelector(state => state.navbarColor);
   const dispatch = useDispatch();
 
   const sessionCheck = async () => {
@@ -18,11 +19,10 @@ function App() {
 
     if (res.data.success) {
       console.log("This is running anytime it checks if someone is logged in");
-      // setUserId(res.data.userId)
+      console.log(res.data)
       dispatch({
         type: "USER_AUTH",
         payload: res.data.userId
-
       })
     }
   }
@@ -55,7 +55,7 @@ function App() {
 
   return (
     <>
-      <Navbar expand='md' bg='dark' data-bs-theme='dark'>
+      <Navbar expand='md' className='nabar navbar-light' style={{ backgroundColor: navbarColor }}>
         <Container fluid className="d-flex">
           <Navbar.Brand>
             <Icon.Gem className="main-navbar-icon" />

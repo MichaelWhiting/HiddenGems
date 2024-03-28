@@ -6,6 +6,7 @@ import RatingBar from "../components/RatingBar";
 import MapComponent from "../components/Map";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Trash } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
 
 function DetailsPage() {
   const [gems, setGems] = useState([]);
@@ -13,6 +14,7 @@ function DetailsPage() {
   const { gemId } = location.state || {};
   const [reload, setReload] = useState(false);
   const [formData, setFormData] = useState({ comment: "" });
+  const foregroundColorState = useSelector(state => state.foregroundColor);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +96,7 @@ function DetailsPage() {
           <div className="gem-details-container">
             <div className="gem-details-content">
               <div className="gem-details-info">
-                <div className="img-description-tags">
+                <div className="img-description-tags"  style={{backgroundColor: foregroundColorState}}>
                   <h2 className="gem-details-location">{gem.name}</h2>
                 {gem?.imgUrl && (
                   <img
@@ -127,7 +129,7 @@ function DetailsPage() {
           </div>
 
           {/* Right Container for Comments */}
-          <div className="comments-container">
+          <div className="comments-container" style={{backgroundColor: foregroundColorState}} >
             <div className="comments">
               <div className="comments-section">
                 {gem.comments && gem.comments.length > 0 ? (
