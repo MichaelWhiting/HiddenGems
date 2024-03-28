@@ -108,7 +108,7 @@ function Discover() {
   return (
     <>
       <div className="discover">
-        <h1>GEMS YOU MIGHT LIKE</h1>
+       
         <div className="header">
           <div className="search-bar">
             <input
@@ -118,11 +118,13 @@ function Discover() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyPress={handleKeyPress}
-            />
+            /> 
             <button onClick={handleSearch}>Search</button>
+             <button onClick={handleSortByPopularity}>Sort by Enjoyability</button>
+          
           </div>
-          <div>
-            <h5>Filter by Tag:</h5>
+          <div className='tags-container' >
+           
             {tags.map((tag, i) => (
               <button
                 id="tagsButton"
@@ -137,9 +139,7 @@ function Discover() {
               </button>
             ))}
           </div>
-          <div>
-            <button onClick={handleSortByPopularity}>Sort by Enjoyability</button>
-          </div>
+         
         </div>
         <div className="discover-container">
           <div className="gems-grid">{gemCards}</div>

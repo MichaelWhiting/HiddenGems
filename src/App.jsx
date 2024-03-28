@@ -68,10 +68,10 @@ function App() {
                 <Icon.HouseFill className="navbar-icon"/>
                 Home
               </NavLink>
-              <NavLink to="/topGems" className="nav-link">
+              {/* <NavLink to="/topGems" className="nav-link">
                 <Icon.ArrowUpSquare className="navbar-icon" />
                 Top Gems
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/discover" className="nav-link">
                 <Icon.Search className="navbar-icon"/>
                 Discover
