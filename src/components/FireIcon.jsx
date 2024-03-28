@@ -18,8 +18,8 @@ const FireIcon = ({ rating, onClick }) => {
         <defs>
           <linearGradient id={gradientId} gradientUnits="userSpaceOnUse" x1="0%" y1="100%" x2="100%" y2="0%">
             <stop offset="0" stopColor="red"/>
-            <stop offset={fillPercentage} stopColor="orange"/>
-            <stop offset={fillPercentage} stopColor="grey" />
+            <stop offset={fillPercentage} stopColor="yellow"/>
+            <stop offset={fillPercentage} stopColor="black" stopOpacity="0.5" />
           </linearGradient>
         </defs>
         <g fillRule="evenodd">

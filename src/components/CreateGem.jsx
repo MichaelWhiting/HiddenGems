@@ -76,6 +76,7 @@ function CreateGem() {
       Bucket: "hidden-gems-dev-mountain",
       Key: file.name,
       Body: file,
+
     };
   
     s3.upload(params, function (err, data) {
