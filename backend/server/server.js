@@ -26,6 +26,7 @@ app.use(
     resave: false,
   })
 );
+app.use(express.static('public'));
 
 // Routes
 
@@ -34,6 +35,7 @@ app.get('/session-check', userHandler.sessionCheck);
 app.get("/logout", userHandler.logout);
 app.get("/getUser/:userId", userHandler.getUser);
 app.get("/getUserInfo/:userId", userHandler.getUserInfo);
+
 
 app.post("/login", userHandler.login);
 app.post("/register", userHandler.register);

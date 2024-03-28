@@ -1,5 +1,6 @@
 import { User, Gem, Comment } from "../../database/model.js";
 
+
 const userHandler = {
     sessionCheck: async (req, res) => {
         //when this function is called we simply want to check 
@@ -76,6 +77,7 @@ const userHandler = {
     register: async (req, res) => {
         const { email, password } = req.body;
 
+
         // Check if the user with the provided email already exists
         const existingUser = await User.findOne({
             where: {
@@ -92,9 +94,11 @@ const userHandler = {
         }
 
         // Create a new user in the database
+        const diamondIconUrl = `${req.protocol}://${req.get('host')}/images/diamond.svg`;
         const newUser = await User.create({
             email: email,
             password: password,
+            imgUrl: diamondIconUrl,
         });
 
         // Set the user as logged in 
