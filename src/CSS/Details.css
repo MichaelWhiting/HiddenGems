@@ -128,7 +128,8 @@
 }
 
 .gem-details-image {
-  max-width: 50%;
+  max-width: 100%;
+  width: 1000px;
   height: auto;
   border-radius: 8px; /* Slightly increased for a softer look */
   border: 10px solid #040303; /* Lighter border for subtlety */

@@ -48,7 +48,7 @@ function Login() {
           })
         setEmail("");
         setPassword("");
-        navigate("/");
+        navigate("/discover");
       }
     } catch (error) {
       setError(error.response.data.message); // Set error state with the error message from the server
