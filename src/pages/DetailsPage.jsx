@@ -134,7 +134,6 @@ function DetailsPage() {
                     <MapComponent gem={gem}  />
                   </div>
                 </div>
-               
                 </div>
               </div>
             </div>
