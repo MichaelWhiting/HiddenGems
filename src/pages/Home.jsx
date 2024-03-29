@@ -38,8 +38,6 @@ function Home() {
     }
   }
 
-
-
   useEffect(() => {
     if (!userId && !loading) {
       navigate("/login")
