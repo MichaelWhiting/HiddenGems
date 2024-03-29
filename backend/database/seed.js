@@ -41,27 +41,27 @@ await User.create({
 });
 
 await Gem.create({
-    name: "Skiing Trail",
-    description: "At this resort, this trail is not used at all and the snow is super fresh",
+    name: "Jupiter Bowl - Park City Mountain Resort",
+    description: "Stay skiers left and you will understand what I mean.",
     lat: -50.4214,
     lng: 10.9864,
     userId: 1,
 });
 
 await Gem.create({
-    name: "Cool Shop",
-    description: "This is a really cool shop, has some unique items",
+    name: "Alpine Country Club",
+    description: "Can you say 'underrated'?",
     lat: 25.592,
     lng: 10.1005,
-    userId: 2,
+    userId: 2
 });
 
 await Gem.create({
-    name: "Comedy Club",
-    description: "This comedy club is a hidden gem!",
+    name: "The Comedy Mothership ",
+    description: "This comedy club isn't hidden but it's a Gem!!",
     lat: 54.323,
     lng: 15.92872,
-    userId: 3,
+    userId: 3
 });
 
 await Gem.create({
@@ -69,7 +69,7 @@ await Gem.create({
     description: "This is a beautiful cave that no one knows about!",
     lat: 32.198,
     lng: 12.996,
-    userId: 4,
+    userId: 4
 });
 
 await Gem.create({
@@ -77,7 +77,7 @@ await Gem.create({
     description: "Coding bootcamp.",
     lat: 40.42082717117126, 
     lng: -111.87613180911558,
-    userId: 2,
+    userId: 2
 })
 
 await Comment.create({

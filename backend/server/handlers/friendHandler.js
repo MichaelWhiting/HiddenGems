@@ -1,94 +1,147 @@
-import { User, Friendship, Gem, Rating, Tag } from  "../../database/model.js";
+import { User, Friendship, Gem, Rating, Tag } from "../../database/model.js";
 import { Op } from "sequelize";
 
 const friendHandler = {
     getFriends: async (req, res) => {
         const userId = req.session.userId;
+        try {
+            const friendships = await Friendship.findAll({
+                where: {
+                    userId: userId
+                }
+            });
 
-        const friendships = await Friendship.findAll({
-            where: {
-                userId: userId
+            if (!friendships.length) {
+                return res.status(404).send({
+                    message: "No friends found for the logged in user",
+                    success: false,
+                });
             }
-        });
 
-        const friends = [];
+            const friendIds = friendships.map(friendship => friendship.friendId);
+            const friends = await User.findAll({
+                where: {
+                    id: {
+                        [Op.in]: friendIds
+                    }
+                },
+                attributes: { exclude: ['password'] } // Exclude sensitive information
+            });
 
-        for (const friendship of friendships) {
-            const user = await User.findByPk(friendship.friendId);
-            friends.push(user);
-        }
-
-        if (friends) {
             res.send({
                 message: "Retrieved all of the friends for logged in user",
                 success: true,
                 friends
             });
-            return;
-        } else {
-            res.send({
-                message: "Failed to retrieve friends for logged in user",
+        } catch (error) {
+            console.error("Failed to retrieve friends:", error);
+            res.status(500).send({
+                message: "An error occurred while retrieving friends.",
                 success: false
             });
         }
     },
+
     getSearchResults: async (req, res) => {
         const { searchText } = req.params;
+        try {
+            const searchResults = await User.findAll({
+                where: {
+                    email: {
+                        [Op.iLike]: `%${searchText}%`
+                    }
+                },
+                attributes: ['id', 'email', 'username'] // Only return non-sensitive information
+            });
 
-        const searchResults = await User.findAll({
-            where: {
-                email: {
-                    [Op.iLike]: `%${searchText}%`
-                }
+            if (!searchResults.length) {
+                return res.status(404).send({
+                    message: "No search results found for the query",
+                    success: false
+                });
             }
-        });
 
-
-        if (searchResults) {
             res.send({
                 message: "Found search results for search query",
                 success: true,
                 searchResults
             });
-            return;
-        } else {
-            res.send({
-                message: "Did not find search results for search query",
+        } catch (error) {
+            console.error("Error searching for users:", error);
+            res.status(500).send({
+                message: "An error occurred during the search.",
                 success: false
             });
         }
     },
+
     getGemsFromFriend: async (req, res) => {
         const { friendId } = req.params;
+        try {
+            const gems = await Gem.findAll({
+                where: {
+                    userId: friendId
+                },
+                include: [{ model: Rating }, { model: Tag }]
+            });
 
-        const gems = await Gem.findAll({
-            where: {
-                userId: friendId
-            },
-            include: [{ model: Rating }, { model: Tag }]
-        })
+            if (!gems.length) {
+                return res.status(404).send({
+                    message: "No gems found for the friend",
+                    success: false
+                });
+            }
 
-        gems.forEach((gem) => {
-            const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
-            const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
+            gems.forEach((gem) => {
+                const enjoyRatings = gem.ratings.map((rating) => rating.enjoyability).filter((item) => item !== null);
+                const popularRatings = gem.ratings.map((rating) => rating.popularity).filter((item) => item !== null);
 
-            gem.enjoyAvg = Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length);
-            gem.popularAvg = Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length);
-        });
+                gem.dataValues.enjoyAvg = enjoyRatings.length ? Math.round(enjoyRatings.reduce((a, c) => a + c, 0) / enjoyRatings.length) : null;
+                gem.dataValues.popularAvg = popularRatings.length ? Math.round(popularRatings.reduce((a, c) => a + c, 0) / popularRatings.length) : null;
+            });
 
-        if (gems) {
             res.send({
                 message: `Got friend ${friendId}'s gems`,
                 success: true,
                 gems
             });
-        } else {
+        } catch (error) {
+            console.error(`Failed to get friend ${friendId}'s gems:`, error);
+            res.status(500).send({
+                message: "An error occurred while retrieving gems.",
+                success: false
+            });
+        }
+    },
+
+    // Example of a new method addition: addFriend
+    addFriend: async (req, res) => {
+        const { userId, friendId } = req.body;
+        try {
+            const existingFriendship = await Friendship.findOne({
+                where: { userId, friendId }
+            });
+
+            if (existingFriendship) {
+                return res.status(400).send({
+                    message: "Friendship already exists",
+                    success: false
+                });
+            }
+
+            await Friendship.create({ userId, friendId });
             res.send({
-                message: `Did NOT get friends gems, or they did not have any created`,
+                message: "Friendship successfully created",
+                success: true
+            });
+        } catch (error) {
+            console.error("Failed to create friendship:", error);
+            res.status(500).send({
+                message: "An error occurred while adding a friend.",
                 success: false
             });
         }
     }
-}
+};
 
 export default friendHandler;
