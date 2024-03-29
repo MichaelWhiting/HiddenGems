@@ -114,10 +114,21 @@ function DetailsPage() {
                 <div className="gem-details-ratings-map">
                   <div className="gem-details-ratings">
                     <p>Enjoyability:</p>
-                    <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
+                    <RatingBar
+                      reload={reload}
+                      setReload={setReload}
+                      gemId={gem.gemId}
+                      rating={gem.enjoyAvg ? gem.enjoyAvg : 0}
+                      type="enjoyability"
+                    />
                     <p>Popularity:</p>
-                    <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
-                  </div>
+                    <RatingBar
+                      reload={reload}
+                      setReload={setReload}
+                      gemId={gem.gemId}
+                      rating={gem.popularAvg ? gem.popularAvg : 0}
+                      type="popularity"
+                    />                  </div>
                   <div className="gem-details-map">
                     <MapComponent gem={gem}  />
                   </div>
