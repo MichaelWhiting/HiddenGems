@@ -14,6 +14,7 @@ import EditColor from "../public/editColor.svg";
 
 function Profile() {
   const userId = useSelector((state) => state.userId);
+  const loading = useSelector((state) => state.loading);
   const backgroundColorState = useSelector((state) => state.backgroundColor);
   const foregroundColorState = useSelector((state) => state.foregroundColor);
   const navbarColorState = useSelector((state) => state.navbarColor);
@@ -32,12 +33,12 @@ function Profile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!userId) {
-      navigate("/login");
+    if (!userId && !loading) {
+      navigate("/login")
     } else {
       getUser();
     }
-  }, [reload]);
+  }, [userId, loading, reload]);
 
   useEffect(() => {
     dispatch({
@@ -64,34 +65,27 @@ function Profile() {
   }, [foregroundColor]);
 
   const getUser = async () => {
-    console.log("page refreshed");
-    if (!userId) {
-      navigate("/login");
-    } else {
-      try {
-        const response = await axios.get(`/getUserInfo/${userId}`);
-        setUserInfo(response.data.user);
-        const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
-        setGems(data.gems);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
+    if (userId) {
+      const response = await axios.get(`/getUserInfo/${userId}`);
+      setUserInfo(response.data.user);
+      const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+      setGems(data.gems);
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/getUserInfo/${userId}`);
-        setUserInfo(response.data.user);
-        const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
-        setGems(data.gems);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchData();
-  }, [userId]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`/getUserInfo/${userId}`);
+  //       setUserInfo(response.data.user);
+  //       const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+  //       setGems(data.gems);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [userId]);
 
   useEffect(() => {
     const script = document.createElement("script");

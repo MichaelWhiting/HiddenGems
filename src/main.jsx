@@ -26,7 +26,6 @@ const router = createBrowserRouter(
   createRoutesFromElements(
       <Route path="/" element={<App />}>
         <Route index element={<Home />}/>
-        {/* <Route path="/topGems" element={<TopGems />} /> */}
         <Route path="/discover" element={<Discover />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile2/:userId" element={<Profile2 />} />

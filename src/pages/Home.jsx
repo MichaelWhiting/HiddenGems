@@ -1,16 +1,19 @@
 
-import CreateGem from '../components/CreateGem.jsx';
-import MapComponent from '../components/Map.jsx'
-import { useEffect, useState } from 'react';
-import { Button } from "react-bootstrap";
-import "../CSS/Home.css"
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Button } from "react-bootstrap";
+import axios from 'axios';
+
+// Components/Pages/CSS
+import CreateGem from '../components/CreateGem.jsx';
+import MapComponent from '../components/Map.jsx';
 import GemCard from '../components/GemCard.jsx';
+import "../CSS/Home.css"
 
 function Home() {
   const userId = useSelector(state => state.userId);
+  const loading = useSelector(state => state.loading);
   const [showCreateGem, setShowCreateGem] = useState(false);
   const [followingGems, setFollowingGems] = useState([]);
   const [reload, setReload] = useState(false);
@@ -25,24 +28,25 @@ function Home() {
     const gemsToUpdate = [];
     const { data } = await axios.get("/getFriends")
     const friends = data.friends
-    console.log(friends)
+
     for (let i = 0; i < friends.length; i++) {
       const res = await axios.get(`/getFollowingGems/${friends[i].userId}`);
       gemsToUpdate.push(...res.data.gems);
       if (i === friends.length - 1) {
-        console.log("on the last gem, so now updatting followingGems to:", gemsToUpdate)
         setFollowingGems(gemsToUpdate);
       }
     }
   }
 
+
+
   useEffect(() => {
-    if (userId) {
-      getFollowingGems()
-    } else {
+    if (!userId && !loading) {
       navigate("/login")
-   }
-  }, [reload])
+    } else {
+      getFollowingGems()
+    }
+  }, [userId, loading, reload]);
 
   const gemCards = followingGems.map((gem, i) => (
     <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={false}/>
@@ -59,12 +63,15 @@ function Home() {
             <Button 
               variant="info" 
               className="create-gem-btn"
-              onClick={handleCreateGemClick}>
+              onClick={handleCreateGemClick}
+            >
               Create Gem
             </Button>
           <div>
             <label className="sub-title">Following Feed:</label>
-            {gemCards}
+            <div>
+              {gemCards}
+            </div>
           </div>
         </div>
       )}
@@ -73,19 +80,4 @@ function Home() {
   )
 }
 
-{/* <div>
-<input type="text" placeholder='Search Bar' />
-</div>
-<div>
-  <ul>
-      <li>Location</li>
-      <li>Food</li>
-      <li>Adventure</li>
-  </ul>
-</div>
-<div>Gems Near You</div>
-<div style={{background: 'blue'}}>Map</div>
-<button>Create Post</button>
-<button>Git List</button> */}
-
-export default Home
+export default Home;
