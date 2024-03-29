@@ -13,6 +13,31 @@
   width: 100px;
   height: auto;
 }
+.friend-info {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+}
+.name {
+  color: #333; /* Dark grey for high contrast and readability */
+  font-size: 18px; /* Sizeable font for clarity */
+  font-weight: 500; /* Medium weight for emphasis without being too bold */
+  margin: 10px 0; /* Space above and below for separation */
+  padding: 5px 0; /* Padding for visual comfort */
+  display: inline-block; /* Allows for additional styling such as padding */
+  border-bottom: 2px solid #0dcaf0; /* Underline effect with a vibrant color for a subtle highlight */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  align-items: center;
+  margin-right: 60px;
+}
+
+.name:hover {
+  color: #0dcaf0; /* Changes color on hover for interactive feedback */
+  cursor: pointer; /* Indicates the name is clickable, if it leads to a profile or action */
+  border-bottom-color: transparent; /* Removes underline on hover for a clean hover transition */
+}
+
 .center {
   text-align: center;
   width: 100%;

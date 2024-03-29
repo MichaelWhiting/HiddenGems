@@ -237,12 +237,14 @@ function Profile() {
       {/* Color Picker Button and Input */}
       <div className="color-picker-container">
         {/* Color pickers */}
+        <div className="edit-icon-container">
         <img
           src={EditColor}
           alt="no image"
           onClick={toggleColorPickersVisibility}
           className="edit-colors-icon"
           />
+          </div>
           <Collapse in={showColorPickers}>
           <div>
           <div className="color-picker-section">
