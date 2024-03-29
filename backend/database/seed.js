@@ -46,7 +46,6 @@ await Gem.create({
     lat: -50.4214,
     lng: 10.9864,
     userId: 1,
-    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -55,7 +54,6 @@ await Gem.create({
     lat: 25.592,
     lng: 10.1005,
     userId: 2,
-    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -64,7 +62,6 @@ await Gem.create({
     lat: 54.323,
     lng: 15.92872,
     userId: 3,
-    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -73,7 +70,6 @@ await Gem.create({
     lat: 32.198,
     lng: 12.996,
     userId: 4,
-    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 });
 
 await Gem.create({
@@ -82,7 +78,6 @@ await Gem.create({
     lat: 40.42082717117126, 
     lng: -111.87613180911558,
     userId: 2,
-    imgUrl: "https://libreshot.com/wp-content/uploads/2018/10/spring-landscape-1536x968.jpg"
 })
 
 await Comment.create({
