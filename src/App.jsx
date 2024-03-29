@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'; // Make sure to import React and useEffect correctly
-import axios from 'axios'; // Ensure axios is correctly imported, note the missing quote at the end in your snippet
+import { Navbar, Nav, Container } from 'react-bootstrap'; // React Bootstrap components
 import { useSelector, useDispatch } from 'react-redux'; // Redux hooks
 import { NavLink, Outlet } from 'react-router-dom'; // React Router components
-import { Navbar, Nav, Container } from 'react-bootstrap'; // React Bootstrap components
 import * as Icon from 'react-bootstrap-icons'; // Importing React Bootstrap Icons
+import { useEffect } from 'react'; // Make sure to import React and useEffect correctly
+import axios from 'axios'; // Ensure axios is correctly imported, note the missing quote at the end in your snippet
+
+// Components/Pages/CSS
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+import "./CSS/App.css";
 
-
-import "./CSS/App.css"
 function App() {
   const userId = useSelector(state => state.userId);
   const navbarColor = useSelector(state => state.navbarColor);
@@ -18,37 +19,30 @@ function App() {
     const res = await axios.get("/session-check");
 
     if (res.data.success) {
-      console.log("This is running anytime it checks if someone is logged in");
-      console.log(res.data)
+      console.log("Session check is running:", res.data.message);
       dispatch({
         type: "USER_AUTH",
         payload: res.data.userId
       })
+    } else {
+      dispatch({
+        type: "COMPLETED_LOADING"
+      })
     }
   }
 
-  //2. invoke that function on intitial reder only (with a useEffect() hook)
-  // useffect takes in a (callback, optionalDependencyArray)
-  // if the dependencyArray is not provided, useEffect will run on EvERy render
-  // if dependencyArray is empty ([]), then this tells useEffect to only 
-  // run on the initial render
-  // if the dependencyArray contains values, useEffect will only run
-  // each time one of those vaues is changes/used
   useEffect(() => {
     sessionCheck()
   }, [])
 
-
   const handleLogout = async () => {
-    if (!userId) { return }
+    if (!userId) { return } // if the user is already logged out, no need to do this
+    const res = await axios.get('/logout'); // deletes req.session.userId and makes it null
 
-    const res = await axios.get('/logout');
-
-    if (res.data.success) {
+    if (res.data.success) { // if it DOES delete req.session.userId, it will update the userId in the redux store to be null as well
       dispatch({
         type: 'LOGOUT'
       });
-
     }
   };
 
@@ -68,10 +62,6 @@ function App() {
                 <Icon.House className="navbar-icon"/>
                 Home
               </NavLink>
-              {/* <NavLink to="/topGems" className="nav-link">
-                <Icon.ArrowUpSquare className="navbar-icon" />
-                Top Gems
-              </NavLink> */}
               <NavLink to="/discover" className="nav-link">
                 <Icon.Search className="navbar-icon"/>
                 Discover

@@ -61,6 +61,7 @@ const userHandler = {
         // if we are here the user exists and password was correct
         //so i want to "save" their userId to a 
         // cookie -->req.session
+        console.log(("\n\n\n req.session.userId being set to ", user.userId))
         req.session.userId = user.userId
         // req.session is a cookie saved on the users browsers.
         // so each user that visits our site sends their custom

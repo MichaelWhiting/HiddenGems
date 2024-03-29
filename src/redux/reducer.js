@@ -1,5 +1,6 @@
 const initialState = {
     userId: null,
+    loading: true,
     navbarColor: "#0dcaf0",
     backgroundColor: "#E0FAFF",
     foregroundColor: "#FFFFFF"
@@ -20,6 +21,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 ...initialState
             };
+        case "COMPLETED_LOADING":
+            return {
+                ...state,
+                loading: false
+            }
         case "UPDATE_NAVBAR":
             return {
                 ...state,

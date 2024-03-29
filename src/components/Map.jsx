@@ -19,10 +19,31 @@ import purple1 from "../public/purple1.png";
 function MapComponent(props) {
     const [gems, setGems] = useState([]); // all of the gems from the database
     const [isMapInitialized, setMapInitialized] = useState(false); // this makes it so once the map is loaded, the map can move moved around
-    const initialCenter = props.gem ? { lat: props.gem.lat, lng: props.gem.lng } : { lat: 40.42082717117126, lng: -111.87613180911558 }; // the initial starting spot for the map, defaults to DevMountain
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
+    const initialCenter = props.gem ? { lat: props.gem.lat, lng: props.gem.lng } : { lat: lat, lng: lng }; // the initial starting spot for the map, defaults to DevMountain
     // initialize 'initialCenter' as the lat/lng of the gem prop, if exists, else default to DM location?
-   
-    // in the future, we want to ask the user for their location and set the initial center to their location ^
+    // const [initialCenter, setInitialCenter] = useState();
+// 
+    useState(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error);
+          } else {
+            console.log("Geolocation not supported");
+          }
+          
+          function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            setLat(latitude)
+            setLng(longitude);
+            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          }
+          function error() {
+            console.log("Unable to retrieve your location");
+          }
+    })
+
     const [showEditingMarker, setShowEditingMarker] = useState(false);
     const { updateCords, isCreating } = props;
     const [cords, setCords] = useState({lat: 0, lng: 0});
@@ -66,8 +87,6 @@ function MapComponent(props) {
         } else {
             iconUrl = red1;
         }
-
-
         return { url: iconUrl, scaledSize: {width: 55, height: 55}};
     }
 
