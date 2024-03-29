@@ -119,8 +119,13 @@ function Discover() {
               onKeyPress={handleKeyPress}
             /> 
             <button onClick={handleSearch}>Search</button>
-             <button onClick={handleSortByPopularity}>Sort by Enjoyability</button>
-          
+
+            <button
+              onClick={handleSortByPopularity}
+              className={`sort-button ${sortByPopularity ? 'sort-button-active' : ''}`}
+                >
+              Sort by Enjoyability
+                </button>
           </div>
           <div className='tags-container' >
            
