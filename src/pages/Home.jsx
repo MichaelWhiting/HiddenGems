@@ -25,12 +25,11 @@ function Home() {
     const gemsToUpdate = [];
     const { data } = await axios.get("/getFriends")
     const friends = data.friends
-    console.log(friends)
+
     for (let i = 0; i < friends.length; i++) {
       const res = await axios.get(`/getFollowingGems/${friends[i].userId}`);
       gemsToUpdate.push(...res.data.gems);
       if (i === friends.length - 1) {
-        console.log("on the last gem, so now updatting followingGems to:", gemsToUpdate)
         setFollowingGems(gemsToUpdate);
       }
     }
@@ -40,6 +39,7 @@ function Home() {
     if (userId) {
       getFollowingGems()
     } else {
+      console.log("is this running on each refresh?")
       navigate("/login")
    }
   }, [reload])
@@ -64,7 +64,9 @@ function Home() {
             </Button>
           <div>
             <label className="sub-title">Following Feed:</label>
-            {gemCards}
+            <div>
+              {gemCards}
+            </div>
           </div>
         </div>
       )}

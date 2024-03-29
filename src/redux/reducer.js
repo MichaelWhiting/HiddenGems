@@ -21,19 +21,16 @@ const reducer = (state = initialState, action) => {
                 ...initialState
             };
         case "UPDATE_NAVBAR":
-            console.log("setting navbar in the store")
             return {
                 ...state,
                 navbarColor: action.payload
             }
         case "UPDATE_BACKGROUND":
-            console.log("setting background in the store")
             return {
                 ...state,
                 backgroundColor: action.payload
             }
         case "UPDATE_FOREGROUND":
-            console.log("setting foreground in the store")
             return {
                 ...state,
                 foregroundColor: action.payload
