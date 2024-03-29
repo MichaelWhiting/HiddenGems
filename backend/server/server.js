@@ -2,11 +2,18 @@ import ViteExpress from "vite-express";
 import session from "express-session";
 import express from "express";
 import morgan from "morgan";
+import dotenv from 'dotenv'
 
 // Handlers
-import handlerFunctions from "./controller.js";
+import userHandler from "./handlers/userHandler.js";
+import friendHandler from "./handlers/friendHandler.js";
+import gemHandler from "./handlers/gemHandler.js";
+import imgHandler from "./handlers/imgHandler.js";
+import ratingHandler from "./handlers/ratingHandler.js";
+import commentHandler from "./handlers/commentHandler.js";
 
 // Server Boilerplate
+dotenv.config()
 const app = express();
 
 app.use(morgan("dev"));
@@ -19,32 +26,58 @@ app.use(
     resave: false,
   })
 );
+app.use(express.static('public'));
 
 // Routes
 
-// GET
-app.get("/getUser/:userId", handlerFunctions.getUser);
-app.get("/getFriends/:userId", handlerFunctions.getFriends);
-app.get("/getGem/:gemId", handlerFunctions.getGem);
-app.get("/getAllGems", handlerFunctions.getAllGems);
+// User Routes
+app.get('/session-check', userHandler.sessionCheck);
+app.get("/logout", userHandler.logout);
+app.get("/getUser/:userId", userHandler.getUser);
+app.get("/getUserInfo/:userId", userHandler.getUserInfo);
 
-app.get("/getComments/:gemId", handlerFunctions.getComments);
-app.get("/getRatings/:gemId", handlerFunctions.getRatingsAvg);
-app.get('/session-check', handlerFunctions.sessionCheck);
-app.get("/logout", handlerFunctions.logout);
+app.post("/login", userHandler.login);
+app.post("/register", userHandler.register);
+app.post("/followUser/:idToFollow", userHandler.followUser);
 
-// POST
-app.post("/login", handlerFunctions.login);
-app.post("/register", handlerFunctions.register);
-app.post("/createGem", handlerFunctions.createGem);
-app.post("/createComment", handlerFunctions.createComment);
-app.post("/createRating", handlerFunctions.createRating)
+app.put("/saveColors", userHandler.saveColors)
 
-// PUT
+app.delete("/unfollowUser/:idToUnfollow", userHandler.unfollowUser)
 
-// DELETE
+// Friends/Following Routes
+app.get("/getFriends", friendHandler.getFriends);
+app.get("/getSearchResults/:searchText", friendHandler.getSearchResults);
+app.get("/getFollowingGems/:friendId", friendHandler.getGemsFromFriend)
 
+// Gem Routes
+app.get("/getGem/:gemId", gemHandler.getGem);
+app.get("/getAllGems", gemHandler.getAllGems);
+app.get("/getGemsFromUserId/:userId", gemHandler.getUserGems);
+app.get("/getAllTags", gemHandler.getAllTags);
+app.get("/getAllByTag/:tagId", gemHandler.getAllbyTags)
+app.get("/searchGems/:query", gemHandler.searchGemsByName);
 
+app.post("/createGem", gemHandler.createGem);
+
+app.put("/updateGem/:gemId", gemHandler.updateGem);
+
+app.delete("/deleteGem/:gemId", gemHandler.deleteGem);
+
+// Img Routes
+app.put('/updateUserProfileImg/:userId', imgHandler.updateUserProfileImg);
+app.put('/updateUserHeaderImg/:userId', imgHandler.updateUserHeaderImg);
+
+// Ratings Routes
+app.get("/getRatings/:gemId", ratingHandler.getRatingsAvg);
+
+app.post("/createRating", ratingHandler.createRating);
+
+// Comments Routes
+app.get("/getComments/:gemId", commentHandler.getComments);
+
+app.post("/createComment", commentHandler.createComment);
+
+app.delete('/deleteComment/:commentId', commentHandler.deleteComment);
 
 // Server Startup
 const port = 9998;

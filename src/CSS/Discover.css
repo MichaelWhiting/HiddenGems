@@ -1,3 +1,4 @@
+
 .discover-container {
     margin: auto;
     width: 80%;
@@ -11,7 +12,7 @@
 
   .gems-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
     gap: 20px;
   }
 
@@ -29,5 +30,145 @@
 
   .gem-description {
     font-size: 16px;
-    color: #666;
+    color: #667;
+  }
+
+  .search-bar {
+    display: flex; /* Establish flex container */
+    align-items: center;
+    justify-content: space-between; /* Space between the search elements and the sort button */
+    max-width: 600px; /* Adjust the width as needed */
+    margin: auto; /* Center the search bar */
+    gap: 10px; /* Adds space between elements */
+  }
+  
+  .search-bar input[type="text"] {
+    flex-grow: 2; /* Allows the input to grow, taking more space */
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search-bar input[type="text"]:focus {
+    border-color: #0dcaf0; /* Change border color on focus */
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    background-color: #0dcaf0;
+    color: #fff;
+    border: none;
+    border-radius: 20px; /* Round the corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add transition for smoother interaction */
+    /* No width specified, allowing it to shrink/grow as needed */
+  }
+  
+  .search-bar button:hover {
+    background-color: #0dcaf0; /* Darker color on hover */
+  }
+  
+  /* Adjust styling for checkbox and label */
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Adjust styling for tag filter container */
+  .header {
+    margin-bottom: 20px;
+  }
+  
+  .d-flex {
+    display: flex;
+    align-items: center;
+  }
+  
+  .justify-content-center {
+    justify-content: center;
+  }
+
+  #tagsButton {
+    padding: 6px 16px;
+    background-color: transparent;
+    color: #0dcaf0;
+    border: 2px solid #0dcaf0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+   
+  }
+  
+  #tagsButton.selected {
+    background-color: #0dcaf0; /* Change color when button is selected */
+    color: #fff;
+  
+  }
+
+  .TagTitle {
+    text-align: center;
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow the tags to wrap onto multiple lines */
+    justify-content: center; /* Center tags horizontally */
+    gap: 10px; /* Optional: Adds space between the tags */
+  }
+
+ 
+
+  @media (max-width: 600px) { /* Adjust this value based on your needs */
+    .gems-grid {
+      grid-template-columns: 1fr; /* Makes each card take full width of the container */
+      gap: 10px; /* Optional: Adjust gap for smaller screens */
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    .discover-container {
+      width: 95%; /* Increase width to use more screen space */
+      padding: 10px; /* Adjust padding to reduce space and prevent cutting off */
+    }
+  }
+  @media (max-width: 600px) {
+    .discover-container, .gem-card {
+      padding: 10px; /* Reduce padding */
+    }
+    .gem-card {
+      margin: 10px 0; /* Adjust margin for vertical spacing, remove horizontal margins if any */
+    }
+  }
+  @media (max-width: 600px) {
+    .gem-location, .gem-description {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+    .gem-image {
+      max-width: 100%; /* Ensure images are not wider than their container */
+      height: auto; /* Maintain aspect ratio */
+    }
+  }
+  .search-bar .sort-button {
+    padding: 6px 16px;
+    background-color: transparent;
+    color:  #0dcaf0;
+    border: 2px solid  #0dcaf0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+    
+  }
+  
+  .search-bar .sort-button-active {
+    background-color:  #0dcaf0; /* Change color when button is selected */
+    color: #fff;
+  }
+  .search-bar .sort-button:not(.sort-button-active):hover {
+    background-color: transparent;
+    color:  #0dcaf0; /* This line is optional */
   }

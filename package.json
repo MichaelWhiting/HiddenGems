@@ -9,13 +9,16 @@
     "initdb": "dropdb --if-exists hiddenGems && createdb hiddenGems",
     "seed": "node backend/database/seed.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "queries": "node backend/database/queries.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@vis.gl/react-google-maps": "^0.7.1",
+    "aws-sdk": "^2.1583.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "express-session": "^1.18.0",

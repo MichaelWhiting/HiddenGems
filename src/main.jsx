@@ -12,10 +12,13 @@ import Home from "./pages/Home.jsx";
 import Discover from "./pages/Discover.jsx";
 import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
-import FullDetails from "./pages/FullDetails.jsx";
 import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
 import Game2048 from './pages/game2048.jsx'
+// import EditGem from './components/EditGem.jsx'
+import Friends from './components/Friends.jsx'
+import UpdateGem from './components/updateGem.jsx'
+import Profile2 from './pages/Profile2.jsx'
 
 import 'bootstrap/dist/css/bootstrap.css'; // this is the import for bootstrap css
 
@@ -23,18 +26,18 @@ const router = createBrowserRouter(
   createRoutesFromElements(
       <Route path="/" element={<App />}>
         <Route index element={<Home />}/>
-        <Route path="/topGems" element={<TopGems />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile2/:userId" element={<Profile2 />} />
         <Route path="/about" element={<About />} />
         <Route path="/details" element={<DetailsPage />} />
-        <Route path="/fullDetails" element={<FullDetails />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/friends" element={<Friends />} />
         <Route path="2048" element={<Game2048 />} />
+        <Route path="/updateGem/:gemId" element={<UpdateGem />} />
       </Route>
   )
 )
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -18,6 +18,14 @@ User.init(
             autoIncrement: true,
             primaryKey: true,
         },
+        firstName: {
+            type: DataTypes.STRING(30),
+            allowNull: true,   
+        },
+        lastName: {
+            type: DataTypes.STRING(30),
+            allowNull: true,   
+        },
         email: {
             type: DataTypes.STRING(30),
             allowNull: false,
@@ -26,7 +34,27 @@ User.init(
         password: {
             type: DataTypes.STRING(500),
             allowNull: false,
-        }
+        },
+        imgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        headerImgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        navbarColor: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }, 
+        backgroundColor: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }, 
+        foregroundColor: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }, 
     },
     {
         modelName: 'user',
@@ -148,61 +176,30 @@ Tag.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        food: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
+        tagName: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
-        adventure: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        entertainment: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        technology: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        travel: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        education: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        health: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        fashion: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        fitness: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        pet: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        family: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        arts: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-
     },
     {
         modelName: 'tag',
         sequelize: db,
     },
 );
+
+class Friendship extends Model {
+    [util.inspect.custom]() {
+        return this.toJSON();
+    }
+}
+
+Friendship.init(
+    {},
+    {
+        modelName: 'friendship',
+        sequelize: db
+    }
+)
 
 
 // User - Gem
@@ -226,8 +223,10 @@ Gem.hasMany(Rating, { foreignKey: "gemId"});
 Rating.belongsTo(Gem, { foreignKey: "gemId"});
 
 // Gem manytomany Tag
-Gem.belongsToMany(Tag, {through: 'GemTag'})
-Tag.belongsToMany(Gem, {through: 'GemTag'})
+Gem.belongsToMany(Tag, {through: 'GemTag'});
+Tag.belongsToMany(Gem, {through: 'GemTag'});
 
+// User - Friend // many to many
+User.belongsToMany(User, {as: 'Friendship', through: Friendship, foreignKey: "userId", otherKey: 'friendId'});
 
-export { User, Gem, Comment, Rating, Tag };
+export { User, Gem, Comment, Rating, Tag, Friendship };

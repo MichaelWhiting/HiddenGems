@@ -4,20 +4,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../CSS/Profile.css"; // Import the CSS file for styling
 import { Upload } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { Collapse } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Friends from "../components/Friends.jsx";
 import { useDispatch } from "react-redux";
-
 // Components
 import GemCard from "../components/GemCard";
-import EditColor from "../public/editColor.svg";
 
 function Profile() {
   const userId = useSelector((state) => state.userId);
-  const loading = useSelector((state) => state.loading);
-  const backgroundColorState = useSelector((state) => state.backgroundColor);
-  const foregroundColorState = useSelector((state) => state.foregroundColor);
-  const navbarColorState = useSelector((state) => state.navbarColor);
+  const backgroundColorState = useSelector(state => state.backgroundColor);
+  const foregroundColorState = useSelector(state => state.foregroundColor);
+  const navbarColorState = useSelector(state => state.navbarColor);
 
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
@@ -28,64 +25,69 @@ function Profile() {
   const [navbarColor, setNavbarColor] = useState(navbarColorState); // Added for background color change
   const [backgroundColor, setBackgroundColor] = useState(backgroundColorState); // Added for background color change
   const [foregroundColor, setForegroundColor] = useState(foregroundColorState); // Added for background color change
-  const [showColorPickers, setShowColorPickers] = useState(false); // State to control color pickers visibility
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!userId && !loading) {
-      navigate("/login")
+    if (!userId) {
+      navigate("/login");
     } else {
       getUser();
     }
-  }, [userId, loading, reload]);
+  }, [reload]);
 
   useEffect(() => {
     dispatch({
       type: "UPDATE_NAVBAR",
-      payload: navbarColor,
-    });
-    console.log("updating navbar color");
-  }, [navbarColor]);
+      payload: navbarColor
+    })
+    console.log("updating navbar color")
+  }, [navbarColor])
 
   useEffect(() => {
     dispatch({
       type: "UPDATE_BACKGROUND",
-      payload: backgroundColor,
-    });
-    console.log("updating background color");
-  }, [backgroundColor]);
+      payload: backgroundColor
+    })
+    console.log("updating background color")
+  }, [backgroundColor])
 
   useEffect(() => {
     dispatch({
       type: "UPDATE_FOREGROUND",
-      payload: foregroundColor,
-    });
-    console.log("updating foreground color");
-  }, [foregroundColor]);
+      payload: foregroundColor
+    })
+    console.log("updating foreground color")
+  }, [foregroundColor])
 
   const getUser = async () => {
-    if (userId) {
-      const response = await axios.get(`/getUserInfo/${userId}`);
-      setUserInfo(response.data.user);
-      const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
-      setGems(data.gems);
+    console.log("page refreshed");
+    if (!userId) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await axios.get(`/getUserInfo/${userId}`);
+        setUserInfo(response.data.user);
+        const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+        setGems(data.gems);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     }
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`/getUserInfo/${userId}`);
-  //       setUserInfo(response.data.user);
-  //       const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
-  //       setGems(data.gems);
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [userId]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/getUserInfo/${userId}`);
+        setUserInfo(response.data.user);
+        const { data } = await axios.get(`/getGemsFromUserId/${userId}`);
+        setGems(data.gems);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchData();
+  }, [userId]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -139,11 +141,11 @@ function Profile() {
     const data = {
       navbarColor,
       backgroundColor,
-      foregroundColor,
-    };
-    const res = await axios.put("/saveColors", data);
+      foregroundColor
+    }
+    const res = await axios.put("/saveColors", data)
     console.log(res.data.success);
-  };
+  }
 
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
@@ -155,33 +157,21 @@ function Profile() {
   const handleFriendsButtonClick = () => {
     setShowFriends(!showFriends); // Toggle Friends component visibility
   };
-  const toggleColorPickersVisibility = () => {
-    setShowColorPickers(!showColorPickers); // Toggle color pickers visibility
-  };
+
   useEffect(() => {
-    document.body.style.backgroundColor = backgroundColorState;
-  }, [backgroundColor]);
+    document.body.style.backgroundColor = backgroundColorState
+  }, [backgroundColor])
 
   if (!userInfo) {
     return <div>Loading...</div>; // Loading state
   }
 
   const gemCards = gems.map((gem, i) => (
-    <GemCard
-      key={i}
-      i={i}
-      gem={gem}
-      reload={reload}
-      setReload={setReload}
-      showButtons={true}
-    />
+    <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={true} />
   ));
 
   return (
-    <div
-      className="profile-container"
-      style={{ backgroundColor: foregroundColor }}
-    >
+    <div className="profile-container" style={{backgroundColor: foregroundColor}}>
       <div className="profile-image-section">
         {userInfo?.headerImgUrl && (
           <img
@@ -235,79 +225,31 @@ function Profile() {
       <h2 className="user-email">{userInfo.email}</h2>
       <hr />
       {/* Color Picker Button and Input */}
-      <div className="color-picker-container">
-        {/* Color pickers */}
-        <div className="edit-icon-container">
-        <img
-          src={EditColor}
-          alt="no image"
-          onClick={toggleColorPickersVisibility}
-          className="edit-colors-icon"
-          />
-          </div>
-          <Collapse in={showColorPickers}>
-          <div>
-          <div className="color-picker-section">
-            <div className="color-pickers" >
-            <div >
-              <h5>Background Color:</h5>
-              <input
-              className="picker"
-                type="color"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                />
-               </div>
-               <div >
-              <h5>Navbar Color:</h5>
-              <input
-              className="picker"
-                type="color"
-                value={navbarColor}
-                onChange={(e) => setNavbarColor(e.target.value)}
-              />
-              </div>
-              <div >
-              <h5>Foreground Color:</h5>
-              <input
-              className="picker"
-                type="color"
-                value={foregroundColor}
-                onChange={(e) => setForegroundColor(e.target.value)}
-              />
-              </div>
-            </div>
-            {/* <div className="save-btn-container"> */}
-            <button
-              onClick={() => {
-                saveColors();
-                toggleColorPickersVisibility();
-              }}
-              className="save-colors-btn"
-            >
-              Save
-            </button>
-            {/* </div> */}
-          </div>
-        </div>
-          
-          </Collapse>
-
-        
-
-       
+      <div style={{ margin: "20px 0" }}>
+        <h4>Choose Navbar Color:</h4>
+        <input 
+          type="color" 
+          value={navbarColor} 
+          onChange={(e) => setNavbarColor(e.target.value)} 
+        />
+        <h4>Choose Background Color:</h4>
+        <input 
+          type="color" 
+          value={backgroundColor} 
+          onChange={(e) => setBackgroundColor(e.target.value)} 
+        />
+        <h4>Choose Foreground Color:</h4>
+        <input 
+          type="color" 
+          value={foregroundColor} 
+          onChange={(e) => setForegroundColor(e.target.value)} 
+        />
+        <button onClick={saveColors}>Save</button>
       </div>
-      <div className="friend-button-container">
-      <button className="friend-button" onClick={handleFriendsButtonClick}>
+      <Button variant="outline-info" onClick={handleFriendsButtonClick}>
         Friends
-      </button>
-      </div>
-      <Collapse in={showFriends}>
-        <div>
-          <Friends />
-        </div>
-      </Collapse>
-
+      </Button>
+      {showFriends && <Friends />}
       <div className="gems-section">
         <h2>Gems You Created</h2>
         <ul className="gem-cards">{gemCards}</ul>
@@ -316,9 +258,7 @@ function Profile() {
         <h2>Comments</h2>
         <ul>
           {userInfo.comments.map((comment, index) => (
-            <li key={index} className="comment">
-              {comment.text}
-            </li>
+            <li key={index} className="comment">{comment.text}</li>
           ))}
         </ul>
       </div>

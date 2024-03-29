@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import RatingBar from '../components/RatingBar';
 import axios from 'axios';
 import '../CSS/About.css'; // Assuming you have an About.css file for styling this component
+import GemCard from '../components/GemCard';
 
 function About() {
   const [gems, setGems] = useState([]);
@@ -11,6 +12,7 @@ function About() {
   const [joshGemId, setJoshGemId] = useState(null);
   const [jesseGemId, setJesseGemId] = useState(null);
   const [tyGemId, setTyGemId] = useState(null);
+  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -23,6 +25,10 @@ function About() {
     setJesseGemId(3); // Example favorite gem ID for Jesse
     setTyGemId(4); // Example favorite gem ID for Ty
   }
+
+  useEffect(() => {
+    fetchData();
+  }, [reload]);
 
   useEffect(() => {
     fetchData();
@@ -46,19 +52,8 @@ function About() {
         {gems.map((gem, i) => {
           if (gem.gemId === michaelGemId) {
             return (
-              <div key={i} className='gem-card'>
-                
-                <h2 className="gem-location">{gem.name}</h2>
-                <p className='gem-description'>{gem.description} </p>
-                <div>
-                  Enjoyability:
-                  <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
-                  Popularity:
-                  <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
-                </div>
-                <button className="hyper-link" onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}>Full Details</button>
-              </div>
-            );
+              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
+              );
           }
           return null;
         })}
@@ -76,18 +71,7 @@ function About() {
         {gems.map((gem, i) => {
           if (gem.gemId === joshGemId) {
             return (
-              <div key={i} className='gem-card'>
-                
-                <h2 className="gem-location">{gem.name}</h2>
-                <p className='gem-description'>{gem.description} </p>
-                <div>
-                  Enjoyability:
-                  <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
-                  Popularity:
-                  <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
-                </div>
-                <button className="hyper-link" onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}>Full Details</button>
-              </div>
+              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
             );
           }
           return null;
@@ -106,18 +90,7 @@ function About() {
         {gems.map((gem, i) => {
           if (gem.gemId === jesseGemId) {
             return (
-              <div key={i} className='gem-card'>
-                
-                <h2 className="gem-location">{gem.name}</h2>
-                <p className='gem-description'>{gem.description} </p>
-                <div>
-                  Enjoyability:
-                  <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
-                  Popularity:
-                  <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
-                </div>
-                <button className="hyper-link" onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}>Full Details</button>
-              </div>
+              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
             );
           }
           return null;
@@ -136,18 +109,7 @@ function About() {
         {gems.map((gem, i) => {
           if (gem.gemId === tyGemId) {
             return (
-              <div key={i} className='gem-card'>
-                
-                <h2 className="gem-location">{gem.name}</h2>
-                <p className='gem-description'>{gem.description} </p>
-                <div>
-                  Enjoyability:
-                  <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
-                  Popularity:
-                  <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
-                </div>
-                <button className="hyper-link" onClick={() => navigate("/details", { state: { gemId: gem.gemId } })}>Full Details</button>
-              </div>
+              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
             );
           }
           return null;
