@@ -114,9 +114,9 @@ function DetailsPage() {
                 <div className="gem-details-ratings-map">
                   <div className="gem-details-ratings">
                     <p>Enjoyability:</p>
-                    <RatingBar rating={gem.enjoyAvg ? gem.enjoyAvg : 0} />
+                    <RatingBar rating={gems.enjoyAvg ? gems.enjoyAvg : 0} />
                     <p>Popularity:</p>
-                    <RatingBar rating={gem.popularAvg ? gem.popularAvg : 0} />
+                    <RatingBar rating={gems.popularAvg ? gems.popularAvg : 0} />
                   </div>
                   <div className="gem-details-map">
                     <MapComponent gem={gem}  />

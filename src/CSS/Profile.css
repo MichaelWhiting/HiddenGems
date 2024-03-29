@@ -4,7 +4,7 @@
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .profile-image-section {
@@ -19,11 +19,9 @@
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
-
 }
 .header-image:hover {
   filter: brightness(70%); /* Makes the image darker on hover */
-
 }
 
 .profile-image {
@@ -43,7 +41,6 @@
   filter: brightness(70%); /* Makes the image darker on hover */
 }
 
-
 .icon-button {
   background-color: transparent;
   border: none;
@@ -58,14 +55,14 @@
   position: absolute;
   right: 20px;
   top: 20px;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
   border-radius: 50%;
 }
 
-.user-name, .user-email {
+.user-name,
+.user-email {
   text-align: center;
-  
 }
 
 .user-name {
@@ -79,7 +76,8 @@
   color: #666;
 }
 
-.gems-section, .comments-section {
+.gems-section,
+.comments-section {
   margin-top: 40px;
 }
 
@@ -134,16 +132,23 @@
 }
 
 .edit-colors-icon {
+  margin: auto;
   width: 40px;
   margin-bottom: 10px;
   border: 10px;
   transition: background-color 1s, transform 1s; /* Smooth transitions for feedback */
   cursor: pointer;
-
+}
+.color-picker-container {
+  margin: auto;
+  justify-content: center;
 }
 .edit-colors-icon:hover {
   transform: scale(1.08); /* Slightly scale down to mimic a press */
-
+}
+.edit-icon-container {
+  display: flex;
+  align-items: center;
 }
 .save-btn-container {
   display: flex;
@@ -151,7 +156,6 @@
   align-items: center; /* Centers the button vertically */
   height: 100%; /* Adjust the height as needed, or use a specific value */
 }
-
 
 .save-colors-btn {
   width: 100px;
@@ -170,7 +174,6 @@
 .save-colors-btn:hover {
   background-color: #070707;
   transform: scale(1.08); /* Slightly scale down to mimic a press */
-
 }
 /* Color Pickers Container */
 .color-pickers {
@@ -185,24 +188,19 @@
   width: 100%;
 }
 
-
 /* General Style for Picker Component */
 .picker {
-  
   transition: background-color 1s, transform 1s; /* Smooth transitions for feedback */
-
 }
 
 /* Hover State for the Picker */
 .picker:hover {
   background-color: #f5f5f5; /* Slightly darker background on hover */
   border-color: #b3b3b3; /* Darker border to highlight */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Enhanced shadow for depth */
-  transform: scale(1.2); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  transform: scale(1.2);
   cursor: pointer; /* Indicates the element is interactive */
-
 }
-
 
 /* Basic Style for Friend Button */
 .friend-button-container {
@@ -230,18 +228,4 @@
 .friend-button:hover {
   background-color: #010101; /* Darker shade of green on hover */
   transform: scale(1.08); /* Slightly scale down to mimic a press */
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

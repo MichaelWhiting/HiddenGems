@@ -180,11 +180,13 @@ const UpdateGem = () => {
             onClick={() => document.getElementById("fileUpload").click()}
           />
         </div>
-        <div className="map-container">
+        <div>
           <div className="form-group">
           <label htmlFor="location">Location:</label>
           </div>
+          <div className="map-container">
           <MapComponent updateCords={updateCords} isCreating={true} />
+          </div>
         </div>
         <div className="form-actions">
           <button type="submit" className="submit-btn">
