@@ -3,14 +3,12 @@ import axios from "axios";
 import { useParams  } from "react-router-dom";
 import "../CSS/Profile2.css";
 import { Button } from "react-bootstrap";
-import Friends from "../components/Friends.jsx";
 import GemCard from "../components/GemCard";
 
 function Profile2() {
   const { userId } = useParams();
   const [userInfo, setUserInfo] = useState(null);
   const [gems, setGems] = useState([]);
-  const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
     const getUserInfoAndGems = async () => {
@@ -28,10 +26,6 @@ function Profile2() {
       getUserInfoAndGems();
     }
   }, [userId]);
-
-  const handleFriendsButtonClick = () => {
-    setShowFriends(!showFriends);
-  };
 
   
   
@@ -54,8 +48,7 @@ function Profile2() {
       <h1 className="user-name">{userInfo.firstName} {userInfo.lastName}</h1>
       <h2 className="user-email">{userInfo.email}</h2>
     
-      <Button variant="outline-info" onClick={handleFriendsButtonClick}>Friends</Button>
-      {showFriends && <Friends />}
+      
       <div className="gems-section">
         <h2>Gems You Created</h2>
         <div className="gem-cards">{gemCards}</div>
