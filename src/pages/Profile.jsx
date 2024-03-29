@@ -9,6 +9,7 @@ import Friends from "../components/Friends.jsx";
 import { useDispatch } from "react-redux";
 // Components
 import GemCard from "../components/GemCard";
+import EditColor from "../public/editColor.svg"
 
 function Profile() {
   const userId = useSelector((state) => state.userId);
@@ -241,14 +242,13 @@ function Profile() {
       {/* Color Picker Button and Input */}
       <div className="color-picker-section">
         {/* Color pickers */}
-        <Button
-          variant="outline-info"
+       <img src={EditColor} alt="no image"
           onClick={toggleColorPickersVisibility}
 
           className="edit-colors-btn"
-        >
-          {showColorPickers ? "Back" : "Edit Colors"}
-        </Button>
+        
+          
+          />
         {showColorPickers && (
           <div className="color-picker-section">
             
