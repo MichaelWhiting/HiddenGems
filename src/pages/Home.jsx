@@ -47,6 +47,7 @@ function Home() {
   const gemCards = followingGems.map((gem, i) => (
     <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload} showButtons={false}/>
   ));
+  
   return (
     <>
       {!showCreateGem && (

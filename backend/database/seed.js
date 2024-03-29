@@ -45,7 +45,7 @@ await Gem.create({
     description: "Stay skiers left and you will understand what I mean.",
     lat: -50.4214,
     lng: 10.9864,
-    userId: 1
+    userId: 1,
 });
 
 await Gem.create({
