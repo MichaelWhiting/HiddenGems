@@ -34,10 +34,26 @@ function Discover() {
     fetchTags();
   }, [reload]);
 
+  // const handleSearch = async () => {
+  //   try {
+  //     const encodedQuery = encodeURIComponent(query);
+  //     const searchRes = await axios.get(`/searchGems/${query}`);
+  //     setGems(searchRes.data.gems);
+  //   } catch (error) {
+  //     console.error('Error searching gems:', error);
+  //     // Handle error, e.g., display an error message to the user
+  //   }
+  // };
   const handleSearch = async () => {
     try {
-      const searchRes = await axios.get(`/searchGems/${query}`);
-      setGems(searchRes.data.gems);
+      if (query.trim() !== '' && !query.includes('.')) { // Check if the query is not empty
+        const encodedQuery = encodeURIComponent(query);
+        const searchRes = await axios.get(`/searchGems/${encodedQuery}`);
+        setGems(searchRes.data.gems);
+      } else {
+        // If the query is empty, reset the gems to the full list
+        fetchData();
+      }
     } catch (error) {
       console.error('Error searching gems:', error);
       // Handle error, e.g., display an error message to the user
