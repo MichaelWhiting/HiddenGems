@@ -4,11 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../CSS/Profile.css"; // Import the CSS file for styling
 import { Upload } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
 import Friends from "../components/Friends.jsx";
 import { useDispatch } from "react-redux";
+
 // Components
 import GemCard from "../components/GemCard";
+import EditColor from "../public/editColor.svg";
 
 function Profile() {
   const userId = useSelector((state) => state.userId);
@@ -239,54 +241,77 @@ function Profile() {
       <h2 className="user-email">{userInfo.email}</h2>
       <hr />
       {/* Color Picker Button and Input */}
-      <div className="color-picker-section">
+      <div className="color-picker-container">
         {/* Color pickers */}
-        <Button
-          variant="outline-info"
+        <img
+          src={EditColor}
+          alt="no image"
           onClick={toggleColorPickersVisibility}
-
-          className="edit-colors-btn"
-        >
-          {showColorPickers ? "Back" : "Edit Colors"}
-        </Button>
-        {showColorPickers && (
+          className="edit-colors-icon"
+          />
+          <Collapse in={showColorPickers}>
+          <div>
           <div className="color-picker-section">
-            
-            <div style={{ margin: "20px 0" }}>
+            <div className="color-pickers" >
+            <div >
               <h5>Background Color:</h5>
               <input
+              className="picker"
                 type="color"
                 value={backgroundColor}
                 onChange={(e) => setBackgroundColor(e.target.value)}
-              />
+                />
+               </div>
+               <div >
               <h5>Navbar Color:</h5>
               <input
+              className="picker"
                 type="color"
                 value={navbarColor}
                 onChange={(e) => setNavbarColor(e.target.value)}
               />
+              </div>
+              <div >
               <h5>Foreground Color:</h5>
               <input
+              className="picker"
                 type="color"
                 value={foregroundColor}
                 onChange={(e) => setForegroundColor(e.target.value)}
               />
-             
+              </div>
             </div>
-            <button onClick={() => {
-              saveColors()
-               toggleColorPickersVisibility() 
-               
-            }} className="save-colors-btn">
+            {/* <div className="save-btn-container"> */}
+            <button
+              onClick={() => {
+                saveColors();
+                toggleColorPickersVisibility();
+              }}
+              className="save-colors-btn"
+            >
               Save
             </button>
+            {/* </div> */}
           </div>
-        )}
+        </div>
+          
+          </Collapse>
+
+        
+
+       
       </div>
-      <Button variant="outline-info" onClick={handleFriendsButtonClick}>
+      <div className="friend-button-container">
+      <button className="friend-button" onClick={handleFriendsButtonClick}>
         Friends
-      </Button>
-      {showFriends && <Friends />}
+      </button>
+      </div>
+      <Collapse in={showFriends}>
+        <div>
+          <Friends />
+        </div>
+      </Collapse>
+
       <div className="gems-section">
         <h2>Gems You Created</h2>
         <ul className="gem-cards">{gemCards}</ul>

@@ -108,10 +108,14 @@
   font-style: italic;
 }
 .color-picker-section {
-  margin: 20px 0;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  align-items: center; /* Centers the button vertically */
+  padding: 10px;
+  background-color: #ffffff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  border: 1px solid #d9d9d9; /* Solid border, 10px wide, light gray color */
+  margin-bottom: 20px;
 }
 
 .color-picker-title {
@@ -129,18 +133,115 @@
   margin-right: 10px;
 }
 
+.edit-colors-icon {
+  width: 40px;
+  margin-bottom: 10px;
+  border: 10px;
+  transition: background-color 1s, transform 1s; /* Smooth transitions for feedback */
+  cursor: pointer;
+
+}
+.edit-colors-icon:hover {
+  transform: scale(1.08); /* Slightly scale down to mimic a press */
+
+}
+.save-btn-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  align-items: center; /* Centers the button vertically */
+  height: 100%; /* Adjust the height as needed, or use a specific value */
+}
 
 
 .save-colors-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  width: 100px;
+  background-color: #0dcaf0;
+  color: white; /* White text for contrast */
+  padding: 10px 20px; /* Adequate padding for clickability */
+  font-size: 16px; /* Readable text size */
+  border: none; /* No border for a modern look */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Cursor indicates button is clickable */
+  transition: background-color 1s, transform 1s; /* Smooth transitions for feedback */
+  outline: none; /* Remove outline to keep the design clean */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .save-colors-btn:hover {
-  background-color: #0056b3;
+  background-color: #070707;
+  transform: scale(1.08); /* Slightly scale down to mimic a press */
+
 }
+/* Color Pickers Container */
+.color-pickers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px; /* Space between color picker inputs */
+  margin: 20px auto; /* Centering the container */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1000px; /* Maximum width of the container */
+  width: 100%;
+}
+
+
+/* General Style for Picker Component */
+.picker {
+  
+  transition: background-color 1s, transform 1s; /* Smooth transitions for feedback */
+
+}
+
+/* Hover State for the Picker */
+.picker:hover {
+  background-color: #f5f5f5; /* Slightly darker background on hover */
+  border-color: #b3b3b3; /* Darker border to highlight */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Enhanced shadow for depth */
+  transform: scale(1.2); 
+  cursor: pointer; /* Indicates the element is interactive */
+
+}
+
+
+/* Basic Style for Friend Button */
+.friend-button-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  align-items: center; /* Centers the button vertically */
+}
+.friend-button {
+  width: 100px;
+
+  background-color: #0dcaf0;
+  color: white; /* White text for contrast */
+  padding: 10px 20px; /* Adequate padding for clickability */
+  font-size: 16px; /* Readable text size */
+  border: none; /* No border for a modern look */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Cursor indicates button is clickable */
+  transition: background-color 1s, transform 1s; /* Smooth transitions for feedback */
+  outline: none; /* Remove outline to keep the design clean */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  margin-top: 100px;
+}
+
+/* Hover State */
+.friend-button:hover {
+  background-color: #010101; /* Darker shade of green on hover */
+  transform: scale(1.08); /* Slightly scale down to mimic a press */
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

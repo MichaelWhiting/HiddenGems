@@ -1,7 +1,7 @@
 // Friends.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FloatingLabel, Form, Button } from 'react-bootstrap';
+import { FloatingLabel, Form } from 'react-bootstrap';
 import * as Icon from "react-bootstrap-icons";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import { useSelector } from 'react-redux'; // Assuming you are using Redux
@@ -63,7 +63,7 @@ function Friends() {
     const searchCards = searchResults.map((user, i) => (
         <div key={i} className="user-display" style={{width: "80%", animation: animStr(i)}}>
             <label className='email-label'>{user.email}</label>
-            <Button variant="outline-info" onClick={() => followUser(user.userId)}>Follow</Button>
+            <button className='search-button' onClick={() => followUser(user.userId)}>Follow</button>
         </div>
     ));
 
@@ -75,7 +75,7 @@ function Friends() {
             <div className="friend-info">
                 <div className="friend-name">{friend.firstName} {friend.lastName} {friend.email}</div>
                 <div className="friend-actions">
-                    <Button variant="outline-danger" onClick={(e) => { e.stopPropagation(); unfollowUser(friend.userId); }}>Unfollow</Button>
+                    <button className='search-button' onClick={(e) => { e.stopPropagation(); unfollowUser(friend.userId); }}>Unfollow</button>
                 </div>
             </div>
         </div>
@@ -91,13 +91,15 @@ function Friends() {
             </div>
             <div className="add-friends">
                 <h1 className="center">Find User</h1>
-                <div className="search-bar">
-                    <FloatingLabel label="Email" className="mb-3">
+<div className='search-container'>
+                <div className='search-bar'>
+                    <FloatingLabel label="Email">
                         <Form.Control type="email" placeholder="name@example.com" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
                     </FloatingLabel>
-                    <Button variant="primary" onClick={getSearchResults}>Search</Button>
                 </div>
+
                 {searchCards}
+                </div>
             </div>
         </div>
     );
