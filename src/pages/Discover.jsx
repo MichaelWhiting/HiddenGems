@@ -32,7 +32,7 @@ function Discover() {
     };
     fetchData();
     fetchTags();
-  }, []);
+  }, [reload]);
 
   const handleSearch = async () => {
     try {
