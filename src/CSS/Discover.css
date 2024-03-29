@@ -53,12 +53,12 @@
   }
   
   .search-bar input[type="text"]:focus {
-    border-color: #007bff; /* Change border color on focus */
+    border-color: #0dcaf0; /* Change border color on focus */
   }
   
   .search-bar button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #0dcaf0;
     color: #fff;
     border: none;
     border-radius: 20px; /* Round the corners */
@@ -68,7 +68,7 @@
   }
   
   .search-bar button:hover {
-    background-color: #0056b3; /* Darker color on hover */
+    background-color: #0dcaf0; /* Darker color on hover */
   }
   
   /* Adjust styling for checkbox and label */
@@ -98,8 +98,8 @@
   #tagsButton {
     padding: 6px 16px;
     background-color: transparent;
-    color: #007bff;
-    border: 2px solid #007bff;
+    color: #0dcaf0;
+    border: 2px solid #0dcaf0;
     border-radius: 10px;
     cursor: pointer;
     margin: 5px;
@@ -107,7 +107,7 @@
   }
   
   #tagsButton.selected {
-    background-color: #007bff; /* Change color when button is selected */
+    background-color: #0dcaf0; /* Change color when button is selected */
     color: #fff;
   
   }

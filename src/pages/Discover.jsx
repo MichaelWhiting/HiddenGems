@@ -5,10 +5,10 @@ import '../CSS/Discover.css';
 import GemCard from '../components/GemCard.jsx';
 
 function Discover() {
+  const [sortByPopularity, setSortByPopularity] = useState(false);
+  const [reload, setReload] = useState(false);
   const [query, setQuery] = useState('');
   const [gems, setGems] = useState([]);
-  const navigate = useNavigate();
-  const [reload, setReload] = useState(false);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState({
     1: false,
@@ -24,7 +24,6 @@ function Discover() {
     11: false,
     12: false,
   }); // Track selected tags
-  const [sortByPopularity, setSortByPopularity] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +32,7 @@ function Discover() {
     };
     fetchData();
     fetchTags();
-  }, []);
+  }, [reload]);
 
   const handleSearch = async () => {
     try {
@@ -97,13 +96,6 @@ function Discover() {
       fetchData();
     }
   }, [query, sortByPopularity]);
-
-  useEffect(() => {
-    if (sortByPopularity) {
-      // Fetch data when sorting by popularity is toggled
-      fetchData();
-    }
-  }, [sortByPopularity]);
 
   return (
     <>
