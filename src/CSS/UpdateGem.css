@@ -4,6 +4,7 @@
   align-items: center;
   width: 100%;
   background-color: #a0e2ff ;
+
 }
 
 .update-gem-form {
@@ -75,8 +76,8 @@
 
 .map-container {
   margin-top: 20px;
-  width: 100%;
-  height: auto; /* Adjust the height as needed */
+  width: 500px;
+  height: 500px; /* Adjust the height as needed */
 }
 
 .form-actions {

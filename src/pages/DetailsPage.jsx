@@ -128,7 +128,8 @@ function DetailsPage() {
                       gemId={gem.gemId}
                       rating={gem.popularAvg ? gem.popularAvg : 0}
                       type="popularity"
-                    />                  </div>
+                    />
+                  </div>
                   <div className="gem-details-map">
                     <MapComponent gem={gem}  />
                   </div>
