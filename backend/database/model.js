@@ -227,6 +227,7 @@ Gem.belongsToMany(Tag, {through: 'GemTag'});
 Tag.belongsToMany(Gem, {through: 'GemTag'});
 
 // User - Friend // many to many
-User.belongsToMany(User, {as: 'Friendship', through: Friendship, foreignKey: "userId", otherKey: 'friendId'});
+User.belongsToMany(User, { as: 'Friendship', through: Friendship, foreignKey: "userId", otherKey: 'friendId' });
+User.belongsToMany(User, { as: 'UserFriends', through: Friendship, foreignKey: 'friendId', otherKey: 'userId' });
 
 export { User, Gem, Comment, Rating, Tag, Friendship };

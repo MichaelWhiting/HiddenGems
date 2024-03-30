@@ -14,7 +14,7 @@ function DetailsPage() {
   const { gemId } = location.state || {};
   const [reload, setReload] = useState(false);
   const [formData, setFormData] = useState({ comment: "" });
-  const foregroundColorState = useSelector(state => state.foregroundColor);
+  const foregroundColorState = useSelector((state) => state.foregroundColor);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +87,7 @@ function DetailsPage() {
       console.error("Error deleting comment:", error);
     }
   };
-  
+
   return (
     <div className="details-container">
       {gems.map((gem, i) => (
@@ -96,66 +96,97 @@ function DetailsPage() {
           <div className="gem-details-container">
             <div className="gem-details-content">
               <div className="gem-details-info">
-                <div className="img-description-tags"  style={{backgroundColor: foregroundColorState}}>
-                  <h2 className="gem-details-location">{gem.name}</h2>
-                {gem?.imgUrl && (
-                  <img
-                    src={gem.imgUrl}
-                    alt={gem.name}
-                    className="gem-details-image"
-                    
-                  />
-                  
-                )}
-                <p className="gem-details-description">{gem.description}</p>
-                  Tags: {gem.tags.map((tag, index) => (
-                    <span key={index}>{tag.tagName}{index !== gem.tags.length - 1 && ', '}</span>
-                  ))}
-                <div className="gem-details-ratings-map">
-                  <div className="gem-details-ratings">
-                    <p>Enjoyability:</p>
-                    <RatingBar
-                      reload={reload}
-                      setReload={setReload}
-                      gemId={gem.gemId}
-                      rating={gem.enjoyAvg ? gem.enjoyAvg : 0}
-                      type="enjoyability"
-                    />
-                    <p>Popularity:</p>
-                    <RatingBar
-                      reload={reload}
-                      setReload={setReload}
-                      gemId={gem.gemId}
-                      rating={gem.popularAvg ? gem.popularAvg : 0}
-                      type="popularity"
-                    />
+                <div
+                  className="img-description-tags-container"
+                  style={{ backgroundColor: foregroundColorState }}
+                >
+                  <div className="gem-img-description-container">
+                    <h2 className="gem-details-location">{gem.name}</h2>
+                    <div className="img-description-container">
+                      {gem?.imgUrl && (
+                        <img
+                          src={gem.imgUrl}
+                          alt={gem.name}
+                          className="gem-details-image"
+                        />
+                      )}
+
+                      <p className="gem-details-description">
+                        -{gem.description}
+                      </p>
+                    </div>
+                    <div className="rating-bar-container">
+                        <div className="rating-bar">
+                      <p>Enjoyability:</p>
+                      <RatingBar
+                        reload={reload}
+                        setReload={setReload}
+                        gemId={gem.gemId}
+                        rating={gem.enjoyAvg ? gem.enjoyAvg : 0}
+                        type="enjoyability"
+                      />
+                      <p>Popularity:</p>
+                      <RatingBar
+                        reload={reload}
+                        setReload={setReload}
+                        gemId={gem.gemId}
+                        rating={gem.popularAvg ? gem.popularAvg : 0}
+                        type="popularity"
+                      />
+                      </div>
+                      </div>
+                    <div className="img-description-tags">
+                      <h5>Tags:</h5>
+                      {gem.tags.map((tag, index) => (
+                        <span key={index}>
+                          {tag.tagName}
+                          {index !== gem.tags.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="gem-details-map">
-                    <MapComponent gem={gem}  />
+
+                  <div className="gem-details-ratings-map">
+                    <div className="details-flex-container">
+
+                     
+
+                      <div className="map-container">
+                        <div className="gem-details-map">
+                          <MapComponent gem={gem} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Container for Comments */}
-          <div className="comments-container" style={{backgroundColor: foregroundColorState}} >
+          <div
+            className="comments-container"
+            style={{ backgroundColor: foregroundColorState }}
+          >
             <div className="comments">
+                <h6 className="title">Comments:</h6>
               <div className="comments-section">
                 {gem.comments && gem.comments.length > 0 ? (
                   <div className="comments-container">
-                    <h6>Comments:</h6>
                     {gem.comments.map((comment, index) => (
                       <div key={index} className="comment-container">
-                        <div className="comment-user-id">
-                          <p>
-                            {comment.firstName} {comment.lastName}
-                          </p>
-                        </div>
+                        <div className="text-box-container">
+                          <div className="comment-user-id">
+                            <p>
+                              {comment.firstName} {comment.lastName}
+                            </p>
+                          </div>
+                          
+                          <div className="text-btn-container">
 
-                        <div className="comment-entry">
-                          <p>{comment.text}</p>
+                          <div className="comment-entry">
+                            <p>{comment.text}</p>
+                          </div>
                           <button
                             className="trash-icon-button"
                             onClick={() =>
@@ -164,6 +195,7 @@ function DetailsPage() {
                           >
                             <Trash className="small-trash-icon" />
                           </button>
+                          </div>
                         </div>
                       </div>
                     ))}

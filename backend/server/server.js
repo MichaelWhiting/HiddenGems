@@ -61,6 +61,7 @@ app.post("/createGem", gemHandler.createGem);
 
 app.put("/updateGem/:gemId", gemHandler.updateGem);
 
+
 app.delete("/deleteGem/:gemId", gemHandler.deleteGem);
 
 // Img Routes

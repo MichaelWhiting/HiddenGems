@@ -5,7 +5,6 @@ import "../CSS/UpdateGem.css";
 import { Upload } from "react-bootstrap-icons";
 import MapComponent from "./Map.jsx";
 
-
 const UpdateGem = () => {
   const { gemId } = useParams();
   const navigate = useNavigate();
@@ -15,28 +14,52 @@ const UpdateGem = () => {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [submissionStatus, setSubmissionStatus] = useState("");
+  const [availableTags, setAvailableTags] = useState([]);
+  const [selectedTagIds, setSelectedTagIds] = useState([]);
+
+  // Fetch available tags from the backend
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const { data } = await axios.get("/getAllTags");
+        setAvailableTags(data.tags);
+      } catch (error) {
+        console.error("Failed to fetch tags:", error);
+      }
+    };
+
+    fetchTags();
+  }, []);
 
   const updateCords = (newLat, newLng) => {
     setLat(newLat);
     setLng(newLng);
   };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/getGem/${gemId}`);
-        const { name, description, imgUrl, lat, lng } = response.data.gem;
+        const { data } = await axios.get(`/getGem/${gemId}`);
+        const { name, description, imgUrl, lat, lng, tags } = data.gem;
         setName(name);
         setDescription(description);
         setImgUrl(imgUrl);
         setLat(lat);
         setLng(lng);
+        setSelectedTagIds(tags.map((tag) => tag.tagId)); // Assuming tags are included in the gem fetch response
       } catch (error) {
         console.error("Error fetching gem data:", error);
       }
     };
     fetchData();
   }, [gemId]);
+
+  const toggleTagSelection = (tagId) => {
+    setSelectedTagIds((prevSelectedTagIds) =>
+      prevSelectedTagIds.includes(tagId)
+        ? prevSelectedTagIds.filter((id) => id !== tagId)
+        : [...prevSelectedTagIds, tagId]
+    );
+  };
 
   useEffect(() => {
     // Load AWS SDK and configure it
@@ -85,6 +108,22 @@ const UpdateGem = () => {
     });
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(
+        `/updateGem/${gemId}`,
+        { name, description, imgUrl, lat, lng, tags: selectedTagIds },
+        { withCredentials: true }
+      );
+      setSubmissionStatus("Gem updated successfully!");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error updating gem:", error);
+      setSubmissionStatus("Error updating the gem. Please try again.");
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
@@ -108,21 +147,6 @@ const UpdateGem = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.put(
-        `/updateGem/${gemId}`,
-        { name, description, imgUrl, lat, lng },
-        { withCredentials: true }
-      );
-      setSubmissionStatus("Gem updated successfully!");
-      navigate("/profile");
-    } catch (error) {
-      console.error("Error updating gem:", error);
-      setSubmissionStatus("Error updating the gem. Please try again.");
-    }
-  };
   const handleCancel = () => {
     navigate(-1); // Navigate back to the previous page
   };
@@ -133,9 +157,9 @@ const UpdateGem = () => {
         <div className="submission-status">{submissionStatus}</div>
       )}
       <form className="update-gem-form" onSubmit={handleSubmit}>
-      <div className="title">
-        <h1>Edit Gem</h1>
-      </div>
+        <div className="title">
+          <h1>Edit Gem</h1>
+        </div>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input
@@ -164,16 +188,14 @@ const UpdateGem = () => {
             onChange={handleFileChange}
             style={{ display: "none" }}
           />
-              <label htmlFor="Gem image">Gem image:</label>
+          <label htmlFor="Gem image">Gem image:</label>
           {imgUrl && (
-            <div className="image-container" onClick={() => document.getElementById("fileUpload").click()}>
-            <img
-              className="image"
-              src={imgUrl}
-              alt="Uploaded Gem"
-              />
-          </div>
-          
+            <div
+              className="image-container"
+              onClick={() => document.getElementById("fileUpload").click()}
+            >
+              <img className="image" src={imgUrl} alt="Uploaded Gem" />
+            </div>
           )}
           <Upload
             size={15}
@@ -182,19 +204,45 @@ const UpdateGem = () => {
         </div>
         <div>
           <div className="form-group">
-          <label htmlFor="location">Location:</label>
+            <label htmlFor="location">Location:</label>
           </div>
           <div className="map-container">
-          <MapComponent updateCords={updateCords} isCreating={true} />
+            <MapComponent updateCords={updateCords} isCreating={true} />
           </div>
         </div>
+        <div className="form-group">
+          {availableTags.map((tag) => (
+            <label
+              key={tag.tagId}
+              className={`tag-label ${
+                selectedTagIds.includes(tag.tagId) ? "selected" : ""
+              }`}
+              onClick={() => toggleTagSelection(tag.tagId)}
+            >
+              <input
+                type="checkbox"
+                className="tag-checkbox"
+                checked={selectedTagIds.includes(tag.tagId)}
+                onChange={() => {}}
+                onClick={(e) => e.stopPropagation()}
+              />
+              {tag.tagName}
+            </label>
+          ))}
+        </div>
         <div className="form-actions">
-          <button type="submit" className="submit-btn">
-            Update Gem
-          </button>
-          <button type="button" onClick={handleCancel} className="cancel-btn">
-            Cancel
-          </button>
+          <div className="form-actions">
+            <button type="submit" className="submit-btn">
+              Update Gem
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="cancel-btn"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -202,19 +250,3 @@ const UpdateGem = () => {
 };
 
 export default UpdateGem;
-
-// const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // Added for background color change
-// const handleChangeComplete = (color) => {
-//   document.body.style.backgroundColor = color; // Apply selected color to body background
-//   setBackgroundColor(color); // Update state to keep input value in sync
-// };
-
-//   {/* Color Picker Button and Input */}
-//   <div style={{ margin: "20px 0" }}>
-//   <h4>Choose Background Color:</h4>
-//   <input 
-//     type="color" 
-//     value={backgroundColor} 
-//     onChange={(e) => handleChangeComplete(e.target.value)} 
-//   />
-// </div>

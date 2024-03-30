@@ -3,35 +3,43 @@ import { Op } from "sequelize";
 
 const friendHandler = {
     getFriends: async (req, res) => {
-        const userId = req.session.userId;
-
-        const friendships = await Friendship.findAll({
-            where: {
-                userId: userId
+        try {
+            const userId = req.session.userId;
+            if (!userId) {
+                return res.status(401).send({ message: "User not authenticated" });
             }
-        });
-
-        const friends = [];
-
-        for (const friendship of friendships) {
-            const user = await User.findByPk(friendship.friendId);
-            friends.push(user);
-        }
-
-        if (friends) {
-            res.send({
-                message: "Retrieved all of the friends for logged in user",
-                success: true,
-                friends
+    
+            // Adjust this part to correctly match the alias used in your association definitions.
+            // If 'Friendship' is the alias you've used, make sure the include statement below matches it.
+            const userWithFriends = await User.findByPk(userId, {
+                include: [{
+                    model: User,
+                    as: 'Friendship', // Adjust this alias to match the one used in your association definition.
+                }]
             });
-            return;
-        } else {
-            res.send({
-                message: "Failed to retrieve friends for logged in user",
+    
+            if (userWithFriends && userWithFriends.Friendship) {
+                res.send({
+                    message: "Retrieved all of the friends for logged in user",
+                    success: true,
+                    friends: userWithFriends.Friendship
+                });
+            } else {
+                res.status(404).send({
+                    message: "Failed to retrieve friends for logged in user",
+                    success: false
+                });
+            }
+        } catch (error) {
+            console.error("Error retrieving friends:", error);
+            res.status(500).send({
+                message: "Internal server error",
                 success: false
             });
         }
     },
+    
+    
     getSearchResults: async (req, res) => {
         const { searchText } = req.params;
 
