@@ -4,7 +4,6 @@
   font-style: normal;
 }
 .gem-card {
-  text-align: center;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -15,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   /* Center align children horizontally */
-  width: 100%;
+  width: 450px;
   /* Set a fixed width */
 }
 
@@ -31,9 +30,9 @@
 }
 
 .gem-image {
-  width: 100%;
+  width: 400px;
   /* Set a fixed width */
-  height: 200px;
+  height: 300px;
   /* Set a fixed height */
   object-fit: cover;
   /* Cover the frame without distorting the image */

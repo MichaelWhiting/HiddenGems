@@ -1,21 +1,56 @@
 
-.discover-container {
-    margin: auto;
-    width: 80%;
-    padding: 20px;
-  }
 
-  .discover h1 {
-    text-align: center;
-    margin-bottom: 30px;
+
+.discover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Ensure it fills the container but doesn't overflow */
+}
+
+
+
+/* Adjust the .gems-grid for smaller screens more effectively */
+@media (max-width: 600px) {
+  .gems-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjusted for consistency */
+      gap: 10px;
   }
+  .discover-container, .gem-card {
+      padding: 10px; /* Adjust padding */
+  }
+  .gem-card {
+      margin: 10px 0; /* Adjust margin */
+  }
+}
+
+/* Further adjustments to text and images for small screens */
+@media (max-width: 600px) {
+  .gem-location, .gem-description {
+      font-size: 14px; /* Adjust font size */
+  }
+  .gem-image {
+      max-width: 100%; /* Ensure images fit within their containers */
+      height: auto; /* Maintain aspect ratio */
+  }
+}
+
+/* Ensure search bar and other flex or grid containers don't exceed the parent's width */
+.search-bar, .tags-container, .gems-grid {
+  width: 100%; /* This might be redundant for some, but it's a good practice */
+  max-width: 100%; /* Prevents them from exceeding the .discover width */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+
 
   .gems-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Creates three columns */
     gap: 20px; /* Maintains spacing between cards */
     margin-bottom: 20px; /* Adds some space below the grid */
-  }
+ }
   
   @media (max-width: 900px) {
     .gems-grid {
@@ -30,12 +65,7 @@
   }
   
 
-  .gem-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+
 
   .gem-location {
     font-size: 40px;

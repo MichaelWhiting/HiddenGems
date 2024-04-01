@@ -28,7 +28,7 @@ function GemCard(props) {
     };
 
     return (
-        <div key={i} className="gem-card" style={{ textAlign: "center", backgroundColor: foregroundColorState }}>
+        <div key={i} className="gem-card" style={{ backgroundColor: foregroundColorState }}>
             <h1 className="gem-location">
                 {gem.name}
             </h1>
