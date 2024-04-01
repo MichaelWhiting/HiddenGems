@@ -40,11 +40,19 @@
   .gem-location {
     font-size: 20px;
     color: #333;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
   }
 
   .gem-description {
     font-size: 16px;
     color: #667;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  
   }
 
   .search-bar {
@@ -54,6 +62,7 @@
     max-width: 600px; /* Adjust the width as needed */
     margin: auto; /* Center the search bar */
     gap: 10px; /* Adds space between elements */
+    
   }
   
   .search-bar input[type="text"] {
