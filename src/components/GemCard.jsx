@@ -34,7 +34,7 @@ function GemCard(props) {
       {!gem?.imgUrl && <div className="gem-image-placeholder"></div>}
       <p className="gem-description">{gem.description}</p>
       <div className="rating-bar-button-container">
-      <div>
+      <div className="enjpop">
         Enjoyability:
         <RatingBar
           reload={reload}

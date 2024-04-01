@@ -10,6 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 import "./CSS/App.css";
 
+
+
+
+
 function App() {
   const userId = useSelector(state => state.userId);
   const navbarColor = useSelector(state => state.navbarColor);
@@ -48,7 +52,9 @@ function App() {
 
 
   return (
+    
     <>
+    
       <Navbar expand='md' className='nabar navbar-light' style={{ backgroundColor: navbarColor }}>
         <Container fluid className="d-flex">
           <Navbar.Brand>

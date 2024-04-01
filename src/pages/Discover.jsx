@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import '../CSS/Discover.css';
 import GemCard from '../components/GemCard.jsx';
 
+
+
 function Discover() {
   const [query, setQuery] = useState('');
   const [gems, setGems] = useState([]);
