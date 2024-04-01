@@ -13,8 +13,10 @@
   transition: transform 0.2s;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align children horizontally */
-  width: 100%; /* Set a fixed width */
+  align-items: center;
+  /* Center align children horizontally */
+  width: 100%;
+  /* Set a fixed width */
 }
 
 .gem-card:hover {
@@ -23,15 +25,18 @@
 }
 
 .gem-location {
-  font-size: 20px;
+  font-size: 30px;
   color: #333;
   margin: 15px 0;
 }
 
 .gem-image {
-  width: 100%; /* Set a fixed width */
-  height: 200px; /* Set a fixed height */
-  object-fit: cover; /* Cover the frame without distorting the image */
+  width: 100%;
+  /* Set a fixed width */
+  height: 200px;
+  /* Set a fixed height */
+  object-fit: cover;
+  /* Cover the frame without distorting the image */
   border-radius: 5px;
   margin-bottom: 15px;
 }
@@ -41,21 +46,30 @@
   color: #666;
   margin: 0 0 20px 0;
 }
-  
-  
-  
-  .gem-card .hyper-link {
-    display: block;
-    margin: 20px auto;
-    border-color: #17a2b8; /* Bootstrap 'outline-info' color */
-  }
-  
-  /* Additional button hover effects if needed */
-  .gem-card .hyper-link:hover {
-    background-color: #17a2b8; /* Bootstrap 'info' color */
-    color: #fff;
-  }
-  /* General button styles */
+
+
+
+.gem-card .hyper-link {
+  display: block;
+  margin: 20px auto;
+  border-color: #17a2b8;
+  /* Bootstrap 'outline-info' color */
+}
+
+/* Additional button hover effects if needed */
+.gem-card .hyper-link:hover {
+  background-color: #17a2b8;
+  /* Bootstrap 'info' color */
+  color: #fff;
+}
+
+/* General button styles */
+
+.buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .icon-button {
   display: inline-flex;
   align-items: center;
@@ -67,6 +81,7 @@
   padding: 6px 10px;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
+  width: 30%;
 }
 
 .icon-button:hover {
@@ -74,26 +89,38 @@
   transform: translateY(-2px);
 }
 
+.icon {
+  width: 30%;
+}
+
 /* Edit button specific styles */
 .edit-button {
-  margin-right: 10px; /* Adds some space between edit and delete buttons */
-  color: #4CAF50; /* Green color for an intuitive edit action */
+  margin-right: 10px;
+  /* Adds some space between edit and delete buttons */
+  color: #4CAF50;
+  /* Green color for an intuitive edit action */
 }
 
 .edit-button:hover {
-  background-color: #d5f5e3; /* Lighter green on hover */
+  background-color: #d5f5e3;
+  /* Lighter green on hover */
 }
 
 /* Delete button specific styles */
 .delete-button {
-  color: #F44336; /* Red color for an intuitive delete action */
+  color: #F44336;
+  /* Red color for an intuitive delete action */
 }
 
 .delete-button:hover {
-  background-color: #fddede; /* Lighter red on hover */
+  background-color: #fddede;
+  /* Lighter red on hover */
 }
+
 .rating-bar-button-container {
-  bottom: 10px; /* Fixed 10px from the bottom of its parent container */
-  margin: auto; /* Centers the container if it has a specified width */
+  bottom: 10px;
+  /* Fixed 10px from the bottom of its parent container */
+  margin: auto;
+  /* Centers the container if it has a specified width */
   /* Ensure the container has a specified width if you want it centered */
 }

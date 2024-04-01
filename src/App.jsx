@@ -9,6 +9,7 @@ import axios from 'axios'; // Ensure axios is correctly imported, note the missi
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 import "./CSS/App.css";
+import gemIcon from "../src/public/blue1.png"
 
 
 
