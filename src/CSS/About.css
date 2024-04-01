@@ -1,77 +1,172 @@
-/* Reuse existing styles with new class names for About */
+/* Base settings for about container, focusing on centering and spacing */
 .about-container {
-    margin: auto;
-    width: 80%;
-    padding: 20px;
-  }
-  
-  .about-title {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
+  margin: auto;
+  max-width: 960px; /* Optimal width for reading */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styling for the main title, bold and centered */
+.about-title {
+  font-size: 2.5rem; /* Sets the size of the title */
+  color: #343a40; /* Dark gray for high contrast */
+  text-align: center; /* Centers the title */
+  margin-top: 20px; /* Adds space at the top */
+  margin-bottom: 20px; /* Adds space below the title */
+  font-weight: 700; /* Makes the font bold */
+}
+
+.about-content {
+  font-size: 1rem; /* Sets the size of the paragraph text */
+  color: #6c757d; /* Slightly lighter gray for the content, ensuring it's softer than the title */
+  line-height: 1.6; /* Increases line height for better readability */
+  text-align: justify; /* Justifies the content to align both left and right sides */
+  max-width: 800px; /* Sets a maximum width to ensure lines do not get too long on larger screens */
+  margin: auto; /* Centers the content block */
+  padding: 0 20px; /* Adds padding on the sides for spacing from the container edges */
+}
+
+@media (max-width: 768px) {
   .about-content {
-    /* Styling for the content similar to gem-cards but adjusted for About page context */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    color: #666; /* Default text color, can be overridden by specific elements */
+    text-align: left; /* Aligns text to the left on smaller screens for better readability */
+    padding: 0 10px; /* Adjusts padding for smaller screens */
   }
-  
-  /* If you want specific paragraphs or elements within .about-content to have unique styles, add them here */
-  .about-content p {
-    font-size: 16px; /* Example paragraph styling within about-content */
+}
+
+/* Person box styles for each team member's section */
+.person-box {
+  width: 100%;
+  margin-bottom: 40px; /* Add space between person boxes */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+.profile-pic {
+  width: 400px; /* Set the width of the image */
+  height: 400px; /* Set the height of the image */
+  border-radius: 5%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the space without stretching */
+  border: 2px solid #fff; /* Optional: adds a white border around the image */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds a slight shadow for depth */
+  display: block; /* Display block to fix any margin issues */
+  margin: 0 auto 10px; /* Center the image and add some space below */
+  margin-top: 50px;
+}
+/* Enhanced Person info with modern styling */
+.person-info {
+  border-radius: 8px; /* Soften the corners */
+  display: flex; /* Introducing flex to align items for a better layout */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items for a neat look */
+  text-align: center; /* Center text for consistency */
+ 
+}
+
+
+
+/* Enhance the name/title within the person info for better visibility */
+
+/* Gem box to hold favorite gem */
+.gem-box {
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+}
+/* Gem card container styling */
+.gem-card {
+  width: 800px; /* Fixed width */
+  height: auto; /* Height adjusts to content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 15px; /* Space between cards if in a grid or list */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds depth */
+  border-radius: 10px; /* Optional: rounds corners */
+  background-color: #fff; /* Optional: sets card background */
+  overflow: hidden; /* Ensures content fits within the borders */
+}
+
+/* Gem image styling within the card */
+.gem-image {
+  width: 400px; /* Set the width of the image */
+  height: 200px; /* Set the height of the image */
+  border-radius: 5%;
+  object-fit: cover; /* Covers the area without stretching image */
+  margin-bottom: 15px; /* Space below the image */
+}
+
+
+/* Styling for other elements in the gem card for consistency */
+.gem-description, .gem-title {
+  margin: 5px 0; /* Margins for spacing */
+}
+
+/* Optional: Adjusts the layout for smaller screens */
+@media (max-width: 600px) {
+  .gem-card {
+    width: 100%; /* Full width on smaller screens */
   }
+}
+
+.gem-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: auto
+}
+
+/* Centering the button and adding space from the content */
+.m-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* Styling for the button with hover effect */
+.m-button {
+  background-color: #333; /* Slightly dark background for contrast */
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.m-button:hover {
+  background-color: #444;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
   .about-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+      padding: 20px;
   }
-  
+
   .person-box {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    margin-bottom: 20px; /* Add some margin between person boxes */
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    width: 75%;
+      align-items: center;
   }
-  
-  .person-info {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 10px; /* Add some margin between person info and gem box}*/
-  }
-   
-  
+
+  .person-info,
   .gem-box {
-    background-color: White;
-    border-radius: 10px;
-    width: 100%;
-    margin-bottom: 10px;
+      width: auto; /* Allow the boxes to fit content */
   }
-  .m-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px; /* Add some space between content and the mysterious button */
-  }
-  
+
   .m-button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow effect */
+      padding: 10px 20px; /* Adjust padding for smaller buttons */
+      font-size: 14px; /* Adjust font size for smaller screens */
   }
-  
-  .m-button:hover {
-    background-color: #444;
-  }
+}

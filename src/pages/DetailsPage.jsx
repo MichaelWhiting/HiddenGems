@@ -93,7 +93,8 @@ function DetailsPage() {
       {gems.map((gem, i) => (
         <div key={i} className="details-grid">
           {/* Left Container for Gem Details */}
-          <div className="gem-details-container">
+          <div className="gem-details-container" >
+            
             <div className="gem-details-content">
               <div className="gem-details-info">
                 <div

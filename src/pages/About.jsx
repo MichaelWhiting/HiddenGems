@@ -1,126 +1,92 @@
-
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom"
-import RatingBar from '../components/RatingBar';
-import axios from 'axios';
-import '../CSS/About.css'; // Assuming you have an About.css file for styling this component
-import GemCard from '../components/GemCard';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../CSS/About.css";
+import GemCard from "../components/GemCard";
+import { useSelector } from "react-redux";
 
 function About() {
   const [gems, setGems] = useState([]);
-  const [michaelGemId, setMichaelGemId] = useState(null);
-  const [joshGemId, setJoshGemId] = useState(null);
-  const [jesseGemId, setJesseGemId] = useState(null);
-  const [tyGemId, setTyGemId] = useState(null);
-  const [reload, setReload] = useState(false);
+  const [userProfiles, setUserProfiles] = useState({}); // State to store user profile details
   const navigate = useNavigate();
+  const foregroundColor = useSelector((state) => state.foregroundColor);
 
+  // Function to fetch user profile
+  const fetchUserProfile = async (userId) => {
+    try {
+      const response = await axios.get(`/getUserInfo/${userId}`);
+      return response.data.user;
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      return null;
+    }
+  };
+
+  // Function to fetch all required data
   const fetchData = async () => {
-    const gemRes = await axios.get("/getAllGems");
-    setGems(gemRes.data.gems);
-    // Assuming each person has a favorite gem ID stored in the database or elsewhere
-    // Modify this logic according to how you retrieve each person's favorite gem ID
-    setMichaelGemId(1); // Example favorite gem ID for Michael
-    setJoshGemId(2); // Example favorite gem ID for Josh
-    setJesseGemId(3); // Example favorite gem ID for Jesse
-    setTyGemId(4); // Example favorite gem ID for Ty
-  }
+    try {
+      const gemRes = await axios.get("/getAllGems");
+      setGems(gemRes.data.gems);
 
-  useEffect(() => {
-    fetchData();
-  }, [reload]);
+      // Fetch user profiles
+      const userIds = [1, 2, 3, 4]; // Replace with actual user IDs
+      const profiles = {};
+      for (const id of userIds) {
+        const user = await fetchUserProfile(id);
+        if (user) {
+          profiles[id] = user;
+        }
+      }
+      setUserProfiles(profiles);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Render user info and favorite gem
+  const renderPersonBox = (userId, name) => {
+    const user = userProfiles[userId];
+    const favoriteGem = gems.find((gem) => gem.userId === userId); // Assume you relate gems to users via userId
+
+    return (
+      <div className="person-box" style={{ backgroundColor: foregroundColor }}>
+        <div className="person-info">
+          {user && (
+            <>
+              <img src={user.imgUrl} alt={name} className="profile-pic" />
+              <h6>{name}-</h6>
+              <p>Michael loves alksdflaksjdflaksdjflaksjdflkajsdflkajsdflkjasdlkfjasldkfjalsdkjflaskdjf</p>
+            </>
+          )}
+           
+              <p><strong>His top gem:</strong></p>
+             
+        </div>
+       <div className="gem-card-container">
+        
+        {favoriteGem && <GemCard gem={favoriteGem} />}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="about-container">
-      <h1 className="about-title">The Gems Behind Hidden Gems</h1>
-      <p className="about-content">
-        This is a brief description of what our application does and why it's useful.
-        You can add more content here to explain your project's goals,
-        features, or any other information you think might be relevant to users.
-      </p>
-      <div className="person-box">
-        <div className="person-info">
-          <h5>Michael Whiting</h5>
-          <p>About Michael</p>
-          <h6>Michael's Favorite Gem:</h6>
-        </div>
-        <div className="gem-box">
-        {gems.map((gem, i) => {
-          if (gem.gemId === michaelGemId) {
-            return (
-              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
-              );
-          }
-          return null;
-        })}
-        </div>
-      </div>
-
-      <div className="person-box">
-        <div className="person-info">
-          <h5>Josh Lara</h5>
-          <p>About Josh</p>
-          <h6>Josh's Favorite Gem</h6>
-        </div>
-        
-        <div className="gem-box">
-        {gems.map((gem, i) => {
-          if (gem.gemId === joshGemId) {
-            return (
-              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
-            );
-          }
-          return null;
-        })}
-        </div>
-      </div>
-
-      <div className="person-box">
-        <div className="person-info">
-          <h5>Jesse Garlic</h5>
-          <p>About Jesse</p>
-          <h6>Jesse's Favorite Gem</h6>
-        </div>
-        
-        <div className="gem-box">
-        {gems.map((gem, i) => {
-          if (gem.gemId === jesseGemId) {
-            return (
-              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
-            );
-          }
-          return null;
-        })}
-        </div>
-      </div>
-
-      <div className="person-box">
-        <div className="person-info">
-          <h5>Ty Cannon</h5>
-          <p>About Ty</p>
-          <h6>Ty's Favorite Gem</h6>
-        </div>
-        
-        <div className="gem-box">
-        {gems.map((gem, i) => {
-          if (gem.gemId === tyGemId) {
-            return (
-              <GemCard key={i} i={i} gem={gem} reload={reload} setReload={setReload}/>
-            );
-          }
-          return null;
-        })}
-        </div>
-      </div>
-
-      {/* Repeat the same pattern for other persons */}
-
+      <h1 className="about-title">About the Creators</h1>
+     
+      {renderPersonBox(1, "Michael Whiting")}
+      {renderPersonBox(2, "Josh Lara")}
+      {renderPersonBox(3, "Jesse Garlick")}
+      {renderPersonBox(4, "Ty Cannon")}
+      {/* ... other person boxes */}
       <div className="m-button-container">
-        <button className="m-button" onClick={() => navigate("/2048")}>Hidden Gems After Dark</button>
+        <button className="m-button" onClick={() => navigate("/2048")}>
+          Hidden Gems After Dark
+        </button>
       </div>
     </div>
   );
