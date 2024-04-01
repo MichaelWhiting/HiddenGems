@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './CSS/index.css'
-import store from './redux/store.js'
-import { Provider } from 'react-redux'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import store from './redux/store.js'
+import App from './App.jsx'
+import React from 'react'
+import './CSS/index.css'
 
 // Pages & Components
 import TopGems from "./pages/TopGems.jsx";
@@ -14,7 +14,7 @@ import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
 import DetailsPage from './pages/DetailsPage.jsx'
-import Game2048 from './pages/game2048.jsx'
+import Game2048 from './pages/Game2048.jsx'
 // import EditGem from './components/EditGem.jsx'
 import Friends from './components/Friends.jsx'
 import UpdateGem from './components/updateGem.jsx'
