@@ -309,7 +309,7 @@ function Profile() {
       </Collapse>
 
       <div className="gems-section">
-        <h2>Gems You Created</h2>
+        <h2 className="GemsYouCreated">Gems You Created</h2>
         <ul className="gem-cards">{gemCards}</ul>
       </div>
       <div className="comments-section">

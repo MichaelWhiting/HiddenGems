@@ -229,3 +229,19 @@
   background-color: #010101; /* Darker shade of green on hover */
   transform: scale(1.08); /* Slightly scale down to mimic a press */
 }
+
+.GemsYouCreated {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .friend-email {
+    max-width: 60%; /* or whatever works best for your layout */
+  }
+  
+  /* Adjust button size if necessary */
+  .unfollow-button {
+    padding: 5px 10px; /* Smaller padding */
+    font-size: 0.8rem; /* Smaller font size */
+  }
+}
