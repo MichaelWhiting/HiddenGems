@@ -1,5 +1,13 @@
 # Hidden Gems
-This project is a web application where you can see a bunch of different locations on a map that are called "Hidden Gems". You can see the ratings that other people have left about that spot and the comments and how busy that place was.
+Hidden Gems is a social web application for discovering and sharing under-the-radar locations. Users post "Gems"—spots 
+they find unique or hidden—complete with ratings on enjoyment and crowd level, powered by Google Maps and AWS-SDK for 
+precise mapping and efficient data handling. It's also a platform for connection, allowing users to follow others, 
+personalize their profiles with images and custom themes, and navigate a community-curated world of lesser-known locales.
+
+## Instructions to get project running:
+- npm i
+- npm run initdb
+- npm run seed
 
 ## Dependencies
 - @reduxjs/toolkit
@@ -21,8 +29,3 @@ This project is a web application where you can see a bunch of different locatio
 - react-router-dom
 - sequelize
 - vite-express
-
-## Instructions to get project running:
-- npm i
-- npm run initdb
-- npm run seed
