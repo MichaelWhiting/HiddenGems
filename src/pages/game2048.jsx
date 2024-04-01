@@ -275,8 +275,6 @@ function Game2048() {
 
   // Check Gameover
   const checkIfGameOver = () => {
-    console.log("CHECKING GAME OVER");
-    // let original = cloneDeep(data);
     let checker = swipeLeft(true);
 
     if (JSON.stringify(data) !== JSON.stringify(checker)) {
