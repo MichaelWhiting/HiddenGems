@@ -1,43 +1,43 @@
 .gem-card {
-    text-align: center;
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    transition: transform 0.2s;
-    
-  }
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align children horizontally */
+  width: 100%; /* Set a fixed width */
+}
+
+.gem-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gem-location {
+  font-size: 20px;
+  color: #333;
+  margin: 15px 0;
+}
+
+.gem-image {
+  width: 100%; /* Set a fixed width */
+  height: 200px; /* Set a fixed height */
+  object-fit: cover; /* Cover the frame without distorting the image */
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.gem-description {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 20px 0;
+}
   
-  .gem-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
   
-  .gem-location {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .gem-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  
-  .gem-description {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .gem-card .rating-bar {
-    display: inline-block; /* Assuming RatingBar component has this class */
-    margin: 0 5px;
-  }
   
   .gem-card .hyper-link {
     display: block;
@@ -86,4 +86,9 @@
 
 .delete-button:hover {
   background-color: #fddede; /* Lighter red on hover */
+}
+.rating-bar-button-container {
+  bottom: 10px; /* Fixed 10px from the bottom of its parent container */
+  margin: auto; /* Centers the container if it has a specified width */
+  /* Ensure the container has a specified width if you want it centered */
 }

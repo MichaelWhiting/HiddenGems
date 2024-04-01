@@ -33,6 +33,7 @@ function GemCard(props) {
       )}
       {!gem?.imgUrl && <div className="gem-image-placeholder"></div>}
       <p className="gem-description">{gem.description}</p>
+      <div className="rating-bar-button-container">
       <div>
         Enjoyability:
         <RatingBar
@@ -73,6 +74,7 @@ function GemCard(props) {
         Full Details
       </Button>
       {/* Adjust the navigation path as needed */}
+    </div>
     </div>
   );
 }

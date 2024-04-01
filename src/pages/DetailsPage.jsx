@@ -115,6 +115,15 @@ function DetailsPage() {
                         -{gem.description}
                       </p>
                     </div>
+                    <div className="img-description-tags">
+                      <h5>Tags:</h5>
+                      {gem.tags.map((tag, index) => (
+                        <span key={index}>
+                          {tag.tagName}
+                          {index !== gem.tags.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </div>
                     <div className="rating-bar-container">
                         <div className="rating-bar">
                       <p>Enjoyability:</p>
@@ -135,15 +144,7 @@ function DetailsPage() {
                       />
                       </div>
                       </div>
-                    <div className="img-description-tags">
-                      <h5>Tags:</h5>
-                      {gem.tags.map((tag, index) => (
-                        <span key={index}>
-                          {tag.tagName}
-                          {index !== gem.tags.length - 1 ? ", " : ""}
-                        </span>
-                      ))}
-                    </div>
+                   
                   </div>
 
                   <div className="gem-details-ratings-map">
