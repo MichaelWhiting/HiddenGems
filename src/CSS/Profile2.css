@@ -1,4 +1,4 @@
-.profile-container {
+.profile-container2 {
     max-width: 1000px;
     margin: auto;
     padding: 20px;
@@ -86,13 +86,7 @@
     margin-top: 40px;
   }
   
-  .gem-cards {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-  }
+ 
   
   .gem-cards li {
     border: 1px solid #ccc;

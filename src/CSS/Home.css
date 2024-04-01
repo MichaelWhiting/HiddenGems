@@ -9,7 +9,13 @@
     background-color: #f9f9f9;
     transition: transform 0.2s;
 }
-
+.gem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+    gap: 20px; /* Maintains spacing between cards */
+    margin-bottom: 20px; /* Adds some space below the grid */
+ 
+}
 .home-map {
     width: 65%;
     height: 65vh;
@@ -24,10 +30,10 @@
 }
 
 .title {
-    font-size: 40px;
-    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
     border: 0px;
-    font-weight: 400px;
 }
 
 .sub-title {

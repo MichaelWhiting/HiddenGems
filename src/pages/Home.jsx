@@ -17,6 +17,7 @@ function Home() {
   const [showCreateGem, setShowCreateGem] = useState(false);
   const [followingGems, setFollowingGems] = useState([]);
   const [reload, setReload] = useState(false);
+  const backgroundColor = useSelector(state => state.backgroundColor)
 
   const navigate = useNavigate();
 
@@ -43,7 +44,12 @@ function Home() {
       navigate("/login")
     } else {
       getFollowingGems()
+      const background = document.querySelectorAll(".background")
+      background.forEach((item) => {
+        item.style.backgroundColor = backgroundColor
+      })
     }
+
   }, [userId, loading, reload]);
 
   const gemCards = followingGems.map((gem, i) => (
@@ -53,7 +59,7 @@ function Home() {
   return (
     <>
       {!showCreateGem && (
-        <div className="home-page center">
+        <div className="home-page center background">
           <label className="title">Gems Near You</label>
           <div className="home-map">
             <MapComponent />
@@ -67,7 +73,7 @@ function Home() {
             </Button>
           <div>
             <label className="sub-title">Following Feed:</label>
-            <div>
+            <div className='gem-grid'>
               {gemCards}
             </div>
           </div>
