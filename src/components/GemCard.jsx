@@ -27,43 +27,60 @@ function GemCard(props) {
         }
     };
 
-  return (
-    <div key={i} className="gem-card" style={{ textAlign: "center",  backgroundColor: foregroundColorState}}>
-      <h2 className="gem-location">
-        {i + 1}. {gem.name}
-      </h2>
-      {gem?.imgUrl && (
-        <img src={gem.imgUrl} alt={gem.name} className="gem-image" />
-      )}
-      {!gem?.imgUrl && <div className="gem-image-placeholder"></div>}
-      <p className="gem-description">{gem.description}</p>
-      <div className="rating-bar-button-container">
-      <div className="enjpop">
-        Enjoyability:
-        <RatingBar
-          reload={reload}
-          setReload={setReload}
-          gemId={gem.gemId}
-          rating={gem.enjoyAvg ? gem.enjoyAvg : 0}
-          type="enjoyability"
-        />
-        Popularity:
-        <RatingBar
-          reload={reload}
-          setReload={setReload}
-          gemId={gem.gemId}
-          rating={gem.popularAvg ? gem.popularAvg : 0}
-          type="popularity"
-        />
-      </div>
-      {showButtons && (
-        <div>
-          <button className="icon-button edit-button" onClick={handleEdit}>
-            Edit
-          </button>
-          <button className="icon-button delete-button" onClick={handleDelete}>
-            Delete
-          </button>
+    return (
+        <div key={i} className="gem-card" style={{ textAlign: "center", backgroundColor: foregroundColorState }}>
+            <h1 className="gem-location">
+                {gem.name}
+            </h1>
+            {gem?.imgUrl && (
+                <img src={gem.imgUrl} alt={gem.name} className="gem-image" />
+            )}
+            {!gem?.imgUrl && <div className="gem-image-placeholder"></div>}
+            <p className="gem-description">{gem.description}</p>
+            <div className="rating-bar-button-container">
+                <div>
+                    Enjoyability:
+                    <RatingBar
+                        reload={reload}
+                        setReload={setReload}
+                        gemId={gem.gemId}
+                        rating={gem.enjoyAvg ? gem.enjoyAvg : 0}
+                        type="enjoyability"
+                    />
+                    Popularity:
+                    <RatingBar
+                        reload={reload}
+                        setReload={setReload}
+                        gemId={gem.gemId}
+                        rating={gem.popularAvg ? gem.popularAvg : 0}
+                        type="popularity"
+                    />
+                </div>
+                {showButtons && (
+                    <div className="buttons">
+                        <button className="icon-button edit-button" onClick={handleEdit}>
+                            <img src={editIcon} className="icon" />
+                            Edit
+                        </button>
+                        <button className="icon-button delete-button" onClick={handleDelete}>
+                            <img src={deleteIcon} className="icon" />
+                            Delete
+                        </button>
+                    </div>
+                )}
+                <Button
+                    variant="outline-info"
+                    className="hyper-link"
+                    onClick={() => {
+                        navigate("/details", { state: { gemId: gem.gemId } });
+                        console.log("button was clicked");
+                    }}
+                    style={{ margin: "auto", marginTop: 5 }}
+                >
+                    Full Details
+                </Button>
+                {/* Adjust the navigation path as needed */}
+            </div>
         </div>
     );
 }
