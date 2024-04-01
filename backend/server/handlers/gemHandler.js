@@ -123,43 +123,54 @@ const gemHandler = {
     },
     updateGem: async (req, res) => {
         const { gemId } = req.params;
-        const { name, description, imgUrl, lat, lng } = req.body;
-
+        const { name, description, imgUrl, lat, lng, tags } = req.body; // Include 'tags' in the destructured request body
+      
         try {
-            // Check if the user is authenticated
-            if (!req.session.userId) {
-                return res.status(401).json({ message: "Unauthorized: User not logged in" });
-            }
-    
-            // Find the gem by ID
-            const gem = await Gem.findByPk(gemId);
-    
-            // Check if the gem exists
-            if (!gem) {
-                return res.status(404).json({ message: "Gem not found" });
-            }
-    
-            // Check if the gem belongs to the logged-in user
-            if (gem.userId !== req.session.userId) {
-                return res.status(403).json({ message: "Forbidden: You are not authorized to update this gem" });
-            }
-
-            // Update the gem attributes
-            gem.name = name;
-            gem.description = description;
-            gem.imgUrl = imgUrl;
-            gem.lat = lat;
-            gem.lng = lng;
-
-            // Save the updated gem
-            await gem.save();
-
-            return res.status(200).json({ message: "Gem updated successfully", gem });
+          // Authentication check
+          if (!req.session.userId) {
+            return res.status(401).json({ message: "Unauthorized: User not logged in" });
+          }
+      
+          // Find the gem
+          const gem = await Gem.findByPk(gemId);
+          if (!gem) {
+            return res.status(404).json({ message: "Gem not found" });
+          }
+      
+          // Authorization check
+          if (gem.userId !== req.session.userId) {
+            return res.status(403).json({ message: "Forbidden: You are not authorized to update this gem" });
+          }
+      
+          // Update gem attributes
+          await gem.update({
+            name: name,
+            description: description,
+            imgUrl: imgUrl,
+            lat: lat,
+            lng: lng,
+          });
+      
+          // Handle tags update
+          if (Array.isArray(tags)) {
+            // Assuming 'tags' is an array of tagIds
+            await gem.setTags(tags); // This will replace existing tags with the new set
+          }
+      
+          // You might want to refetch the gem to include updated tags in the response
+          const updatedGem = await Gem.findByPk(gemId, {
+            include: [{
+              model: Tag
+            }]
+          });
+      
+          return res.status(200).json({ message: "Gem updated successfully", gem: updatedGem });
         } catch (error) {
-            console.error("Error updating gem:", error);
-            return res.status(500).json({ message: "Internal server error" });
+          console.error("Error updating gem:", error);
+          return res.status(500).json({ message: "Internal server error" });
         }
-    },
+      },
+      
     deleteGem: async (req, res) => {
         const { gemId } = req.params;
     
@@ -271,6 +282,7 @@ const gemHandler = {
             })
         }
       },
+      
 }
 
 export default gemHandler;

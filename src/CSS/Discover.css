@@ -12,9 +12,23 @@
 
   .gems-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+    gap: 20px; /* Maintains spacing between cards */
+    margin-bottom: 20px; /* Adds some space below the grid */
   }
+  
+  @media (max-width: 900px) {
+    .gems-grid {
+      grid-template-columns: repeat(2, 1fr); /* Switches to two columns for medium screens */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .gems-grid {
+      grid-template-columns: 1fr; /* Switches to a single column for small screens */
+    }
+  }
+  
 
   .gem-card {
     border: 1px solid #ddd;
