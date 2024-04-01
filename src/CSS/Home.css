@@ -60,6 +60,6 @@
   
     /* Adjustments for titles to ensure they're centered and have appropriate sizing */
     .title, .sub-title {
-        font-size: 20px; /* Adjusted font size for mobile screens */
+        font-size: 20px; 
     }
   }
