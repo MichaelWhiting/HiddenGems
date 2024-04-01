@@ -36,3 +36,30 @@
     border: 0px;
     font-weight: 300px;
 }
+
+@media (max-width: 768px) {
+    .home-page {
+        width: 95%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Ensures flex children are centered horizontally */
+    }
+  
+    .home-map, .create-gem-btn, .title, .sub-title {
+        width: 90%; /* Adjust width for better control and consistency */
+        margin: 10px auto; /* Top and bottom margins for spacing, auto for horizontal centering */
+        text-align: center; /* Center text for titles and subtitles */
+    }
+  
+    .create-gem-btn {
+        height: 8vh;
+        font-size: 18px; /* Larger font size for readability and easier interaction */
+        display: block; /* Ensures the button is treated as a block-level element, helping with centering */
+    }
+  
+    /* Adjustments for titles to ensure they're centered and have appropriate sizing */
+    .title, .sub-title {
+        font-size: 20px; /* Adjusted font size for mobile screens */
+    }
+  }

@@ -38,7 +38,7 @@
   }
 
   .gem-location {
-    font-size: 20px;
+    font-size: 40px;
     color: #333;
   }
 
@@ -54,6 +54,7 @@
     max-width: 600px; /* Adjust the width as needed */
     margin: auto; /* Center the search bar */
     gap: 10px; /* Adds space between elements */
+    padding: 10px;
   }
   
   .search-bar input[type="text"] {
