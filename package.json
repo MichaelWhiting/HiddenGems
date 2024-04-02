@@ -17,6 +17,7 @@
     "@vis.gl/react-google-maps": "^0.7.1",
     "aws-sdk": "^2.1583.0",
     "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "dotenv": "^16.4.5",
