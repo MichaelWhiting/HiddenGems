@@ -48,6 +48,7 @@ const userHandler = {
         }
 
         // if we're here, then the user was found
+        
         // evaluate if the passwords match
         const passwordCheck = bcrypt.compareSync(password, user.password);
 
