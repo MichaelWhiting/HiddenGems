@@ -48,6 +48,7 @@ const userHandler = {
         }
 
         // if we're here, then the user was found
+        
         // evaluate if the passwords match
         const passwordCheck = bcrypt.compareSync(password, user.password);
 
@@ -80,7 +81,7 @@ const userHandler = {
         })
     },
     register: async (req, res) => {
-        const { email, password } = req.body;
+        const { email, password, firstName, lastName } = req.body;
 
         const existingUser = await User.findOne({
             where: {
@@ -112,6 +113,8 @@ const userHandler = {
             ...defaultColors,
             email: email,
             password: passHash,
+            firstName,
+            lastName,
             imgUrl: diamondIconUrl,
         });
 
