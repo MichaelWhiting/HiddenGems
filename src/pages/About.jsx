@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 function About() {
   const [gems, setGems] = useState([]);
-  const [userProfiles, setUserProfiles] = useState({}); // State to store user profile details
+  const [userProfiles, setUserProfiles] = useState({}); 
   const navigate = useNavigate();
   const foregroundColor = useSelector((state) => state.foregroundColor);
 
@@ -29,7 +29,7 @@ function About() {
       setGems(gemRes.data.gems);
 
       // Fetch user profiles
-      const userIds = [1, 2, 3, 4]; // Replace with actual user IDs
+      const userIds = [1, 2, 3, 4];
       const profiles = {};
       for (const id of userIds) {
         const user = await fetchUserProfile(id);
@@ -77,10 +77,10 @@ function About() {
     <div className="about-container">
       <h1 className="about-title">About the Creators</h1>
      
-      {renderPersonBox(1, "Michael Whiting")}
+      {renderPersonBox(1, "Jesse Garlick")}
       {renderPersonBox(2, "Josh Lara")}
-      {renderPersonBox(3, "Jesse Garlick")}
-      {renderPersonBox(4, "Ty Cannon")}
+      {renderPersonBox(3, "Ty Cannon")}
+      {renderPersonBox(4, "Michael Whiting")}
       {/* ... other person boxes */}
       <div className="m-button-container">
         <button className="m-button" onClick={() => navigate("/2048")}>

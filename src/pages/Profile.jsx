@@ -198,13 +198,13 @@ function Profile() {
           className="file-input"
           style={{ display: "none" }}
         />
-        <button
+        {/* <button
           className="icon-button header-upload-btn"
           onClick={() => document.getElementById("headerFileInput").click()}
           aria-label="Upload header image"
         >
           <Upload size={24} />
-        </button>
+        </button> */}
         {userInfo?.imgUrl && (
           <img
             src={userInfo.imgUrl}
@@ -220,13 +220,13 @@ function Profile() {
           className="file-input"
           style={{ display: "none" }}
         />
-        <button
+        {/* <button
           className="icon-button"
           onClick={() => document.getElementById("fileInput").click()}
           aria-label="Upload profile image"
         >
           <Upload size={24} />
-        </button>
+        </button> */}
       </div>
       <br />
       <h1 className="user-name">
