@@ -13,6 +13,7 @@ import Discover from "./pages/Discover.jsx";
 import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
+
 import DetailsPage from './pages/DetailsPage.jsx';
 import Game2048 from './pages/game2048.jsx';
 // import EditGem from './components/EditGem.jsx'
