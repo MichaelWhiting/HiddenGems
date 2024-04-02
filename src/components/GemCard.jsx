@@ -38,7 +38,7 @@ function GemCard(props) {
             {!gem?.imgUrl && <div className="gem-image-placeholder"></div>}
             <p className="gem-description">{gem.description}</p>
             <div className="rating-bar-button-container">
-                <div>
+                <div className="rating-bar-icon-container">
                     Enjoyability:
                     <RatingBar
                         reload={reload}
@@ -55,8 +55,7 @@ function GemCard(props) {
                         rating={gem.popularAvg ? gem.popularAvg : 0}
                         type="popularity"
                     />
-                </div>
-                {showButtons && (
+                         {showButtons && (
                     <div className="buttons">
                         <button className="icon-button edit-button" onClick={handleEdit}>
                             <img src={editIcon} className="icon" />
@@ -68,6 +67,8 @@ function GemCard(props) {
                         </button>
                     </div>
                 )}
+                </div>
+           
                 <Button
                     variant="outline-info"
                     className="hyper-link"
