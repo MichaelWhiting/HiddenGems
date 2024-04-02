@@ -1,5 +1,5 @@
 import { User, Gem, Comment } from "../../database/model.js";
-
+import bcrypt from "bcryptjs";
 
 const userHandler = {
     sessionCheck: async (req, res) => {
@@ -49,8 +49,9 @@ const userHandler = {
 
         // if we're here, then the user was found
         // evaluate if the passwords match
+        const passwordCheck = bcrypt.compareSync(password, user.password);
 
-        if (user.password !== password) {
+        if (!passwordCheck) {
             res.send({
                 message: 'password does not match',
                 success: false,
@@ -81,8 +82,6 @@ const userHandler = {
     register: async (req, res) => {
         const { email, password } = req.body;
 
-
-        // Check if the user with the provided email already exists
         const existingUser = await User.findOne({
             where: {
                 email: email,
@@ -105,10 +104,14 @@ const userHandler = {
 
         // Create a new user in the database
         const diamondIconUrl = `${req.protocol}://${req.get('host')}/images/diamond.svg`;
+
+        const salt = bcrypt.genSaltSync(5);
+        const passHash = bcrypt.hashSync(password, salt);
+
         const newUser = await User.create({
             ...defaultColors,
             email: email,
-            password: password,
+            password: passHash,
             imgUrl: diamondIconUrl,
         });
 
