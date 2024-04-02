@@ -80,7 +80,7 @@ const userHandler = {
         })
     },
     register: async (req, res) => {
-        const { email, password } = req.body;
+        const { email, password, firstName, lastName } = req.body;
 
         const existingUser = await User.findOne({
             where: {
@@ -112,6 +112,8 @@ const userHandler = {
             ...defaultColors,
             email: email,
             password: passHash,
+            firstName,
+            lastName,
             imgUrl: diamondIconUrl,
         });
 
