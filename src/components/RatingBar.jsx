@@ -33,7 +33,7 @@ const RatingBar = ({ rating, gemId, reload, setReload, type }) => {
           <FireIcon key={i} rating={fillLevel} onClick={() => saveRating(i + 1)} />
         );
       })}
-      <label>{rating}</label>
+      <label style={{borderColor: "#0dcaf0"}}>{rating}</label>
     </div>
   );
 };

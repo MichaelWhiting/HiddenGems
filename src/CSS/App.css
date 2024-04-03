@@ -1,9 +1,18 @@
+h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
 .app-header {
   position: top; /* Ensure header is fixed at the top */
   top: 0;
   width: 100%;
   padding: 10px 20px;
-  z-index: 1000; 
+  z-index: 1000;
+   
 }
 
 .main-navbar-icon {

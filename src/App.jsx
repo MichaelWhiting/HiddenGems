@@ -9,6 +9,11 @@ import axios from 'axios'; // Ensure axios is correctly imported, note the missi
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 import "./CSS/App.css";
+import gemIcon from "../src/public/blue1.png"
+
+
+
+
 
 function App() {
   const userId = useSelector(state => state.userId);
@@ -48,7 +53,9 @@ function App() {
 
 
   return (
+    
     <>
+    
       <Navbar expand='md' className='nabar navbar-light' style={{ backgroundColor: navbarColor }}>
         <Container fluid className="d-flex">
           <Navbar.Brand>

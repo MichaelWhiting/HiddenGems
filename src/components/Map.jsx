@@ -23,7 +23,7 @@ import purple1 from "../public/purple1.png";
 function MapComponent(props) {
     const [gems, setGems] = useState([]); // all of the gems from the database
     const [isMapInitialized, setMapInitialized] = useState(false); // this makes it so once the map is loaded, the map can move moved around
-    const defaultCenter = props.gem ? { lat: props.gem.lat, lng: props.gem.lng }: { lat: 10, lng: 10 };
+    const defaultCenter = props.gem ? { lat: props.gem.lat, lng: props.gem.lng }: { lat: 40.41944848539617, lng: -111.87460009288061 };
     const [initialCenter, setInitialCenter] = useState(defaultCenter);
     //
     const getUserLocation = () => {
