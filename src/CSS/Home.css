@@ -30,7 +30,6 @@
 }
 
 .title {
-    font-family: "Roboto", sans-serif;
     font-weight: 700;
     font-style: normal;
     border: 0px;
@@ -38,6 +37,7 @@
     font-weight: 400;
     font-style: normal;
     font-size: 30px;
+    color: black
 }
 
 .sub-title {

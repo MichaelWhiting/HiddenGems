@@ -58,11 +58,11 @@ function About() {
           {user && (
             <>
               <img src={user.imgUrl} alt={name} className="profile-pic" />
-              <h6>{name}-</h6>
+              <h4><strong>{name}</strong></h4>
             </>
           )}
            
-              <p><strong>His top gem:</strong></p>
+              <h5><strong>His top gem:</strong></h5>
              
         </div>
        <div className="gem-card-container">
@@ -75,7 +75,7 @@ function About() {
 
   return (
     <div className="about-container">
-      <h1 className="about-title">About the Creators</h1>
+      <div className="about-title">Meet the Creators</div>
      
       {renderPersonBox(1, "Jesse Garlick")}
       {renderPersonBox(2, "Josh Lara")}

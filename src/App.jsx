@@ -56,7 +56,7 @@ function App() {
     
     <>
     
-      <Navbar expand='md' className='nabar navbar-light' style={{ backgroundColor: navbarColor }}>
+      <Navbar expand='md' className='navbar navbar-light ' style={{ backgroundColor: navbarColor }}>
         <Container fluid className="d-flex">
           <Navbar.Brand>
             <Icon.Gem className="main-navbar-icon" />
@@ -75,7 +75,7 @@ function App() {
               </NavLink>
               <NavLink to="/about" className="nav-link">
                   <Icon.InfoCircle className="navbar-icon"/>
-                  About Us
+                  Our Picks
               </NavLink>
             </Nav>
             <Nav className="ms-auto">
