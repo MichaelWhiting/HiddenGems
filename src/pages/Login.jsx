@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../CSS/Login.css"; // Import the CSS file for styling
 import { Button } from "react-bootstrap";
 
+import Home from "./Home.jsx";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -48,7 +49,7 @@ function Login() {
           })
         setEmail("");
         setPassword("");
-        navigate("/discover");
+        navigate("/");
       }
     } catch (error) {
       setError(error.response.data.message); // Set error state with the error message from the server

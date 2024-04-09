@@ -6,12 +6,11 @@ import "../CSS/CreateGem.css";
 import { useNavigate } from "react-router-dom";
 import { Upload } from "react-bootstrap-icons";
 
-
 function CreateGem() {
   const userId = useSelector((state) => state.userId);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState('');
-  const [tags, setTags] = useState([])
+  const [submissionStatus, setSubmissionStatus] = useState("");
+  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]); // Track selected tags
   const navigate = useNavigate();
 
@@ -22,11 +21,11 @@ function CreateGem() {
     lat: 0.0,
     lng: 0.0,
     userId,
-    tags: selectedTags, 
+    tags: selectedTags,
   });
 
   const handleFileClick = () => {
-    document.getElementById('fileUpload').click(); // Triggers the hidden file input
+    document.getElementById("fileUpload").click(); // Triggers the hidden file input
   };
 
   useEffect(() => {
@@ -50,12 +49,12 @@ function CreateGem() {
 
   const fetchData = async () => {
     const tags = await axios.get("/getAllTags");
-    setTags(tags.data.tags)
-    console.log(tags.data.tags)
-  }
+    setTags(tags.data.tags);
+    console.log(tags.data.tags);
+  };
 
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
 
   const handleChange = (e) => {
@@ -69,16 +68,14 @@ function CreateGem() {
     }
   };
 
-
   function uploadFile(file) {
     const s3 = new window.AWS.S3();
     const params = {
       Bucket: "hidden-gems-dev-mountain",
       Key: file.name,
       Body: file,
-
     };
-  
+
     s3.upload(params, function (err, data) {
       if (err) {
         throw err;
@@ -104,8 +101,8 @@ function CreateGem() {
       console.log("Validating form data before submission");
       try {
         if (userId) {
-          const res = await axios.post('/createGem', formData);
-          console.log('Form submitted successfully', res.data.newGem);
+          const res = await axios.post("/createGem", formData);
+          console.log("Form submitted successfully", res.data.newGem);
           // Display success message and optionally reset form here
           setSubmissionStatus("Gem created successfully!");
           setIsSubmitted(true);
@@ -119,7 +116,7 @@ function CreateGem() {
             lat: 0.0,
             lng: 0.0,
             userId,
-            tags: [], 
+            tags: [],
           });
         } else {
           console.log("User is not logged in");
@@ -145,12 +142,12 @@ function CreateGem() {
   const handleTagSelection = (tagId) => {
     const isCurrentlySelected = selectedTags.includes(tagId);
     const newSelectedTags = isCurrentlySelected
-      ? selectedTags.filter(id => id !== tagId)
+      ? selectedTags.filter((id) => id !== tagId)
       : [...selectedTags, tagId];
-  
+
     setSelectedTags(newSelectedTags);
     // Update formData with the new list of tags
-    setFormData({...formData, tags: newSelectedTags});
+    setFormData({ ...formData, tags: newSelectedTags });
   };
 
   return (
@@ -160,26 +157,34 @@ function CreateGem() {
           <div className="submission-status">{submissionStatus}</div>
         )}
         <form onSubmit={handleSubmit} className="cr-form">
-          <h1>Gem Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></h1>
+          <h1>
+            Gem Name:{" "}
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </h1>
           <h2>Add A Tag</h2>
           <div>
-          {tags.map(tag => (
+            {tags.map((tag) => (
               <React.Fragment key={tag.tagId}>
-              <label 
-               key={`tag-${tag.tagId}`}
-                className={selectedTags.includes(tag.tagId) ? 'selected' : ''} // This dynamically adds the 'selected' class
-               >
-                <input 
-                 type="checkbox" 
-                 key={`tag-checkbox-${tag.tagId}`} 
-                 value={tag.tagName}
-                 onChange={() => handleTagSelection(tag.tagId)} 
-                 checked={selectedTags.includes(tag.tagId)} // Ensures the checkbox is in sync with selection
-                />
-                {tag.tagName}
-              </label>
-             </React.Fragment>
-             ))}
+                <label
+                  key={`tag-${tag.tagId}`}
+                  className={selectedTags.includes(tag.tagId) ? "selected" : ""} // This dynamically adds the 'selected' class
+                >
+                  <input
+                    type="checkbox"
+                    key={`tag-checkbox-${tag.tagId}`}
+                    value={tag.tagName}
+                    onChange={() => handleTagSelection(tag.tagId)}
+                    checked={selectedTags.includes(tag.tagId)} // Ensures the checkbox is in sync with selection
+                  />
+                  {tag.tagName}
+                </label>
+              </React.Fragment>
+            ))}
           </div>
           <h2>Gem Description</h2>
           <textarea
@@ -190,7 +195,11 @@ function CreateGem() {
             rows="10"
           ></textarea>
           <h2>Add an Image:</h2>
-          <button type="button" onClick={handleFileClick} className="upload-button">
+          <button
+            type="button"
+            onClick={handleFileClick}
+            className="upload-button"
+          >
             <Upload size={24} /> {/* Adjust size as needed */}
           </button>
           <input
@@ -203,7 +212,28 @@ function CreateGem() {
           <div className="cr-map-container">
             <MapComponent updateCords={updateCords} isCreating={true} />
           </div>
-          <input type="submit" value="Submit" />
+          {/* <div>
+              Latitude
+            <input
+            
+            placeholder="Latitude"
+              onChange={(e) => {
+                setFormData({ ...formData, lat: e.target.value });
+              }}
+              type="text"
+              value={formData['lat']}
+            />
+            Longitude
+               <input
+            placeholder="Longitude"
+              onChange={(e) => {
+                setFormData({ ...formData, lng: e.target.value });
+              }}
+              type="text"
+              value={formData['lng']}
+            />
+          </div> */}
+          <input type="submit" value="Submit" /> 
         </form>
       </div>
     </>

@@ -83,6 +83,8 @@
   font-size: 24px;
   font-weight: bold;
   margin-top: 20px;
+  font-family:  "Bebas Neue", sans-serif;
+
 }
 
 .user-email {
@@ -144,7 +146,7 @@
   justify-content: center;
 }
 .edit-colors-icon:hover {
-  transform: scale(1.08); /* Slightly scale down to mimic a press */
+  transform: scale(1.4); /* Slightly scale down to mimic a press */
 }
 .edit-icon-container {
   display: flex;
@@ -232,6 +234,9 @@
 
 .GemsYouCreated {
   text-align: center;
+  font-family:  "Bebas Neue", sans-serif;
+  font-size: 48px;
+
 }
 
 @media (max-width: 768px) {

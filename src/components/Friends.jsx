@@ -91,8 +91,7 @@ function Friends() {
       <div className="friend-info">
         <div className="friend-name">
           <div className="name">
-            {friend.firstName}
-            {friend.lastName}
+            {friend.firstName} {friend.lastName}
           </div>
           <div className="email">{friend.email}</div>
         </div>

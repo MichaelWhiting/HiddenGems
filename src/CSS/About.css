@@ -16,6 +16,9 @@
   margin-top: 20px; /* Adds space at the top */
   margin-bottom: 20px; /* Adds space below the title */
   font-weight: 700; /* Makes the font bold */
+  font-family:  "Bebas Neue", sans-serif;
+
+  
 }
 
 .about-content {
@@ -74,6 +77,8 @@
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center items for a neat look */
   text-align: center; /* Center text for consistency */
+  font-family:  "Bebas Neue", sans-serif;
+
 }
 
 /* Enhance the name/title within the person info for better visibility */

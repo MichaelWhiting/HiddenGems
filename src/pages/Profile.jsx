@@ -198,13 +198,13 @@ function Profile() {
           className="file-input"
           style={{ display: "none" }}
         />
-        <button
+        {/* <button
           className="icon-button header-upload-btn"
           onClick={() => document.getElementById("headerFileInput").click()}
           aria-label="Upload header image"
         >
           <Upload size={24} />
-        </button>
+        </button> */}
         {userInfo?.imgUrl && (
           <img
             src={userInfo.imgUrl}
@@ -220,18 +220,18 @@ function Profile() {
           className="file-input"
           style={{ display: "none" }}
         />
-        <button
+        {/* <button
           className="icon-button"
           onClick={() => document.getElementById("fileInput").click()}
           aria-label="Upload profile image"
         >
           <Upload size={24} />
-        </button>
+        </button> */}
       </div>
       <br />
-      <h1 className="user-name">
+      <div className="user-name">
         {userInfo.firstName} {userInfo.lastName}
-      </h1>
+      </div>
       <h2 className="user-email">{userInfo.email}</h2>
       <hr />
       {/* Color Picker Button and Input */}
@@ -299,7 +299,7 @@ function Profile() {
       </div>
       <div className="friend-button-container">
       <button className="friend-button" onClick={handleFriendsButtonClick}>
-        Friends
+      Following
       </button>
       </div>
       <Collapse in={showFriends}>
@@ -309,7 +309,7 @@ function Profile() {
       </Collapse>
 
       <div className="gems-section">
-        <h2 className="GemsYouCreated">Gems You Created</h2>
+        <div className="GemsYouCreated">Gems You Created</div>
         <ul className="gem-cards">{gemCards}</ul>
       </div>
       <div className="comments-section">
